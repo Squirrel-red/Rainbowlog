@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}RAINBOWLOG{% endblock %}</title>
+        <meta name="description" content="{% block meta %}Description!{% endblock %}">
+        <meta name="robots" content="{% block index %}index, follow{% endblock %}">
+
+        <link rel="icon" href="{{ asset('img/logo.png') }}" type="image/png" >
+
+        {# Font Awesome #}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+        
+        {# Remixicon #}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.6.0/remixicon.css" integrity="sha512-GL7EM8Lf8kU23I3kTio2kRWt8YRDVIQcSZjRVtVRfk05kB/QvkyafuTC94Ev0X6qk7Z0r5s06c1lsP1p/ezDYw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+        
+        {# Favicon #}
+        <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon"/>
+
+        {# Font Google #}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=M+PLUS+1+Code:wght@100..700&display=swap"
+        rel="stylesheet">
+        {# href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&display=swap"  #}
+        <script src="https://kit.fontawesome.com/7252ea4d54.js" crossorigin="anonymous"></script>
+        
+        {% block stylesheets %}
+        <link rel="stylesheet" href="{{asset('css/styles.css')}}">
+
+        {% endblock %}
+
+
+    </head>
+
+    <body>
+
+    {################### ----HEADER---- ############################################}
+
+      <header class="header" id="header">
+
+    {###########   ----NAV BAR---- ############}  
+
+        <nav class="nav container">
+        {#<a href="index.php?action=accueil">/#}
+            <a href="#" class="nav__logo">    
+              {#<span class="nav__logo-circle"><img src="{{ asset('img/logo.png') }}" alt="logo1"></span>#}
+              {#<class="{% if app.request.attributes.get('_route') == 'app_home' %}active{% endif %}"> #}
+              {#<span class="nav__logo-name"></span><a href="{{ path('app_home') }}">Photoclub</a></span>#}
+              <span class="nav__logo-circle"><i class="ri-camera-3-line"></i></span></div>
+              <span class="nav__logo-name"></span>_RAINBOWLOG</span>
+            </a>
+
+       
+            <div class="nav__menu" id="nav-menu">
+              <span class="nav__title">Menu</span>
+              <h3 class="nav__name">RAINBOWLOG</h3>
+
+              {# <p>This is the club of all people liking the photography and  taking part in discussions, publishing their photos and inspiring one other.</p>
+              <div class='button btn4'>************************</div> #}
+
+
+              <ul class="nav__list">  
+                <li class="nav__item"><a href="{{ path('app_home') }}" class="nav__link">HOME</a></li>
+                <li class="nav__item"><a href="{{ path('app_photographer') }}" class="nav__link">GALLERY</a></li>
+                {# <li class="nav__item"><a href="{{ path('app_comment') }}" class="nav__link">COMMENTS</a></li> #}
+                {# <li class="nav__item"><a href="{{ path('app_roules') }}" class="nav__link">ROULES</a></li> #}
+                {# <li class="nav__item"><a href="{{ path('app_donations') }}" class="nav__link">DONATIONS</a></li> #}
+                {# <li class="nav__item"><a href="{{ path('app_activity') }}" class="nav__link">ACTIVITY</a></li> #}
+                <li class="nav__item"><a href="{{ path('app_schedule') }}" class="nav__link">SCHEDULE</a></li>
+                <li class="nav__item"><a href="{{ path('app_contact')}}" class="nav__link">CONTACT</a></li>
+        
+
+
+                <div id="user-page"> 
+                  {% if app.user %}
+
+                            <p><a href="{{ path('show_user', {pseudo: app.user.pseudo }) }}">PROFIL</a></p>
+
+                            {% if is_granted('ROLE_PHOTOGRAPHER') %}
+                            <p><a href="{{ path('manage_profil', {pseudo: app.user.pseudo }) }}">MY PAGE</a></p>
+                            {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <p><a href="{{ path('app_dashboard')}}">DASHBOARD</a></p>
+                            {% endif %}
+                            <p><a href=" {{ path('app_logout') }}"></i> LOGOUT</a></p>
+ 
+                  {% else %} 
+
+                            <p><a href="{{ path('app_login') }}">LOG IN</a></p>
+                            <p><a href="{{ path('app_register') }}">SIGN UP</a></p>
+ 
+                  {% endif %}
+                </div> 
+
+              </ul>
+ 
+              <!-- Close button -->
+              <div class="nav__close" id="nav-close">
+                <i class="ri-close-line"></i>
+              </div>
+
+            </div>
+
+            <div class="nav__buttons">
+               <!-- Theme Button -->
+               <i class="ri-moon-line change-theme" id="theme-button"></i>
+
+               <!-- Toggle button -->
+               <div class="nav__toggle" id="nav-toggle">
+               <i class="ri-menu-4-line"></i>
+               </div>
+            </div>
+        </nav>
+
+      </header>
+
+            {# <div>
+                <h3>RAINBOWLOG</h3>
+
+                <p>This is the club of all people liking the photography and taking part in video or written discussions, publishing their photos and inspiring one other.</p>
+             <div> #}
+
+
+        {#   --CONTENT-- */#}
+
+        <div class="roles" style="display:none;">
+        
+     
+            {% if is_granted('ROLE_PHOTOGRAPHER') %}
+            {# If the user has the "ROLE_PHOTOGRAPHER" role, redirect to photographer's page management #}
+            <a href="{{ path('manage_profil', {slug: app.user.pseudo}) }}"><i class="fa-solid fa-palette"></i></a>
+            {% elseif is_granted('IS_AUTHENTICATED_FULLY') %}
+            {% endif %}
+            
+            {% if app.user %}
+            {# <a href="{{ path('app_subscription')}}"><i class="ri-bard-fill"></i></a> #}
+            <a href="{{ path('app_home') }}"><i class="fa-solid fa-palette"></i></a>
+            {% endif %}
+         
+        </div>
+
+            {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                <i class="fa-regular fa-circle-check"></i>
+                <p>Success ! {{ message }}</p>
+            </div>
+            {% endfor %} 
+
+            {% for message in app.flashes('error') %}
+            <div class="alert alert-error">
+                <i class="fa-regular fa-circle-xmark"></i>
+                <p>Error ! {{ message }}</p> 
+            </div>
+            {% endfor %} 
+    
+        {############# --MAIN-- ###########################}
+            
+        <main class="main">
+            {% block body %}
+            {% endblock %}
+        </main>
+
+        <div id="back-top-btn"></div>
+      
+
+        {############# --FOOTER-- #########################}
+
+        <footer class="footer">
+            <div class="footer__container container grid">
+                 <div>
+                    <a href="#">
+                      <figure id="logo-container">
+                        <img src="{{ asset('img/logo.png') }}" alt="logo2">
+                        <b><figcaption>
+                          RAINBOWLOG
+                        </figcaption></b>
+                      </figure>
+                    </a>
+            
+                    <p id="footerDescription">
+                      <b>We admire the photography!</b>
+                    </p>
+                  </div>
+    
+                <ul class="footer__links">
+                  <li> <a href="{{ path('app_home')}}"><b>HOME</b></a> </li>
+                  <li>  <a href="{{ path('app_home')}}"><b>ABOUT US</b></a> </li>
+                  <li>  <a href="{{ path('app_contact')}}"><b>CONTACT</b></a> </li>
+                </ul>
+
+    
+                <div class="socials" id="footer-socials">
+                    <a href="https://www.facebook.com"><i class="fa-brands fa-facebook "></i></a>
+                    <a href="https://www.twitter.com"><i class="fa-brands fa-square-twitter"></i></a>
+                    <a href="https://www.instagram.com"><i class="fa-brands fa-instagram"></i></a>
+                </div> 
+
+                    
+                <span class="footer__copy">
+                    
+                  <a href="{{ path('app_terms_of_use')}}"><b>Terms of Use</b></a>
+                  <a href="{{ path('app_privacy_policy')}}"><b>Privacy Policy</b></a>
+                  <a href="{{ path('app_sitemap')}}"><b>Sitemap</b></a>
+                  <br>
+                  <br>
+                  <a><b><small style="font-size: 1.2rem;">©</small></b>  <span id="footer-date"></span><b><span id="name-rights">RAINBOWLOG</span>. All used pictures of this site are free of copywrite </b></a>
+                </span>
+ 
+            </div>
+
+            <div class="footer__image">
+                <img src="{{ asset('img/general/footer.jpg') }}" alt="">
+            </div>
+            
+        </footer>
+
+    {# SCROLL UP #}
+    <a href="#" class="scrollup" id="scroll-up">
+        <i class="ri-arrow-up-s-line"></i>
+      </a>
+
+    
+
+    {################################ --SCRIPT-- #############################################################}  
+          
+
+    {# Schedule #}
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
+    <script src="{{ asset('js/schedule.js') }}"></script>
+    <script src="https://unpkg.com/scrollama"></script>
+
+    {# Gsap #}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+    <script src= "{{ asset('js/gsap.min.js') }}"></script>
+
+    {% block javascripts %}
+    {# MAIN JS #}    
+    <script src= "{{ asset('js/main.js') }}"></script>
+    {# SCROLLREVEAL #}
+    <script src= "{{ asset('js/scrollreveal.min.js') }}"></script>
+    {# EMAIL JS #}
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    {# Jquery #}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    {# <script src="{{ asset('js/gwl.js') }}"></script> #}
+    {% endblock %}
+    
+    </body>
+
+</html>
