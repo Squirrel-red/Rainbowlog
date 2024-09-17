@@ -10,13 +10,10 @@
         <h1>YOUR ACCOUNT</h1>
     </div>
     
-    <section class="content" id="profil-user">
+    <section>
 
-        <div id="content-profil-user">
-            <div id="separator-profil"></div>
-            <div id="top">
-                <div id="pattern"></div>
-                <h2 class="text-n1">{{ user }} </h2>
+
+                <h2>{{ user }} </h2>
                 <div id="avatar">
 
                     <div>
@@ -24,7 +21,7 @@
                             {% if user.avatar %}
                             <img src="{{ asset('img/avatars/' ~ user.avatar) }}" alt="user's avatar">
                             {% else %}
-                                <img src="{{ asset('img/general/user-profile-icon.webp') }}" alt="default avatar">
+                                <img src="{{ asset('img/avatars/anonyme.jpg') }}" alt="default avatar">
                             {% endif %}
                         </picture>
                     </div>
@@ -70,7 +67,7 @@
 
             </div>
 
-            <div id="upload-avatar">
+            {# <div id="upload-avatar">
                 <div id="form-avatar">
                     {{ form_start(form) }}
                     {{ form_errors(form)}}
@@ -79,7 +76,7 @@
                         {{ form_end(form) }}
                     </div>
                 </div>
-            </div>
+            </div> #}
 
 
             <div id="middle">

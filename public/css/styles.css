@@ -146,6 +146,10 @@ body.dark-theme {
   color: var(--white-color);
 }
 
+.dark-theme .activities__card:hover {
+  background-color: var(--body-color);
+}
+
 .dark-theme .projects__card:hover {
   background-color: var(--body-color);
 }
@@ -380,58 +384,6 @@ body.dark-theme {
   right: 1.5rem;
   cursor: pointer;
 }
-
-/* #user-interface {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#user-interface .dropdown {
-  position: relative;
-  display: inline-block;
-  margin-right: 2.1rem;
-  cursor: pointer;
-  z-index: 2;
-}
-#user-interface .dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #151515;
-  width: 15rem;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  padding: 12px 16px;
-  z-index: 2;
-  transform: translateX(-6rem);
-} */
-
-/* #user-interface span .ri-user-4-fill {
-  font-size: 1.8rem;
-  cursor: pointer;
-  transition: ease-in-out 0.3s;
-}
-#user-interface span .ri-user-4-fill:hover {
-  color: hsl(189, 80%, 50%);
-}
-#user-interface .dropdown-content p {
-  transition: ease-in-out 0.3s;
-  letter-spacing: 0.15rem;
-  font-size: 0.9rem;
-  margin-bottom: 0.3rem;
-} 
-#user-interface .dropdown:hover .dropdown-content {
-  display: block;
-}
-#user-interface .dropdown-content a:hover {
-  color: hsl(189, 80%, 50%);
-}
-#user-interface .ri-login-circle-line {
-  font-size: 1.8rem;
-  transition: ease-in-out 0.3s;
-}
-#user-interface .ri-login-circle-line:hover {
-  color: hsl(189, 80%, 50%);
-}  */
 
 /* show menu */
 .show-menu {
@@ -757,6 +709,7 @@ body.dark-theme {
   padding-top: 1rem;
 }
 
+
 .articles__card {
   position: relative;
 }
@@ -768,6 +721,7 @@ body.dark-theme {
   padding: 6rem 1rem 3rem;
   z-index: 5;
   position: relative;
+  border-radius: 10%;
   transition: background-color 0.4s, border 0.4s;
 }
 
@@ -775,6 +729,7 @@ body.dark-theme {
   position: absolute;
   width: 100%;
   height: 100%;
+  border-radius: 10%;
   border: 4px solid var(--first-color);
   top: 0;
   left: 0;
@@ -869,88 +824,96 @@ body.dark-theme {
   transition: color 0.4s;
 }
 
-/* #carousel {
-  padding: 10rem 0;
+/* ACTIVITIES */
+
+.activities {
+  background-color: var(--container-color);
+  transition: background-color 0.4s;
 }
-#carousel #top {
-  width: 70%;
-  margin: auto;
+
+.activities__container {
+  row-gap: 2rem;
 }
-#carousel #top h4 {
-  font-size: 2.8rem;
-  font-weight: 700;
+
+.activities__card {
+  padding: 1rem 1rem 2rem;
+  transition: background-color 0.4s;
 }
-#carousel .accent-color {
-  color: #207E93;
+
+.activities__image {
+  position: relative;
+  margin-bottom: 0.75rem;
 }
-#carousel #quote-text {
-  visibility: hidden;
-  font-size: 2.5rem;
-  font-weight: 600;
-}
-#carousel #content {
-  width: 100%;
-  padding: 2rem 8rem;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-}
-#carousel #content .image {
-  width: 28rem;
-}
-#carousel #content .image figure {
-  width: 28rem;
-  height: 28rem;
-  background-color: grey;
-  cursor: pointer;
-  overflow: hidden;
-}
-#carousel #content .image figure img {
-  max-width: 120%;
-  min-height: 120%;
-  transition: ease-in-out 0.6s;
-}
-#carousel #content .image figure img:hover {
-  transform: translateX(-5px);
-}
-#carousel #content .infos {
-  margin-top: 1.4rem;
-  font-weight: 600;
-  letter-spacing: 0.25rem;
-}
-#carousel #content .infos div {
-  display: flex;
-  justify-content: space-between;
-  font-size: 1.2rem;
-}
-#carousel #content .infos div p {
-  font-weight: 500;
-}
-#carousel #content .infos h4 {
-  font-size: 1.8rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  margin-top: 0.3rem;
-  margin-bottom: 1.3rem;
-}
-#carousel #content .infos h4 span {
-  color: #eeaf42;
-}
-#carousel #content .infos button {
-  border: 1px solid #eeaf42;
-  font-weight: 600;
-  font-size: 1.2rem;
-  text-transform: uppercase;
+
+.activities__button {
+  position: absolute;
+  right: 1rem;
+  bottom: -1.5rem;
   padding: 1rem;
-  color: #eeaf42;
-  transition: ease-in-out 0.3s;
+  border-radius: 50%;
 }
-#carousel #content .infos button:hover {
-  background-color: #151515;
-  border: 1px solid #eeaf42; 
-} */
- 
+
+.activities__content {
+  margin-bottom: 1.25rem;
+}
+
+.activities__subtitle {
+  position: relative;
+  display: inline-block;
+  font-size: var(--small-font-size);
+  font-weight: var(--font-medium);
+  color: var(--text-color);
+  margin-bottom: 0.75rem;
+  padding-left: 1.75rem;
+}
+
+.activities__subtitle::after {
+  content: "";
+  width: 20px;
+  height: 1px;
+  background-color: var(--text-color);
+  position: absolute;
+  top: 50%;
+  left: 0;
+}
+
+.activities__title {
+  font-size: var(--h3-font-size);
+  margin-bottom: 0.75rem;
+}
+
+.activities__buttons {
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
+  border-radius: 50%;
+}
+
+.activities__link {
+  display: flex;
+  align-items: center;
+  column-gap: 0.25rem;
+  color: var(--text-color);
+  font-size: var(--small-font-size);
+  font-weight: var(--font-medium);
+  transition: color 0.4s;
+}
+
+.activities__link i {
+  font-size: 1rem;
+  color: var(--title-color);
+  transition: color 0.4s;
+}
+
+.activities__link:hover,
+.activities__link:hover i {
+  color: var(--first-color);
+}
+
+.activities__card:hover {
+  background-color: var(--white-color);
+}
+
 /* PROJECTS */
 
 .projects {
@@ -1379,7 +1342,8 @@ body.dark-theme {
 @media screen and (min-width: 576px) {
   .home__container,
   .about__container,
-  .projects__container {
+  .projects__container,
+  .activities__container {
     grid-template-columns: 350px;
     justify-content: center;
   }
@@ -1428,6 +1392,10 @@ body.dark-theme {
   }
 
   .projects__container {
+    grid-template-columns: repeat(2, 350px);
+  }
+
+  .activities__container {
     grid-template-columns: repeat(2, 350px);
   }
 }
@@ -1699,7 +1667,7 @@ body.dark-theme {
   }
 
   .articles__container {
-    grid-template-columns: repeat(3, 282px);
+    grid-template-columns: repeat(2, 500px);
     column-gap: 5rem;
     padding-block: 3rem 5rem;
   }
@@ -1745,6 +1713,28 @@ body.dark-theme {
   }
 
   .projects__button {
+    right: 1.25rem;
+    border-radius: 50%;
+  }
+
+  .activities__container {
+    grid-template-columns: repeat(3, 352px);
+    padding-block: 3rem 1rem;
+  }
+
+  .activities__card {
+    padding: 1.25rem 1.25rem 2.5rem;
+  }
+
+  .activities__image {
+    margin-bottom: 1rem;
+  }
+
+  .activities__content {
+    margin-bottom: 2rem;
+  }
+
+  .activities__button {
     right: 1.25rem;
     border-radius: 50%;
   }

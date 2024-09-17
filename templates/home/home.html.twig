@@ -17,7 +17,7 @@
           />
           <div class="home__shadow"></div>
 
-          <img src="{{asset('img/logo.png') }}"
+          <img src="{{asset('img/logo_rainbow.png') }}"
             alt=""
             class="home__line"
           />
@@ -82,7 +82,7 @@
                   <div class="about__shadow"></div>
                   <div class="geometric-box"></div>
                   <img
-                    src="{{asset('/img/logo.png')}}"
+                    src="{{asset('/img/logo_rainbow.png')}}"
                     alt=""
                     class="about__line"
                   />
@@ -92,12 +92,12 @@
               <div class="about__info">
                 <p class="about__description">
                   Passionate about <b>photos</b> with
-                  <b>spécial effects or without them</b>, Rainbowlog is the the comunity of amateurs, professional photographers and curious people liking to show and looking their works and learning the news about the photographie together .
+                  <b>spécial effects or without them</b>, Rainbowlog is the the comunity of all people liking to show and looking their works and learning the news about the photography together .
                 </p>
     
                 <ul class="about__list">
                   <li class="about__item">
-                    <b>Our activities:</b> Expositions, Discussions, Meetings, Opinion's exchange.
+                    <b>Our activities:</b> Gallery, Discussions, Meetings, Opinion's exchange.
                   </li>
                 </ul>
                 <div class="geometric-box"></div>
@@ -108,7 +108,7 @@
                   </a>
 
                   {# <a
-                    href="{{ asset('img/logo.png') }}"
+                    href="{{ asset('img/logo_rainbow.png') }}"
                     target="_blank"
                     class="button__ghost"
                   >
@@ -175,13 +175,13 @@
                 </div>
             </article>
 
-            {# <article class="articles__card">
+            <article class="articles__card">
               <div class="articles__border"></div>
               <div class="articles__content">
                 <div class="articles__icon">
                     <div class="articles__box"></div>
-                    {# <i class="ri-code-box-line"></i> #}
-                    {# <i class="ri-book-open-fill"></i>
+                  
+                     <i class="ri-book-open-fill"></i>
                 </div>
                 <h2 class="articles__title">Wise thoughts</h2>
 
@@ -215,7 +215,7 @@
                 <br>
                 <div class="geometric-box"></div>
               </div>
-          </article> #} 
+          </article>
 
           <article class="articles__card">
             <div class="articles__border"></div>
@@ -279,111 +279,98 @@
       </div>
   </section>
 
-{#  NEWEST#}
+{#  ACTIVITY #}
 
-  <section class="projects section" id="projects">
+  <section class="activities section" id="activities">
         <h2 class="section__title-1">
-          <span>Newest  Activities</span>
+          <span>Activities</span>
         </h2>
 
-        <div class="projects__container container grid">
+        <div class="activities__container container grid">
 
-          <article class="projects__card">
-            <div class="projects__image">
-              <img src="{{asset('/img/action/archived/banner/carousel1.webp')}}" alt=" " class="projects__img"></a>
+          <article class="activities__card">
+            <div class="activities__image">
+              <img src="{{asset('/img/action/discussion.webp')}}" alt=" " class="activities__img"></a>
                 
-              {# <a href="#" class="projects__button button">
-                <i class="ri-arrow-right-up-line"></i>
-              </a> #}
+              <br>
             </div>
 
             <div class="geometric-box"></div>
 
-            <div class="projects__content">
-              <h3 class="projects__subtitle">From 01.10.2024</h3>
-              <h2 class="projects__title">PHOTOART</h2>
-              <p class="projects__description">
-                Discover the art of photography due to the exposition of the best modern photographers !
+            <div class="activities__content">
+              <h3 class="activities__subtitle">Every saturday from 20:00/GMT to 21:00/GMT</h3>
+              <h2 class="activities__title">VideoDiscussion</h2>
+              <p class="activities__description">
+                We discuss the last photos of the week and give the advices for improving them !You'll find the reference for next week's discussion on our facebook
               </p>
             </div>
 
 
-            <div class="projects__buttons">
-              {# <a href="{{ path('show_event', { slug : 'photoart' }) }}"><button>Details</button></a> 
-              #}
+            <div class="activities__buttons">
               <a
                 href="https://www.facebook.com/"
                 target="_blank"
-                class="projects__link"
+                class="activities__link"
               >
-                <i class="ri-facebook-circle-line"></i> View
+                <i class="ri-facebook-circle-line"></i> <b>Details</b>
               </a>
               
             </div>
         
           </article>
 
-          <article class="projects__card">
-            <div class="projects__image">
-              <img src="{{asset('/img/action/archived/banner/carousel2.webp')}}" alt=" " class="projects__img"></a>
-                
-              {# <a href="#" class="projects__button button">
-                <i class="ri-arrow-right-up-line"></i>
-              </a> #}
+          <article class="activities__card">
+            <div class="activities__image">
+              <img src="{{asset('/img/action/schedule.webp')}}" alt=" " class="activities__img"></a>
             </div>
 
             <div class="geometric-box"></div>
 
-            <div class="projects__content">
-              <h3 class="projects__subtitle">From 25.10.2024</h3>
-              <h2 class="projects__title">PHOTOWORKSHOP01</h2>
-              <p class="projects__description">
-                Come, see, admire,choose and buy the photoworks of professional photographers and become happy !
+            <div class="activities__content">
+              <h3 class="activities__subtitle">Last saturday of every month from 19:00/GMT to 19/30/GMT </h3>
+              <h2 class="activities__title">VideoMeeting</h2>
+              <p class="activities__description">
+                We elaborate the planning for next month and analize the results of our recent activity ! You'll find the reference for next meeting on our facebook
               </p>
             </div>
 
-            <div class="projects__buttons">
-                  {#  <a href="{{ path('show_workshop', { slug : 'workshop01' }) }}"><button>Details</button></a> #}
-              </a>
+            <div class="activities__buttons">
+               
               <a
                 href="https://www.facebook.com/"
                 target="_blank"
-                class="projects__link"
+                class="activities__link"
               >
-                <i class="ri-facebook-circle-line"></i> View
+                <i class="ri-facebook-circle-line"></i> <b>Details</b>
               </a>
               
             </div>
           </article>
 
 
-          <article class="projects__card">
-            <div class="projects__image">
-              <img src="{{asset('/img/action/archived/banner/carousel3.webp')}}" alt=" " class="projects__img"></a>
-                
-              {# <a href="#" class="projects__button button">
-                <i class="ri-arrow-right-up-line"></i>
-              </a> #}
+          <article class="activities__card">
+            <div class="activities__image">
+              <img src="{{asset('/img/action/competition.webp')}}" alt=" " class="activities__img"></a>
             </div>
 
             <div class="geometric-box"></div>
 
-            <div class="projects__content">
-              <h3 class="projects__subtitle">From 15.09.2024</h3>
-              <h2 class="projects__title">EXPO 01</h2>
-              <p class="projects__description">
-                Magnificient exposition to visit for everyone. Welcome and amuse with us !
+            <div class="activities__content">
+              <h3 class="activities__subtitle">Last saturday of every month from 19:30/GMT to 20:00/GMT</h3>
+              <h2 class="activities__title">Experience exchange</h2>
+              <p class="activities__description">
+                We share our experience, the best methods and trics of photo's making
               </p>
             </div>
 
-            <div class="projects__buttons">
-              {# <a href="{{ path('show_exposition', { slug : 'expo01' }) }}" class="projects__link"><button>Details</button></a> #}
+            <div class="activities__buttons">
+              
               <a
                 href="https://www.facebook.com/"
                 target="_blank"
-                class="projects__link"
+                class="activities__link"
               >
-                <i class="ri-facebook-circle-line"></i> View
+                <i class="ri-facebook-circle-line"></i> <b>Details</b>
               </a>
             </div>
           </article> 
@@ -393,64 +380,13 @@
 {# --Photographers-- #} 
  {# ajouter le code  #}
 
-
-<section id="schedule">
-
-  <div id="right">
-      <div>
-          <p>Discover new <span>talents</span> within our community</p>
-
-          <p>Take part in the life of our community! Everybody finds sommething interesting here.</p>
-
-          <p> See our gallery of photographers !</p>
-
-          <a href="{{ path('app_photographer')}}"><button>SEE MORE</button></a>
-          
-      </div>
-  </div>
-
-  <div id="left">
-      <figure>
-          <img src="{{asset('/img/general/expo.webp')}}" alt=" expo image">
-      </figure>
-  </div>
-
-</section>
-
-{# --Schedule-- #}  
+<section id="photographers"></section>
 
 
-<section id="schedule">
-
-  <div id="left">
-      <figure>
-          <img src="{{asset('/img/general/schedule.webp')}}" alt=" take part image">
-      </figure>
-  </div>
-
-  <div id="right">
-      <div>
-          <p>Let's meet you and have a <span>creative</span> time together</p>
-
-          <p>Take part in the life of our PHOTOCLUB! Everybody finds something interesting there.</p>
-
-          <p>See our shedule !</p>
-
-          <a href="{{ path('app_schedule')}}"><button>SEE MORE</button></a>
-          
-      </div>
-  </div>
-</section>
-
-
-  {# JS ANIMATION #}
+  {# SCRIPT #}
   
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <script src="{{ asset('js/main.js') }}"></script>
   <script src="{{ asset('js/scrollreveal.min..js') }}"></script>
-  <script src="{{ asset('js/gwl.js') }}"></script>     
-  {# Schedule #}
-  <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
-  <script src="{{ asset('js/schedule.js') }}"></script>
-  <script src="https://unpkg.com/scrollama"></script>
+
 {% endblock %}
