@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ExperienceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,6 +30,21 @@ class Experience
 
     #[ORM\Column]
     private ?int $counterView = null;
+
+    #[ORM\ManyToOne(inversedBy: 'experiences')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $category = null;
+
+    /**
+     * @var Collection<int, Alert>
+     */
+    #[ORM\OneToMany(targetEntity: Alert::class, mappedBy: 'experience', orphanRemoval: true)]
+    private Collection $alerts;
+
+    public function __construct()
+    {
+        $this->alerts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -90,6 +107,48 @@ class Experience
     public function setCounterView(int $counterView): static
     {
         $this->counterView = $counterView;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Alert>
+     */
+    public function getAlerts(): Collection
+    {
+        return $this->alerts;
+    }
+
+    public function addAlert(Alert $alert): static
+    {
+        if (!$this->alerts->contains($alert)) {
+            $this->alerts->add($alert);
+            $alert->setExperience($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAlert(Alert $alert): static
+    {
+        if ($this->alerts->removeElement($alert)) {
+            // set the owning side to null (unless already changed)
+            if ($alert->getExperience() === $this) {
+                $alert->setExperience(null);
+            }
+        }
 
         return $this;
     }

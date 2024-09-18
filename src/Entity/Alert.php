@@ -23,6 +23,14 @@ class Alert
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateAlert = null;
 
+    #[ORM\ManyToOne(inversedBy: 'alerts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Experience $experience = null;
+
+    #[ORM\ManyToOne(inversedBy: 'alerts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +68,30 @@ class Alert
     public function setDateAlert(\DateTimeInterface $dateAlert): static
     {
         $this->dateAlert = $dateAlert;
+
+        return $this;
+    }
+
+    public function getExperience(): ?Experience
+    {
+        return $this->experience;
+    }
+
+    public function setExperience(?Experience $experience): static
+    {
+        $this->experience = $experience;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
