@@ -11,7 +11,7 @@ security:
                 property: email
     firewalls:
         dev:
-            pattern: ^/(_(profiler|wdt)|css|img|js)/
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
@@ -21,7 +21,7 @@ security:
                 path: app_logout
                 # where to redirect after logout
                 # On décommente la ligne au-désous et on remplace 'app-any_route' par 'app_login'
-                target: app_home
+                target: app_login
 
             remember_me:
                 secret: '%kernel.secret%'
@@ -29,23 +29,16 @@ security:
                 path: /
                 always_remember_me: true
 
-            # configure the maximum login attempts
-            #login_throttling:
-            #    max_attempts: 8          # per minute ...
-            #    interval: '15 minutes' # ... or in a custom period
+                #  On ajoute le controle du nombre des essais à se connecter par la période précise
+            login_throttling:
+                max_attempts: 5          
+                interval: '10 minutes' 
 
-
-
-            # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#the-firewall
-
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
 
-    # OIt declares access_control:
+    # On ajoute l'access_control:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/profile, roles: ROLE_USER }
