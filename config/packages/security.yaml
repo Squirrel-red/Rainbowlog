@@ -30,9 +30,9 @@ security:
                 always_remember_me: true
 
                 #  On ajoute le controle du nombre des essais à se connecter par la période précise
-            login_throttling:
-                max_attempts: 5          
-                interval: '10 minutes' 
+            # login_throttling:
+            #     max_attempts: 5          
+            #     interval: '10 minutes' 
 
 
     # Easy way to control access for large sections of your site

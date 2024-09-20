@@ -40,4 +40,23 @@ class CategoryRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findByWord($keyword) {
+        $em = $this->getEntityManager();
+
+        // sub = SubQuery (Sous requête DQL)
+        $sub = $em->createQueryBuilder();
+
+        // QueryBuilder 
+        $qb = $sub;
+
+        $qb->select('e')
+            ->from('App\Entity\Category', 'e')
+            ->where('e.name LIKE :keyword')
+            ->setParameter('keyword', '%'.$keyword.'%');
+
+            $query = $sub->getQuery();
+            return $query->getResult();    
+            return $query->getResult();
+    }
 }

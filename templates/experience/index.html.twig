@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gallery of experiences{% endblock %}
+{% block meta %}RAINBOWLOG{% endblock %}
+
+{% block body %}
+<section class="project section" id="projects">
+    <h2 class="section__title-2">
+          <span>Our experiences</span>
+    </h2>
+
+    <div class="projects__container container grid">
+
+          <article class="projects__card">
+              <div class="projects__border"></div>
+              <div class="projects__content">
+                <div class="projects__icon">
+                  <div class="projects__box"></div>
+                  {# <i class="ri-layout-4-line"></i> #}
+                  <i class="ri-camera-3-line"></i>
+                </div>
+                <h2 class="projects__title">Title is here</h2>
+                <p class="projects__description">
+                  <br>
+                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate molestiae repellendus expedita pariatur ex, temporibus dolorem quos nulla illo totam corporis nobis excepturi accusantium id, est, mollitia doloribus tempore molestias?
+                     <br>
+                     <br>
+                     Details are here ***
+                </p>
+                <br>
+                <div class="geometric-box"></div>
+              </div>
+          </article>
+
+{% endblock %}

@@ -40,4 +40,23 @@ class ExperienceRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findExperience(?string $keyword, ?string $nearTown)
+    {
+        $qb = $this->createQueryBuilder('e');
+
+        if ($keyword) {
+            $qb->andWhere('e.title LIKE :keyword OR e.description LIKE :keyword OR e.nearTown LIKE :keyword')
+                ->setParameter('keyword', '%' . $keyword . '%');
+        }
+
+        if ($nearTown) {
+            $qb->andWhere('e.nearTown LIKE :nearTown')
+                ->setParameter('', '%' . $nearTown . '%');
+        }
+
+        return $qb->orderBy('e.dateCreation', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 }

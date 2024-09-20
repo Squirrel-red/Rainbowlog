@@ -27,8 +27,16 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    # App\Twig\AppExtension:
+    #     tags:
+    #         - { name: 'twig.extension' }
+
     # on registre EventListener\ExceptionListener comme le service et ajoute le tag à Symfony que c'est l'e 'event listener
     # et qu'il n'a pas d'attribut de la méthode défini (If no method attribute is defined, try to call the method whose name is on + "PascalCased event name" (e.g. onKernelException())
-    App\EventListener\ExceptionListener:
-        tags:
-            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
+    # App\EventListener\ExceptionListener:
+    #     arguments:
+    #         $entityManager:
+    #          '@doctrine.orm.entity_manager'
+    #     tags:
+    #         - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
+    #                 tags: [kernel.event_listener]

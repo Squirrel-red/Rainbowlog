@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>To warn of the experience {{ experience }}</h1>
+
+    {{ form_start(formAlert) }}
+        {{ form_widget(formAlert.type) }}
+        {{ form_widget(formAlert.text) }}
+        <button type="submit">To warn</button>
+    {{ form_end(formAlert) }}
+
+    <a href="{{ path('show_experience', {'id': experience.id}) }}">Come back</a>
+
+    <div></div>
+
+{% endblock %}
