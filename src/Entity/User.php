@@ -83,12 +83,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Alert::class, mappedBy: 'user', orphanRemoval: true)]
     private Collection $alerts;
 
+    /**
+     * @var Collection<int, Experience>
+     */
+    #[ORM\OneToMany(targetEntity: Experience::class, mappedBy: 'publish')]
+    private Collection $publish;
+
 
     public function __construct()
     {
         $this->contacts = new ArrayCollection();
         $this->photos = new ArrayCollection();
         $this->alerts = new ArrayCollection();
+        $this->publish = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -366,6 +373,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($alert->getUser() === $this) {
                 $alert->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Experience>
+     */
+    public function getPublish(): Collection
+    {
+        return $this->publish;
+    }
+
+    public function addPublish(Experience $publish): static
+    {
+        if (!$this->publish->contains($publish)) {
+            $this->publish->add($publish);
+            $publish->setPublish($this);
+        }
+
+        return $this;
+    }
+
+    public function removePublish(Experience $publish): static
+    {
+        if ($this->publish->removeElement($publish)) {
+            // set the owning side to null (unless already changed)
+            if ($publish->getPublish() === $this) {
+                $publish->setPublish(null);
             }
         }
 

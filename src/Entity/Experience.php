@@ -41,6 +41,10 @@ class Experience
     #[ORM\OneToMany(targetEntity: Alert::class, mappedBy: 'experience', orphanRemoval: true)]
     private Collection $alerts;
 
+    #[ORM\ManyToOne(inversedBy: 'publish')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $publish = null;
+
     public function __construct()
     {
         $this->alerts = new ArrayCollection();
@@ -149,6 +153,18 @@ class Experience
                 $alert->setExperience(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPublish(): ?User
+    {
+        return $this->publish;
+    }
+
+    public function setPublish(?User $publish): static
+    {
+        $this->publish = $publish;
 
         return $this;
     }
