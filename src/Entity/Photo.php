@@ -16,20 +16,14 @@ class Photo
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 150, nullable: true)]
-    private ?string $alt_description = null;
-
     #[ORM\Column(length: 255)]
     private ?string $path = null;
 
-    #[ORM\Column(length: 30, nullable: true)]
-    private ?string $type = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $is_selected = null;
 
     #[ORM\ManyToOne(inversedBy: 'photos')]
-    private ?User $user = null;
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Experience $experience = null;
     
     public function getId(): ?int
     {
@@ -48,17 +42,6 @@ class Photo
         return $this;
     }
 
-    public function getAltDescription(): ?string
-    {
-        return $this->alt_description;
-    }
-
-    public function setAltDescription(?string $alt_description): static
-    {
-        $this->alt_description = $alt_description;
-
-        return $this;
-    }
 
     public function getPath(): ?string
     {
@@ -72,38 +55,17 @@ class Photo
         return $this;
     }
 
-    public function getType(): ?string
+
+
+
+    public function getExperience(): ?Experience
     {
-        return $this->type;
+        return $this->experience;
     }
 
-    public function setType(?string $type): static
+    public function setExperience(?Experience $experience): static
     {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    public function isSelected(): ?bool
-    {
-        return $this->is_selected;
-    }
-
-    public function setSelected(?bool $is_selected): static
-    {
-        $this->is_selected = $is_selected;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): static
-    {
-        $this->user = $user;
+        $this->experience = $experience;
 
         return $this;
     }

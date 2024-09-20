@@ -18,7 +18,15 @@ class Comment
     private ?string $text = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $dateCreation = null;
+    private ?\DateTimeInterface $dateComment = null;
+
+    #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Experience $experience = null;
+
+    #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $consumer = null;
 
     public function getId(): ?int
     {
@@ -37,14 +45,38 @@ class Comment
         return $this;
     }
 
-    public function getDateCreation(): ?\DateTimeInterface
+    public function getDateComment(): ?\DateTimeInterface
     {
-        return $this->dateCreation;
+        return $this->dateComment;
     }
 
-    public function setDateCreation(\DateTimeInterface $dateCreation): static
+    public function setDateComment(\DateTimeInterface $dateComment): static
     {
-        $this->dateCreation = $dateCreation;
+        $this->dateComment = $dateComment;
+
+        return $this;
+    }
+
+    public function getExperience(): ?Experience
+    {
+        return $this->experience;
+    }
+
+    public function setExperience(?Experience $experience): static
+    {
+        $this->experience = $experience;
+
+        return $this;
+    }
+
+    public function getConsumer(): ?User
+    {
+        return $this->consumer;
+    }
+
+    public function setConsumer(?User $consumer): static
+    {
+        $this->consumer = $consumer;
 
         return $this;
     }
