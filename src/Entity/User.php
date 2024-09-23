@@ -2,8 +2,7 @@
 
 namespace App\Entity;
 
-use App\Entity\Contact;
-use App\Entity\Photo;
+
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -50,11 +49,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 150, nullable: true)]
     private ?string $avatar = null;
 
-    /**
-     * @var Collection<int, Contact>
-     */
-    #[ORM\OneToMany(targetEntity: Contact::class, mappedBy: 'user', orphanRemoval: true)]
-    private Collection $contacts;
+
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $registration_date = null;
@@ -65,17 +60,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?array $author_infos = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $is_published = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $last_profil_edit_time = null;
 
-    /**
-     * @var Collection<int, Photo>
-     */
-    #[ORM\OneToMany(targetEntity: Photo::class, mappedBy: 'user')]
-    private Collection $photos;
+
 
     /**
      * @var Collection<int, Alert>
@@ -101,15 +90,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'consumer', orphanRemoval: true)]
     private Collection $comments;
 
+    #[ORM\Column]
+    private ?int $isBlocked = null;
+
+    #[ORM\Column]
+    private ?int $newMessages = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $rating = null;
+
+    /**
+     * @var Collection<int, Contact>
+     */
+    #[ORM\OneToMany(targetEntity: Contact::class, mappedBy: 'sender')]
+    private Collection $contacts;
+
+    /**
+     * @var Collection<int, Contact>
+     */
+    #[ORM\OneToMany(targetEntity: Contact::class, mappedBy: 'receiver')]
+    private Collection $msgReceived;
+
 
     public function __construct()
     {
-        $this->contacts = new ArrayCollection();
-        $this->photos = new ArrayCollection();
         $this->alerts = new ArrayCollection();
         $this->publish = new ArrayCollection();
         $this->evaluations = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->contacts = new ArrayCollection();
+        $this->msgReceived = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -243,35 +253,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Contact>
-     */
-    public function getContacts(): Collection
-    {
-        return $this->contacts;
-    }
-
-    public function addContact(Contact $contact): static
-    {
-        if (!$this->contacts->contains($contact)) {
-            $this->contacts->add($contact);
-            $contact->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeContact(Contact $contact): static
-    {
-        if ($this->contacts->removeElement($contact)) {
-            // set the owning side to null (unless already changed)
-            if ($contact->getUser() === $this) {
-                $contact->setUser(null);
-            }
-        }
-
-        return $this;
-    }
+   
 
     public function getRegistrationDate(): ?\DateTimeInterface
     {
@@ -309,17 +291,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getIsPublished(): ?int
-    {
-        return $this->is_published;
-    }
 
-    public function setIsPublished(?int $is_published): static
-    {
-        $this->is_published = $is_published;
-
-        return $this;
-    }
 
     public function getLastProfilEditTime(): ?\DateTimeInterface
     {
@@ -448,6 +420,102 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($comment->getConsumer() === $this) {
                 $comment->setConsumer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getIsBlocked(): ?int
+    {
+        return $this->isBlocked;
+    }
+
+    public function setIsBlocked(int $isBlocked): static
+    {
+        $this->isBlocked = $isBlocked;
+
+        return $this;
+    }
+
+    public function getNewMessages(): ?int
+    {
+        return $this->newMessages;
+    }
+
+    public function setNewMessages(int $newMessages): static
+    {
+        $this->newMessages = $newMessages;
+
+        return $this;
+    }
+
+    public function getRating(): ?float
+    {
+        return $this->rating;
+    }
+
+    public function setRating(?float $rating): static
+    {
+        $this->rating = $rating;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Contact>
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contact $contact): static
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts->add($contact);
+            $contact->setSender($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contact $contact): static
+    {
+        if ($this->contacts->removeElement($contact)) {
+            // set the owning side to null (unless already changed)
+            if ($contact->getSender() === $this) {
+                $contact->setSender(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Contact>
+     */
+    public function getMsgReceived(): Collection
+    {
+        return $this->msgReceived;
+    }
+
+    public function addMsgReceived(Contact $msgReceived): static
+    {
+        if (!$this->msgReceived->contains($msgReceived)) {
+            $this->msgReceived->add($msgReceived);
+            $msgReceived->setReceiver($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMsgReceived(Contact $msgReceived): static
+    {
+        if ($this->msgReceived->removeElement($msgReceived)) {
+            // set the owning side to null (unless already changed)
+            if ($msgReceived->getReceiver() === $this) {
+                $msgReceived->setReceiver(null);
             }
         }
 
