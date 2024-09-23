@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mo{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Change this comment</h1>
+
+        {{ form_start(formComment) }}
+            {{ form_widget(formComment) }}
+            <button class="btn btn-primary">Save</button>
+        {{ form_end(formComment) }}
+    </div>
+{% endblock %}
