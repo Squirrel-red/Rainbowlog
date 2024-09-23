@@ -51,17 +51,7 @@
                         {% endif %}
                     {% endfor %}
 
-                    {# loop for photographer role #}
-                    {% if hasPhotographerRole %}
-                        <div id="role-photographer">
-                            <a href="{{ path('manage_profil', {pseudo: app.user.pseudo }) }}"><i class="fa-solid fa-palette fa-xl"></i></a>
-                            
-                        </div>
-                    {% else %}
-                        <div id="not-photographer">
-                            <i class="fa-solid fa-palette fa-xl"></i>
-                        </div>
-                    {% endif %}
+                    
                 {% endif %}
                 </div>
 
@@ -83,7 +73,7 @@
                 <div id="left">
                     <p class="text-n2" id="infos">Info</p>
                     <div class="text-n3" id="info">
-                        <p><span>Username :</span> {{user}}</p>
+                        <p><span>Username :</span> {{user.pseudo}}</p>
                         <p><span>Email :</span> {{ user.email }}</p>
                         <p><span>Registration date :</span> {{ user.registrationDate|date("d.m.Y") }}</p>
                         <p><span>Member since :</span> {{ user.durationSinceRegistration}}</p>

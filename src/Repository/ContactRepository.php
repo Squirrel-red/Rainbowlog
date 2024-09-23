@@ -16,6 +16,12 @@ class ContactRepository extends ServiceEntityRepository
         parent::__construct($registry, Contact::class);
     }
 
+    // --> fct ManagerRegistry est suffisante dans ContactRepository pour la gestion des Contact;
+    // --> On créé les fonctions dans ContactController
+
+
+
+
     //    /**
     //     * @return Contact[] Returns an array of Contact objects
     //     */

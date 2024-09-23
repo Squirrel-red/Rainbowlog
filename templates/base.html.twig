@@ -72,8 +72,8 @@
 
                 {% if app.user %}
                     <li class="nav__item"><a href="{{ path('app_user', {'id': app.user.id}) }}" class="pseudo">{{ app.user.pseudo }}</a></li>
-                    <li><a href="{{ path('app_user', {pseudo: app.user.pseudo }) }}"> My PROFIL</a></li>
-                    <li><a href="{{ path('app_experience') }}">Mes EXPERIENCES</a></li>
+                    <li><a href="{{ path('app_user', {pseudo: app.user.pseudo }) }}"> MY PROFIL</a></li>
+                    <li><a href="{{ path('app_experience') }}">MES EXPERIENCES</a></li>
                     <li>
                       {% if app.user.newMessages > 0 %}
                           <a href="{{ path('received_messages') }}">
