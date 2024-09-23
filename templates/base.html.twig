@@ -62,34 +62,44 @@
               <ul class="nav__list">  
                 <li class="nav__item"><a href="{{ path('app_home') }}" class="nav__link">HOME</a></li>
                 <li class="nav__item"><a href="{{ path('app_experience') }}" class="nav__link">GALLERY OF EXPERIENCES</a></li>
+                {# <li class="nav__item"><a href="{{ path('new_experience') }}" class="nav__link">ADD EXPERIENCE</a></li> #}
+
                 {# <li class="nav__item"><a href="{{ path('app_comment') }}" class="nav__link">COMMENTS</a></li> #}
                 {# <li class="nav__item"><a href="{{ path('app_roules') }}" class="nav__link">ROULES</a></li> #}
                 {# <li class="nav__item"><a href="{{ path('app_donations') }}" class="nav__link">DONATIONS</a></li> #}
                 {# <li class="nav__item"><a href="{{ path('app_activity') }}" class="nav__link">ACTIVITY</a></li> #}
                 <li class="nav__item"><a href="{{ path('app_contact')}}" class="nav__link">CONTACT</a></li>
+
+                {% if app.user %}
+                    <li class="nav__item"><a href="{{ path('app_user', {'id': app.user.id}) }}" class="pseudo">{{ app.user.pseudo }}</a></li>
+                    <li><a href="{{ path('app_user', {pseudo: app.user.pseudo }) }}"> My PROFIL</a></li>
+                    <li><a href="{{ path('app_experience') }}">Mes EXPERIENCES</a></li>
+                    <li>
+                      {% if app.user.newMessages > 0 %}
+                          <a href="{{ path('received_messages') }}">
+                              <p>MESSAGES</p><span> ({{ app.user.newMessages }})</span>
+                          </a>
+                      {% else %}
+                          <a href="{{ path('received_messages') }}">MESSAGES</a>
+                      {% endif %}
+                    </li>
+                    <li><a href="{{ path('app_logout') }}">LOG OUT</a></li>
+
+                {% else %}
+                    <li><a href="{{ path('app_login') }}">LOG IN</a></li>
+                    <li><a href="{{ path('app_register') }}">SIGN UP</a></li>
+                {% endif %}
         
 
-
-                <div id="user-page"> 
-                  {% if app.user %}
-
-                            <p><a href="{{ path('show_user', {pseudo: app.user.pseudo }) }}">PROFIL</a></p>
-
-                            {% if is_granted('ROLE_PHOTOGRAPHER') %}
-                            <p><a href="{{ path('manage_profil', {pseudo: app.user.pseudo }) }}">MY PAGE</a></p>
-                            {% endif %}
-                            {% if is_granted('ROLE_ADMIN') %}
-                            <p><a href="{{ path('app_dashboard')}}">DASHBOARD</a></p>
-                            {% endif %}
-                            <p><a href=" {{ path('app_logout') }}"></i> LOGOUT</a></p>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li><a href="{{ path('admin_category_list') }}">CATEGORIES</a></li>
+                    <li><a href="{{ path('liste_alerts') }}">ALERTS</a></li>
+                    <li><a href="{{ path('user_list') }}">USERS</a></li>
+                    <li><a href=" {{ path('app_logout') }}"></i> LOGOUT</a></li>
  
-                  {% else %} 
-
-                            <p><a href="{{ path('app_login') }}">LOG IN</a></p>
-                            <p><a href="{{ path('app_register') }}">SIGN UP</a></p>
  
-                  {% endif %}
-                </div> 
+                {% endif %}
+
 
               </ul>
  
