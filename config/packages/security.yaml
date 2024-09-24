@@ -20,8 +20,8 @@ security:
             logout:
                 path: app_logout
                 # where to redirect after logout
-                # On décommente la ligne au-désous et on remplace 'app-any_route' par 'app_login'
-                target: app_login
+                # --> On décommente la ligne au-désous et on remplace 'app-any_route' par 'app_home'
+                target: app_home
 
             remember_me:
                 secret: '%kernel.secret%'
@@ -29,7 +29,7 @@ security:
                 path: /
                 always_remember_me: true
 
-                #  On ajoute le controle du nombre des essais à se connecter par la période précise
+                # --> On ajoute le controle du nombre des essais à se connecter par la période précise
             # login_throttling:
             #     max_attempts: 5          
             #     interval: '10 minutes' 
@@ -42,7 +42,6 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/profile, roles: ROLE_USER }
-        - { path: ^/role_photographer, roles: ROLE_PHOTOGRAPHER }
 
 when@test:
     security:

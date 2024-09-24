@@ -65,7 +65,7 @@
                 {# <li class="nav__item"><a href="{{ path('new_experience') }}" class="nav__link">ADD EXPERIENCE</a></li> #}
 
                 {# <li class="nav__item"><a href="{{ path('app_comment') }}" class="nav__link">COMMENTS</a></li> #}
-                {# <li class="nav__item"><a href="{{ path('app_roules') }}" class="nav__link">ROULES</a></li> #}
+                <li class="nav__item"><a href="{{ path('app_terms_of_use') }}" class="nav__link">ROULES</a></li>
                 {# <li class="nav__item"><a href="{{ path('app_donations') }}" class="nav__link">DONATIONS</a></li> #}
                 {# <li class="nav__item"><a href="{{ path('app_activity') }}" class="nav__link">ACTIVITY</a></li> #}
                 <li class="nav__item"><a href="{{ path('app_contact')}}" class="nav__link">CONTACT</a></li>
@@ -73,16 +73,28 @@
                 {% if app.user %}
                     <li class="nav__item"><a href="{{ path('app_user', {'id': app.user.id}) }}" class="pseudo">{{ app.user.pseudo }}</a></li>
                     <li><a href="{{ path('app_user', {pseudo: app.user.pseudo }) }}"> MY PROFIL</a></li>
-                    <li><a href="{{ path('app_experience') }}">MES EXPERIENCES</a></li>
-                    <li>
-                      {% if app.user.newMessages > 0 %}
-                          <a href="{{ path('received_messages') }}">
+
+                    {# <div>
+                      <img>
+                          {% if user.avatar %}
+                          <img src="{{ asset('img/avatars/' ~ user.avatar) }}" alt="user's avatar">
+                          {% else %}
+                              <img src="{{ asset('img/avatars/anonyme.jpg') }}" alt="default avatar">
+                          {% endif %}
+                    </img>
+                  </div> #}
+
+                  <div>
+                    {# <li><a href="{{ path('app_experience') }}">MES EXPERIENCES</a></li> #}
+
+                      {# {% if app.user.newMessages > 0 %}
+                          <a href="{{ path('received_contacts') }}">
                               <p>MESSAGES</p><span> ({{ app.user.newMessages }})</span>
                           </a>
                       {% else %}
-                          <a href="{{ path('received_messages') }}">MESSAGES</a>
+                          <a href="{{ path('received_contacts') }}">MESSAGES</a>
                       {% endif %}
-                    </li>
+                    </li> #}
                     <li><a href="{{ path('app_logout') }}">LOG OUT</a></li>
 
                 {% else %}
@@ -92,6 +104,7 @@
         
 
                 {% if is_granted('ROLE_ADMIN') %}
+                    <h3>Admin's dashboard</h3>
                     <li><a href="{{ path('admin_category_list') }}">CATEGORIES</a></li>
                     <li><a href="{{ path('liste_alerts') }}">ALERTS</a></li>
                     <li><a href="{{ path('user_list') }}">USERS</a></li>

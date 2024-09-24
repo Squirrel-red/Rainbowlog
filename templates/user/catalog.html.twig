@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>User's list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Nickname</th>
+                <th>Block</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.pseudo }}</td>
+                    <td>{{ user.isBlocked ? 'Yes' : 'No' }}</td>
+                    <td>
+                        {% if user.isBlocked %}
+                            <a href="{{ path('user_unblock', {'id': user.id}) }}" class="btn btn-unblock">Unblock</a>
+                        {% else %}
+                            <a href="{{ path('user_block', {'id': user.id}) }}" class="btn btn-block">Block</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {# <a href="{{ path('app_home') }}" class="btn btn-back">Back to Home </a> #}
+    <a href="{{ path('app_experience') }}" class="btn btn-back">Back to Experience</a>
+{% endblock %}

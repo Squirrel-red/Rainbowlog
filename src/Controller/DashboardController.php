@@ -26,7 +26,7 @@ class DashboardController extends AbstractController
     {
         $users = $userRepository->findAll();
         $usersCount= $userRepository->count([]);
-        $photographers= $userRepository->findUsersbyRole('ROLE_PHOTOGRAPHER');
+        $photographers= $userRepository->findUsersbyRole('ROLE_USER');
         $photographersCount = count($photographers);
         $photographerspageCount = $userRepository->count(['isPublished' => 1]);
         $usersLoggedThisWeek = $userRepository->countUsersLoggedInThisWeek();

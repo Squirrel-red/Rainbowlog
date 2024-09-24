@@ -65,29 +65,56 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     //        ;
     //    }
 
-        //^ get users whith the role photographer only
 
-        public function findPhotographerUsers(?int $userId = null) {
-            $em = $this->getEntityManager();
-            $qb = $em->createQueryBuilder();
-    
-    
-            $qb ->select('u')
-                ->from('App\Entity\User', 'u')
-                ->where('u.roles LIKE :role')
-                ->setParameter('role', '%"ROLE_PHOTOGRAPHER"%');
-    
-            // Ajouter une condition pour filtrer par ID si un ID est fourni
-            if ($userId !== null) {
-                $qb->andWhere('u.id = :userId')
-                    ->setParameter('userId', $userId);
-            }
-    
-            $query = $qb->getQuery();
-            return $query->getResult();
-    
+        // --> On créé la méthode pour l'anonymisation d'un user
+        public function hideUser(User $user): void
+        {
+            $randomString = bin2hex(random_bytes(5)); // On créé la chène de caractères aléatoires
+            $user->setPseudo('Anonyme');
+            $user->setEmail('anonyme_'. $randomString . '@domain.com');
+            $user->setBlocked(true); // s'il faut l'user sera  blockè
+            $this->getEntityManager()->persist($user);
+            $this->getEntityManager()->flush();
         }
-    
+
+
+        // --> On créé la méthode pour bloquer un user ()
+        public function blockUser(User $user): void
+        {
+            $user->setBlocked(true);
+            $this->getEntityManager()->persist($user);
+            $this->getEntityManager()->flush();
+        }
+
+
+        // --> On créé la méthode pour débloquer un user ()
+        public function unblockUser(User $user): void
+        {
+            $user->setBlocked(false);
+            $this->getEntityManager()->persist($user);
+            $this->getEntityManager()->flush();
+        }
+
+         // --> On créé une methode pour avoir la moyenne de l'évaluation 
+         public function getAverage(User $user): ?float
+        {
+        $qb = $this->createQueryBuilder('u')
+            ->select('AVG(e.rating) as avgRating')
+            ->leftJoin('u.ratings', 'r')
+            ->where('u.id = :user')
+            ->setParameter('user', $user->getId())
+            ->getQuery();
+
+        return $qb->getSingleScalarResult(); 
+        }
+
+
+        // --> On créé une methode pour mette compteur des nouveaux messages à 0
+        public function updateNewMessages(User $user) 
+        {
+            $user->setNouveauxMessages(null);
+        } 
+
         // ^ find users by pseudo
         public function findUserByPseudo(string  $criteria)
         {
@@ -98,107 +125,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                 ->getResult();
         }
     
-        //^ get users filtered by role
-        public function findUsersbyRole(?string $role = null, ?int $userId = null) {
-            $em = $this->getEntityManager();
-            $qb = $em->createQueryBuilder();
-    
-            $qb ->select('u')
-                ->from('App\Entity\User', 'u')
-                ->where('u.roles LIKE :roles')
-                ->setParameter('roles', '%"'.$role.'"%');
-    
-            // Ajouter une condition pour filtrer par ID si un ID est fourni
-            if ($userId !== null) {
-                $qb->andWhere('u.id = :userId')
-                    ->setParameter('userId', $userId);
-            }
-    
-            $query = $qb->getQuery();
-            return $query->getResult();
-        }
-    
-    
-        //^  Find photographers by pseudo (idem username)
-        public function findPhotographerByPseudo( string $criteria) // Takes a criteria parameter of type string.
-        {
-            return $this->createQueryBuilder('u')
-                ->andWhere('u.pseudo LIKE :pseudo') // The pseudo is inserted into the query using a parameter named :pseudo.
-                ->setParameter('pseudo', '%' . $criteria . '%') // The :pseudo parameter is set with the searchedpseudo, with % to match parts of the event name.
-                ->andWhere('u.roles LIKE :photographerRole')
-                ->setParameter('photographerRole', '%"ROLE_PHOTOGRAPHER"%')
-                ->getQuery()
-                ->getResult();
-        }
-    
-    
-        //^ get photographers filtered by discipline
-        public function findPhotographerByDiscipline(string $criteria)
-    {
-        $allUsers = $this->findAll();
-        $photographers = [];
-    
-        foreach ($allUsers as $user) {
-            $authorInfos = $user->getAuthorInfos();
-    
-            // Vérifier si $authorInfos est null
-            if ($authorInfos !== null && isset($authorInfos['discipline'])) {
-                $photographerDiscipline = $authorInfos['discipline'];
-                
-                // Recherche par correspondance partielle
-                if (stripos($photographerDiscipline, $criteria) !== false) {
-                    $photographers[] = $user;
-                }
-            }
-        }
-    
-        return $photographers;
-    }
-    
-        public function findPhotographerByDisciplineFilter($criteria) 
-        {
-            $allUsers = $this->findAll();
-            $photographers = [];
-        
-            foreach ($allUsers as $user) {
-                $authorInfos = $user->getAuthorInfos();
-                
-                // Vérifier si $authorInfos est null
-                if ($authorInfos !== null && isset($authorInfos['discipline'])) {
-                    $photographerDiscipline = $authorInfos['discipline'];
-    
-                        if ($photographerDiscipline == $criteria) {
-                            $photographers[] = $user;
-                        }
-                    }
-                
-            }
-        
-            return $photographers;
-        }
-    
-        public function findAllDisciplines() 
-        {
-            $allUsers = $this->findAll();
-            $disciplines = [];
-        
-            foreach ($allUsers as $user) {
-                $authorInfos = $user->getAuthorInfos();
-                
-                // Vérifier si $photographerInfos est null
-                if ($authorInfos !== null && isset($authorInfos['discipline'])) {
-                    $photographerDiscipline = $authorInfos['discipline'];
-    
-                     // Ajouter la discipline au tableau des disciplines uniquement si elle n'est pas déjà présente
-                    if (!in_array($photographerDiscipline, $disciplines)) {
-                    $disciplines[] = $photographerDiscipline;
-    
-                    }
-                }
-            }
-        
-            return $disciplines;
-        }
+
     
         public function countUsersLoggedInThisWeek()
         {
@@ -222,15 +149,5 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             return $query->getSingleScalarResult();
         }
         
-    
-        // public function findPhotgrapherByCriteria($criteria)
-        // {
-        //     return $this->createQueryBuilder('u')
-        //         ->andWhere('JSON_CONTAINS(u.authorInfos, :photographerName) = 1')
-        //         ->setParameter('photographerName', '%"photographerName":"' . $criteria['photographerName'] . '"%')
-        //         ->andWhere('u.roles LIKE :photographerRole')
-        //         ->setParameter('photographerRole', '%"ROLE_PHOTOGRAPHER"%')
-        //         ->getQuery()
-        //         ->getResult();
-        // }
+
 }

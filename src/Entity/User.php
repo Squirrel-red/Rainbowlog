@@ -90,10 +90,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'consumer', orphanRemoval: true)]
     private Collection $comments;
 
-    #[ORM\Column]
-    private ?int $isBlocked = null;
+    #[ORM\Column(nullable: true)]
+    private ?bool $isBlocked = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $newMessages = null;
 
     #[ORM\Column(nullable: true)]
@@ -426,12 +426,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getIsBlocked(): ?int
+    public function getIsBlocked(): ?bool
     {
         return $this->isBlocked;
     }
 
-    public function setIsBlocked(int $isBlocked): static
+    public function setIsBlocked(bool $isBlocked): static
     {
         $this->isBlocked = $isBlocked;
 
