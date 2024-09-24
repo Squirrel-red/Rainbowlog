@@ -6,34 +6,71 @@
 
 {% block body %}
 
-<div>
-        <h1>Private Policy</h1>
-</div>
+<section class="about section" id="about">
+  <div class="about__container container grid">
+        <h2 class="section__title-1"><span>Privacy Policy</span></h2>
+        <div class="about__perfil">
+          <div class="about__image">
+            <img
+              src="{{asset('/img/general/image1.png')}}"
+              alt="image"
+              class="about__img"
+            />
+            <div class="about__shadow"></div>
+            <div class="geometric-box"></div>
+            <img
+              src="{{asset('/img/logo_rainbow.png')}}"
+              alt=""
+              class="about__line"
+            />
+            <div class="about__box"></div>
+          </div>
+        </div>
+        <div class="about__info">
+          <p class="about__description">
 
+            All personal and confidential data of Users are respected.
+            <br>
+            <br>
+              Users are entitled to publish only their photographs (i.e. made by themselves).
+            <br>
+            <br>
+              Plagiarism of images entails closing the account.
+            <br>
+            <br>
+              All parts of composite photos should consist of images made by photographers themselves.
+            <br>
+            <br>
+              If any doubt arises about the authorship, the Administration may request the source of photos.
+            <br> 
+            <br>
+              In the case of refusal to provide the source of photos the publication may be canceled.
+            <br>
+            <br>
 
-<section>
-    <p>
-          All personal and confidential data of Users are respected.
-        <br>
-        <br>
-          Users are entitled to publish only their photographs (i.e. made by themselves).
-        <br>
-        <br>
-          Plagiarism of images entails closing the account.
-        <br>
-        <br>
-          All parts of composite photographs should consist of images made by photographers themselves.
-        <br>
-        <br>
-          If any doubt arises about the authorship, the Administration may request the source photographs.
-        <br> 
-        <br>
-          In the case of refusal to provide the source photographs the publication may be canceled.
-        <br>
-        <br>
-    </p>
+          </p>
+
+          <ul class="about__list">
+            <li class="about__item">
+              <b>Do you want know more details ? Contact us !</b>
+            </li>
+          </ul>
+          <div class="geometric-box"></div>
+
+          <div class="about__buttons">
+            <a href="{{ path('app_contact')}}" class="button">
+              <i class="ri-send-plane-line"></i> Contact Us
+            </a>
+
+            {# <a
+              href="{{ asset('img/logo_rainbow.png') }}"
+              target="_blank"
+              class="button__ghost"
+            >
+            </a> #}
+          </div>
+        </div>
+  </div>
 </section>
 
-
-     
 {% endblock %}

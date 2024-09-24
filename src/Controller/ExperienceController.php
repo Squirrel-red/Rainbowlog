@@ -58,7 +58,7 @@ class ExperienceController extends AbstractController
     
         $categories = $categoryRepository->findAll();
         // Récupérer les 5 derniers commentaires
-        $lastComments = $commentRepository->findBy([], ['dateCreation' => 'DESC'], 10); 
+        $lastComments = $commentRepository->findBy([], ['dateComment' => 'DESC'], 10); 
     
         return $this->render('experience/index.html.twig', [
             'experiences' => $experiences,

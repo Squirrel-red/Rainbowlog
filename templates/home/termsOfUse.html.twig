@@ -6,20 +6,70 @@
 
 {% block body %}
 
-<div class="banner">
-    <div class="content">
-        <h1 class="banner-title">Terms of Use</h1>
-        <div class="subtitle">
-            <p class="banner-text">Be informed</p>
-        </div>
+<section class="about section" id="about">
+    <div class="about__container container grid">
+          <h2 class="section__title-1"><span>Terms of Use</span></h2>
+          <div class="about__perfil">
+            <div class="about__image">
+              <img
+                src="{{asset('/img/general/image2.png')}}"
+                alt="image"
+                class="about__img"
+              />
+              <div class="about__shadow"></div>
+              <div class="geometric-box"></div>
+              <img
+                src="{{asset('/img/logo_rainbow.png')}}"
+                alt=""
+                class="about__line"
+              />
+              <div class="about__box"></div>
+            </div>
+          </div>
+          <div class="about__info">
+            <p class="about__description">
+                <h3>Main Provisions</h3>
+                <br>
+                1.1 These Rules have been developed in accordance with the current internatinal legislation of the EU.
+                <br>
+                <br>
+                1.2 Rainbowlog.com is privately owned.
+                <br><br>
+                1.3 The mission of rainbowlog.com is to provide for discussion on published photographs and for communication among of both professional and amateur photographers on photography topics.
+                <br><br>
+                1.4 http://www.facebook.com/rainbowlog.com is an integral part of rainbowlog.com.
+                <br><br>
+                1.5 Commenting on other authors’ photos is a prerequisite of being a registered user.
+                <br><br>
+                1.6 Artistic photography is preferred. It is recommended to use other resources for publication of “family photos” (photos of family members, friends, loved ones, pets, good purchases, harvest at the country cottage, etc.) as well as photos interesting only for family members, friends and acquaintances.
+                <br><br>
+                1.7 Using other resources is also recommended for computer designers and photographic models.
+                <br><br>
+                1.8 Any advertising without the prior consent of the Administrator is not allowed.
+                <br><br>
+            </p>
+  
+            <ul class="about__list">
+              <li class="about__item">
+                <b>Do you want know more details ? Contact us !</b>
+              </li>
+            </ul>
+            <div class="geometric-box"></div>
+  
+            <div class="about__buttons">
+              <a href="{{ path('app_contact')}}" class="button">
+                <i class="ri-send-plane-line"></i> Contact Us
+              </a>
+  
+              {# <a
+                href="{{ asset('img/logo_rainbow.png') }}"
+                target="_blank"
+                class="button__ghost"
+              >
+              </a> #}
+            </div>
+          </div>
     </div>
-</div>
-
-
-<section class="content dashboard create-event" id="privacy-policy">
-      <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores labore sunt officiis dolore accusantium? Id cumque labore ipsum! Officiis laborum unde aut nobis magnam corporis modi rerum dolore, quas vel.</h1>
-</section>
-
-
+  </section>
      
 {% endblock %}
