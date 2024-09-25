@@ -68,11 +68,11 @@
                 <li class="nav__item"><a href="{{ path('app_terms_of_use') }}" class="nav__link">ROULES</a></li>
                 {# <li class="nav__item"><a href="{{ path('app_donations') }}" class="nav__link">DONATIONS</a></li> #}
                 {# <li class="nav__item"><a href="{{ path('app_activity') }}" class="nav__link">ACTIVITY</a></li> #}
-                <li class="nav__item"><a href="{{ path('app_contact')}}" class="nav__link">CONTACT</a></li>
+                <li class="nav__item"><a href="{{ path('app_write_us')}}" class="nav__link">WRITE US</a></li>
 
                 {% if app.user %}
-                    <li class="nav__item"><a href="{{ path('app_user', {'id': app.user.id}) }}" class="pseudo">{{ app.user.pseudo }}</a></li>
-                    <li><a href="{{ path('app_user', {pseudo: app.user.pseudo }) }}"> MY PROFIL</a></li>
+                    <li class="nav__item"><a href="{{ path('app_user', {'id': app.user.id}) }}" class="user">{{ app.user.pseudo }}</a></li>
+                    <li class="nav__item"><a href="{{ path('app_user', {'id': app.user.id }) }}" class="user"> MY PROFIL</a></li>
 
                     {# <div>
                       <img>
@@ -84,7 +84,7 @@
                     </img>
                   </div> #}
 
-                  <div>
+                  
                     {# <li><a href="{{ path('app_experience') }}">MES EXPERIENCES</a></li> #}
 
                       {# {% if app.user.newMessages > 0 %}
@@ -95,20 +95,20 @@
                           <a href="{{ path('received_contacts') }}">MESSAGES</a>
                       {% endif %}
                     </li> #}
-                    <li><a href="{{ path('app_logout') }}">LOG OUT</a></li>
+                    <li class="nav__item"><a href="{{ path('app_logout') }}" class="nav__link">LOG OUT</a></li>
 
                 {% else %}
-                    <li><a href="{{ path('app_login') }}">LOG IN</a></li>
-                    <li><a href="{{ path('app_register') }}">SIGN UP</a></li>
+                    <li class="nav__item"><a href="{{ path('app_login') }}" class="nav__link">LOG IN</a></li>
+                    <li class="nav__item"><a href="{{ path('app_register') }}" class="nav__link">SIGN UP</a></li>
                 {% endif %}
         
 
                 {% if is_granted('ROLE_ADMIN') %}
                     <h3>Admin's dashboard</h3>
-                    <li><a href="{{ path('admin_category_list') }}">CATEGORIES</a></li>
-                    <li><a href="{{ path('liste_alerts') }}">ALERTS</a></li>
-                    <li><a href="{{ path('user_list') }}">USERS</a></li>
-                    <li><a href=" {{ path('app_logout') }}"></i> LOGOUT</a></li>
+                    <li class="nav__item"><a href="{{ path('admin_category_list') }}">CATEGORIES</a></li>
+                    <li class="nav__item"><a href="{{ path('liste_alerts') }}">ALERTS</a></li>
+                    <li class="nav__item"><a href="{{ path('user_list') }}">USERS</a></li>
+                    <li class="nav__item"><a href=" {{ path('app_logout') }}"></i> LOGOUT</a></li>
  
  
                 {% endif %}
@@ -136,46 +136,31 @@
 
       </header>
 
-            {# <div>
-                <h3>RAINBOWLOG</h3>
-
-                <p>This is the club of all people liking the photography and taking part in video or written discussions, publishing their photos and inspiring one other.</p>
-             <div> #}
-
-
-        {#   --CONTENT-- */#}
-
-        <div class="roles" style="display:none;">
-        
-     
-            {% if is_granted('ROLE_PHOTOGRAPHER') %}
-            {# If the user has the "ROLE_PHOTOGRAPHER" role, redirect to photographer's page management #}
-            <a href="{{ path('manage_profil', {slug: app.user.pseudo}) }}"><i class="fa-solid fa-palette"></i></a>
-            {% elseif is_granted('IS_AUTHENTICATED_FULLY') %}
-            {% endif %}
+    {# A corriger --> #}
             
             {% if app.user %}
-            {# <a href="{{ path('app_subscription')}}"><i class="ri-bard-fill"></i></a> #}
-            <a href="{{ path('app_home') }}"><i class="fa-solid fa-palette"></i></a>
+            <a href="{{ path('app_home') }}"></i></a>
+            {% elseif is_granted('IS_AUTHENTICATED_FULLY') %}
+            <a href="{{ path('manage_profil', {slug: app.user.pseudo}) }}"></i></a>
             {% endif %}
          
-        </div>
 
             {% for message in app.flashes('success') %}
             <div class="alert alert-success">
-                <i class="fa-regular fa-circle-check"></i>
+                
                 <p>Success ! {{ message }}</p>
             </div>
             {% endfor %} 
 
             {% for message in app.flashes('error') %}
             <div class="alert alert-error">
-                <i class="fa-regular fa-circle-xmark"></i>
+                
                 <p>Error ! {{ message }}</p> 
             </div>
             {% endfor %} 
     
         {############# --MAIN-- ###########################}
+        {# content #}
             
         <main class="main">
             {% block body %}
@@ -208,7 +193,7 @@
                 <ul class="footer__links">
                   <li> <a href="{{ path('app_home')}}"><b>HOME</b></a> </li>
                   <li>  <a href="{{ path('app_home')}}"><b>ABOUT US</b></a> </li>
-                  <li>  <a href="{{ path('app_contact')}}"><b>CONTACT</b></a> </li>
+                  <li>  <a href="{{ path('app_write_us')}}"><b>WRITE US</b></a> </li>
                 </ul>
 
     

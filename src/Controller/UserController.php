@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
+
 class UserController extends AbstractController
 {
     // #[Route('/user', name: 'app_user')]
@@ -77,12 +78,13 @@ class UserController extends AbstractController
         return $this->redirectToRoute('user_catalog');
     }
 
-    // --> On créé la méthode pour estimer la moyenne de l'évaluation (rating)  d'un user
+    // --> On créé la méthode pour estimer la moyenne de l'évaluation ( propriété :rating)  d'un user
     #[Route('/user/{id}', name: 'app_user')]
-    public function index(User $user, UserRepository $userRepository, Request $request, EntityManagerInterface $entityManager): Response
+    public function index(User $user, UserRepository $userRepository): Response
     {
-        $averageRating = $userRepository->getAverage($user);
         $rating = new Evaluation();
+        $averageRating = $userRepository->getAverage($user);
+        // $rating->setUser($user);
        
         return $this->render('user/index.html.twig', [
             'user' => $user,

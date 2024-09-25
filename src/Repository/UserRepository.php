@@ -64,7 +64,28 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     //            ->getOneOrNullResult()
     //        ;
     //    }
+        // --> On créé la méthode pour trouver les users
 
+        public function findUsers(?int $userId = null) {
+            $em = $this->getEntityManager();
+            $qb = $em->createQueryBuilder();
+            
+            
+            $qb ->select('u')
+                    ->from('App\Entity\User', 'u')
+                    ->where('u.roles LIKE :role')
+                    ->setParameter('role', '%"ROLE_USER"%');
+            
+            // Filtre sur ID renseigné
+                if ($userId !== null) {
+                $qb->andWhere('u.id = :userId')
+                    ->setParameter('userId', $userId);
+                }
+            
+                $query = $qb->getQuery();
+                return $query->getResult();
+            
+        }
 
         // --> On créé la méthode pour l'anonymisation d'un user
         public function hideUser(User $user): void
@@ -72,7 +93,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             $randomString = bin2hex(random_bytes(5)); // On créé la chène de caractères aléatoires
             $user->setPseudo('Anonyme');
             $user->setEmail('anonyme_'. $randomString . '@domain.com');
-            $user->setBlocked(true); // s'il faut l'user sera  blockè
+            $user->setIsBlocked(true); // s'il faut l'user sera  blockè
             $this->getEntityManager()->persist($user);
             $this->getEntityManager()->flush();
         }
@@ -81,7 +102,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         // --> On créé la méthode pour bloquer un user ()
         public function blockUser(User $user): void
         {
-            $user->setBlocked(true);
+            $user->setIsBlocked(true);
             $this->getEntityManager()->persist($user);
             $this->getEntityManager()->flush();
         }
@@ -90,7 +111,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         // --> On créé la méthode pour débloquer un user ()
         public function unblockUser(User $user): void
         {
-            $user->setBlocked(false);
+            $user->setIsBlocked(false);
             $this->getEntityManager()->persist($user);
             $this->getEntityManager()->flush();
         }
@@ -98,8 +119,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
          // --> On créé une methode pour avoir la moyenne de l'évaluation 
          public function getAverage(User $user): ?float
         {
-        $qb = $this->createQueryBuilder('u')
-            ->select('AVG(e.rating) as avgRating')
+            $qb = $this->createQueryBuilder('u')
+            ->select('AVG(r.rating) as avgRating')
             ->leftJoin('u.ratings', 'r')
             ->where('u.id = :user')
             ->setParameter('user', $user->getId())
@@ -112,7 +133,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         // --> On créé une methode pour mette compteur des nouveaux messages à 0
         public function updateNewMessages(User $user) 
         {
-            $user->setNouveauxMessages(null);
+            $user->setNewMessages('null', null);
         } 
 
         // ^ find users by pseudo

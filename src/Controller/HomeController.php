@@ -26,11 +26,11 @@ class HomeController extends AbstractController
     {
 
         $user = $security->getUser();
-        $photographers = $userRepository->findPhotographerUsers();
+        $users = $userRepository->findUsers();
 
 
         return $this->render('home/home.html.twig', [
-            'photographers' => $photographers,
+            'users' => $users,
        
         ]);
     }
@@ -45,12 +45,12 @@ class HomeController extends AbstractController
         ]);
     }
 
-    // ^ contact
-    #[Route('/contact', name: 'app_contact')]
+    // ^ Write Us
+    #[Route('/write-us', name: 'app_write_us')]
     public function contact(): Response
     {
 
-        return $this->render('home/contact.html.twig', [
+        return $this->render('home/writeUs.html.twig', [
         ]);
     }
 
