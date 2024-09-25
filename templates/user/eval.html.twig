@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User's evaluation{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% endblock %}
+
+{% block body %}
+    <div class="block-evaluation">
+        <h1>Évaluer {{ user.pseudo }}</h1>
+        {{ form_start(form, { 'attr' : { 'class': 'block-form' } }) }}
+ 
+ 
+            <div class="stars">
+                {% for i in 1..5 %}
+                    <i class="fa fa-star star" data-value="{{ i }}"></i>
+                {% endfor %}
+            </div>
+            {{ form_widget(form.rating) }}
+            <button type="submit" class="btn btn-sabmit">Soumettre</button>
+        {{ form_end(form) }}
+    </div>
+    
+{% endblock %}

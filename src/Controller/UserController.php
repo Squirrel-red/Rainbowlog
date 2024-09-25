@@ -79,18 +79,19 @@ class UserController extends AbstractController
     }
 
     // --> On créé la méthode pour estimer la moyenne de l'évaluation ( propriété :rating)  d'un user
-    #[Route('/user/{id}', name: 'app_user')]
-    public function index(User $user, UserRepository $userRepository): Response
-    {
-        $rating = new Evaluation();
-        $averageRating = $userRepository->getAverage($user);
-        // $rating->setUser($user);
+    // #[Route('/user/{id}', name: 'app_user')]
+    // public function index(User $user, UserRepository $userRepository): Response
+    // {
+
+    //     $averageRating = $userRepository->getAverage($user);
+    //     $rating = new Evaluation();
+    //     // $rating->setUser($user);
        
-        return $this->render('user/index.html.twig', [
-            'user' => $user,
-            'averageRating' => $averageRating,
-        ]);
-    }
+    //     return $this->render('user/index.html.twig', [
+    //         'user' => $user,
+    //         'averageRating' => $averageRating,
+    //     ]);
+    // }
     // --> On créé la méthode pour estimer l'evaluation (rating) des users
     #[Route('/user/eval/{id}', name: 'user_eval')]
     public function eval(User $user, Request $request, EntityManagerInterface $entityManager): Response

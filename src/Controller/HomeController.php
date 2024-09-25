@@ -35,7 +35,7 @@ class HomeController extends AbstractController
         ]);
     }
 
-    // ^ test style
+    // --> test style
     #[Route('/home/style', name: 'test_style')]
     public function index_style(): Response
     {
@@ -45,7 +45,7 @@ class HomeController extends AbstractController
         ]);
     }
 
-    // ^ Write Us
+    // --> Write Us
     #[Route('/write-us', name: 'app_write_us')]
     public function contact(): Response
     {
@@ -54,7 +54,7 @@ class HomeController extends AbstractController
         ]);
     }
 
-    // ^ Privacy policy
+    // --> Privacy policy
     #[Route('/privacy-policy', name: 'app_privacy_policy')]
     public function privacyPolicy(): Response
     {
@@ -63,7 +63,7 @@ class HomeController extends AbstractController
         ]);
     }
 
-    // ^ Terms of Use
+    // --> Terms of Use
     #[Route('/terms-of-use', name: 'app_terms_of_use')]
     public function termsOfUse(): Response
     {
@@ -72,7 +72,7 @@ class HomeController extends AbstractController
         ]);
     }
 
-    // ^ Sitemap
+    // --> Sitemap
     #[Route('/sitemap', name: 'app_sitemap')]
     public function sitemap(): Response
     {

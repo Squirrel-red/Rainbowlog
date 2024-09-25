@@ -32,10 +32,10 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            # On remplace PasswordType par RepeatedType et on importe une class RepeatedType
+            # --> On remplace PasswordType par RepeatedType et on importe une class RepeatedType
             ->add('plainPassword', RepeatedType::class, [
                 'mapped' => false,
-                #on remplace le code étant au-dessous par le code copié sur le site symfony.com pour repeated type symfony
+                # -->on remplace le code étant au-dessous par le code copié sur le site symfony.com pour repeated type symfony
                 'type' => PasswordType::class,
                 'invalid_message' => 'The password fields must match.',
                 'options' => ['attr' => ['class' => 'password-field']],
