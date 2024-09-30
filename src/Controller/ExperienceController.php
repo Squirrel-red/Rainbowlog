@@ -45,20 +45,21 @@ class ExperienceController extends AbstractController
 
         
         $query = $experienceRepository->findExperience($keyword, $nearTown);
-    
+
+        //--> Faire la pagination pour les experiences (afficher 5 par page  --> à modifier)
         $experiences = $paginator->paginate(
             // Query ou array
             $query, 
             // Page courante, on commence par la 1ère
             $request->query->getInt('page', 1), 
-            // Nombre des experiences affichées sur chaque page
-            5 
+            // Nombre des experiences = 4 affichées sur chaque page
+            4 
         );
-    
-    
+
+
         $categories = $categoryRepository->findAll();
-        // Récupérer les 5 derniers commentaires
-        $lastComments = $commentRepository->findBy([], ['dateComment' => 'DESC'], 10); 
+        // --> Afficher les 4 derniers comments
+        $lastComments = $commentRepository->findBy([], ['dateComment' => 'DESC'], 4); 
     
         return $this->render('experience/index.html.twig', [
             'experiences' => $experiences,
@@ -68,17 +69,157 @@ class ExperienceController extends AbstractController
         ]);
     }
 
-    // Supression de l'experience
+    // --> Méthode n°1 pour créer une nouvelle experience(/experience/new)
+    #[Route('/experience/new', name: 'new_experience')]
+    // --> Méthode n°2 pour éditer une experience existante (/experience/{id}/edit)
+    #[Route('/experience/{id}/edit', name: 'edit_experience')]
+ 
+    // -->Fonction accepte (une entité Experience méme  null, une requête HTTP, et l'EntityManager pour la gestion des entités)
+    public function new_edit(Experience $experience = null, Request $request, EntityManagerInterface $entityManager): Response
+    {
+            
+            // --> Si  $experience est null) on créé une nouvelle instance de l'entité Experience
+            if(!$experience){
+                $experience = new Experience();
+
+            // --> User actuel dévient l'autheur de cette novelle experience
+                $experience->setPublish($this->getUser());
+                
+            }
+            // --> Date de création de l'experience = la date courante
+            $experience->setDateCreation(new \DateTime());
+            
+            // --> On créé un formulaire (de la classe ExperienceType contenant les données de l'entité Experience)
+            $form = $this->createForm(ExperienceType::class, $experience);
+
+            // --> On fait la requête HTTP
+            $form->handleRequest($request);
+            
+            // --> On controle  la soumission et la validation du formulaire
+            if($form->isSubmitted() && $form->isValid()) {
+                
+                // --> On récupère les données du formulaire destinées pour l'entité Experience
+                $experience = $form->getData();
+                
+                //--> On prépare l'entité Experience pour la mise dans la BD
+                $entityManager->persist($experience);
+                
+                // --> On récupère les fichiers d'images du formulaire
+                $imageFiles = $form->get('images')->getData();
+                
+                // --> On fait la boucle des images mis dans le formilaire
+                foreach($imageFiles as $imageFile) {
+
+                    // --> On récupère le nom de fichier original sans extension ( on ne l'a pas utilisé en futur)
+                    $originalFileName = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                    
+                    // -->On génére un nouveau nom unique de fichier en utilisant uniqid() en  conservant l'extension d'origine
+                    $newFileName = uniqid() . '.' . $imageFile->guessExtension();
+                  
+        
+                    // -->On met le fichier téléchargé dans images_directory
+                    // --> sous le nouveau nom généré avant
+                    try {
+                        $imageFile->move(
+                            $this->getParameter('images_directory'),
+                            $newFileName
+                        );
+
+
+                    // --> On detect et traite les erreurs du téléchargement du fichier o cas ou
+                    } catch (FileException $e) {
+                        
+                    }
+
+                    // -->On créé une nouvelle instance de l'entité Photo
+                    $photo = new Photo();
+
+                    // On lié le path et le nom du fichier
+                    $photo->setPath('/img/' . $newFileName);
+                   
+                    //--> On lié la photo à cette experience
+                    $photo->setExperience($experience);
+
+                    //-->  Prépare la photo pour la sauvegarde dans la BD
+                    $entityManager->persist($photo);
+                   
+                }
+        
+                // -->  On sauvegarde toutes les nouvelles données (persist) dans la BD
+                $entityManager->flush();
+                
+                // --> On va vers la route 'app_experience' après la création de l'experience.
+                return $this->redirectToRoute('app_experience');
+        
+            }
+                // --> Affiche la vue 'experience/new.html.twig' (forme)
+                // --> et l'id de l'experience éditante.
+                return $this->render('experience/new.html.twig', [
+                'formAddExperience' => $form,
+                'edit' => $experience->getId()
+            ]);
+
+    }
+        
+    // --> Suppression de l'experience    
     #[Route('/experience/{id}/delete', name: 'delete_experience')]
     public function delete(Experience $experience, EntityManagerInterface $entityManager)
     {
-        $entityManager->remove($experience);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('app_experience');
+                // --> Suppression des photos liés
+                foreach ($experience->getPhotos() as $photo) {
+                    $entityManager->remove($photo);
+                }
+        
+                $entityManager->remove($experience);
+                $entityManager->flush();
+        
+                return $this->redirectToRoute('app_experience');
     }
+        
+        
+    #[Route('/experience/{id}', name: 'show_experience')]
+    public function show(int $id, Experience $experience, Request $request, EntityManagerInterface $entityManager): Response
+    {
+                 $experience = $entityManager->getRepository(Experience::class)->find($id);
+        
+                 if (!$experience) {
+                    
+                     throw $this->createNotFoundException('Cette experience is absent.');
+                 }
+        
+                // Incrémenter le comteur de vues
+                $experience->setVues();
+                $entityManager->flush();
+        
+                $comments = $experience->getComment();
+        
+                // Créer et gérer le formulaire de commentaire
+                $comment = new Comment();
+                $comment->setConsumer($this->getUser()); // Définir l'utilisateur courant comme auteur
+                $comment->setExperience($experience);// Associer le commentaire à l'experience
+                $comment->setDateComment(new \DateTime()); // Régler automatiquement la date de création à aujourd'hui
+        
+                $form = $this->createForm(CommentType::class, $comment);
+        
+                $form->handleRequest($request);
+        
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $entityManager->persist($comment);
+                    $entityManager->flush();
+        
+                    return $this->redirectToRoute('show_experience', ['id' => $experience->getId()]);
+                }
+                return $this->render('experience/show.html.twig', [
+                    'experience' => $experience,
+                    'comments' => $comments,
+                    'formComment' => $form->createView(),
+                ]);
+        
 
-    //Visualisation des experiences triées par catégories
+     }
+
+
+    //--> Visualisation des experiences triées par catégories
     #[Route('/category/{id}', name: 'experiences_by_category')]
     public function experiencesByCategory(Request $request, Category $category, ExperienceRepository $experienceRepository, CategoryRepository $categoryRepository, SessionInterface $session): Response
     {
@@ -93,7 +234,7 @@ class ExperienceController extends AbstractController
     }
 
 
-    // Visualisation de la liste des alerts
+    // --> Visualisation de la liste des alerts
     #[Route('/alerts', name: 'list_alerts')]
     public function listAlerts(AlertRepository $alertRepository): Response
     {
@@ -105,7 +246,7 @@ class ExperienceController extends AbstractController
     }
 
 
-    // Création de l'alert sur l'experience
+    // --> Création de l'alert sur l'experience
     #[Route('/experience/{id}/alert', name: 'alert_experience')]
     public function alertExperience(Experience $experience,Request $request, EntityManagerInterface $entityManager): Response
     {

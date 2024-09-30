@@ -9,27 +9,53 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use phpDocumentor\Reflection\Types\Integer;
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\All;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+
 
 class ExperienceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
-            ->add('dateCreation', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('nearTown')
-            ->add('description')
-            ->add('counterView')
+            ->add('title', TextType::class)
+            ->add('where', TextType::class)
+            ->add('description', TextareaType::class)
+            // ->add('counterView')
             ->add('category', EntityType::class, [
                 'class' => Category::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
             ->add('publish', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
             ])
+            ->add('images', FileType::class, [
+                'label' => 'Images (JPG, PNG, WEBP)',
+                'mapped' => false,
+                'multiple' => true,
+                'required' => false,
+                'constraints' => [
+                    new All([
+                        'constraints' => [
+                            new File([
+                                'maxSize' => '1M', 
+                                'mimeTypes' => [
+                                    'image/jpeg',
+                                    'image/png',
+                                    'image/webp',
+                                ],
+                                'mimeTypesMessage' => 'Please upload a valid image file (JPEG, PNG, WEBP)',
+                            ]),
+                        ]
+                    ])
+                ], 
+            ])
+            ->add('Valider', SubmitType::class)
         ;
     }
 
