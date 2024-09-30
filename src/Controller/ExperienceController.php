@@ -59,13 +59,13 @@ class ExperienceController extends AbstractController
 
         $categories = $categoryRepository->findAll();
         // --> Afficher les 4 derniers comments
-        $lastComments = $commentRepository->findBy([], ['dateComment' => 'DESC'], 4); 
+        $lastsComments = $commentRepository->findBy([], ['dateComment' => 'DESC'], 4); 
     
         return $this->render('experience/index.html.twig', [
             'experiences' => $experiences,
             'ResearchForm' => $form->createView(),
             'categories' => $categories,
-            'lastsComments' => $lastComments,
+            'lastsComments' => $lastsComments,
         ]);
     }
 
@@ -220,21 +220,21 @@ class ExperienceController extends AbstractController
 
 
     //--> Visualisation des experiences triées par catégories
-    #[Route('/category/{id}', name: 'experiences_by_category')]
-    public function experiencesByCategory(Request $request, Category $category, ExperienceRepository $experienceRepository, CategoryRepository $categoryRepository, SessionInterface $session): Response
+    #[Route('/category/{id}', name: 'experiences_category')]
+    public function experiencesCategory(Request $request, Category $category, ExperienceRepository $experienceRepository, CategoryRepository $categoryRepository, SessionInterface $session): Response
     {
             $experiences = $experienceRepository->findBy(['category' => $category], ['dateCreation' => 'DESC']);
             $categories = $categoryRepository->findAll();
     
         
-            return $this->render('experience/experience_by_category.html.twig', [
+            return $this->render('experience/experiences_category.html.twig', [
                 'experiences' => $experiences,
                 'categories' => $categories,
             ]);
     }
 
 
-    // --> Visualisation de la liste des alerts
+    // --> Visualisation tous les  alerts
     #[Route('/alerts', name: 'list_alerts')]
     public function listAlerts(AlertRepository $alertRepository): Response
     {

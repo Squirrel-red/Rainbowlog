@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% block title %}List of experiences{% endblock %}
+
+{% block body %}
+<br><br><br><br>
+<h2>List of Experiences</h2>
+<hr>
+    <div>
+        
+        <div class="categories">
+            <h3>Category</h3>
+            {% for category in categories %}
+                <div>
+                    <a href="{{ path('experiences_category', {'id': category.id}) }}">{{ category.name }}</a>
+                </div>
+
+            {% else %}
+                <p>There is not any experience for this category</p>
+            {% endfor %}
+        </div>
+        <div></div>
+    </div>
+
+    <div class="experiences">
+        <h3>Experiences</h3>
+        {% for experience in experiences %}
+            <div class="experience">
+                <div class="photos">
+                    <img src="{{ asset(experience.photos[0].path) }}" alt="photos of an experience">
+                </div>
+                <div class="description">
+                    <h2><a href="{{ path('show_experience', {'id': experience.id}) }}">{{ experience.title }}</a></h2>
+                    <p><strong>Where :</strong> {{ experience.nearTown }}</p>
+                    <p><strong>Published : </strong>{{ experience.dateCreation|date('Y:m:d')}}</p>
+                </div>
+                
+            </div>
+        {% else %}
+            <p>There is not any experience</p>
+        {% endfor %}
+    </div>
+{% endblock %}

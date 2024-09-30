@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<br><br><br><br>
+    <h1 class="title">List of Alerts</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th class="id-table-alert">ID</th>
+                <th>Type</th>
+                <th>Text</th>
+                <th>Date</th>
+                <th>Experience</th>
+                <th>User</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for alert in alerts %}
+                <tr>
+                    <td class="id-table-alert" data-label="ID">{{ alert.id }}</td>
+                    <td data-label="Type">{{ alert.type }}</td>
+                    <td data-label="Text">{{ alert.text }}</td>
+                    <td data-label="Date">{{ alert.dateAlert|date('d-m-Y H:i:s') }}</td>
+                    <td data-label="Experience"><a href="{{ path('show_experience', {'id': alert.experience.id}) }}">{{ alert.experience.title }}</a></td>
+                    <td data-label="Author">{{ alert.user.pseudo }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_experience') }}">Back to Experiences</a>
+{% endblock %}

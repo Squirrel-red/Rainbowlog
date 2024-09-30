@@ -4,11 +4,109 @@
 {% block meta %}RAINBOWLOG{% endblock %}
 
 {% block body %}
+<br><br><br><br>
 <section class="project section" id="projects">
-    <h2 class="section__title-2">
-          <span>Our experiences</span>
-    </h2>
+    <h2 class="section__title-2"><span>Gallery of experiences</span></h2>
 
+    <div>
+      <h3>Category</h3>
+      {% for category in categories %}
+          <div>
+              <a href="{{ path('experiences_category', {'id': category.id}) }}">{{ category.name }}</a>
+          </div>
+      {% endfor %}
+  </div>
+  <div class=></div>
+   {# Carrousel des 5 annonces les plus vues #}
+   <div class="block-slide-comment">
+
+    <div class="carousel-container">
+        <div class="carousel">
+          <h3>Carosel</h3>
+            {% for experience in experiences|sort((a, b) => b.counterView <=> a.counterView)|slice(0, 5) %}
+                <div class="carousel-item">
+                    <a href="{{ path('show_experience', {'id': experience.id}) }}">
+                        <img src="{{ asset(experience.photos|first.path) }}" alt="{{ experience.title }}">
+                    </a>
+                </div>
+        {% endfor %}
+        </div>
+        <button class="carousel-button prev" onclick="moveCarousel(-1)">&#10094;</button>
+        <button class="carousel-button next" onclick="moveCarousel(1)">&#10095;</button>
+    </div>
+
+    {# Les derniers commentaires #}
+    <div class="comments-section">
+        <h2>Last Comments</h2>
+        <ul>
+            {% for comment in lastsComments|slice(0, 5) %}
+                <li class="comment-item">
+                    <a href="{{ path('show_experience', {'id': comment.experience.id}) }}">
+                        <strong>{{ comment.consumer.pseudo }}:</strong> {{ comment.text }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+
+{{ form_start(ResearchForm, {'attr': {'class': 'form-inline recherche-for'}}) }}
+    {{ form_widget(ResearchForm.keyword, {'attr': {'class': 'form-control recherche-experience', 'placeholder': ' Search an experience...'}}) }}
+    {{ form_widget(ResearchForm.nearTown, {'attr': {'class': 'form-control where', 'placeholder': ' Near town...'}}) }}
+    <button class="btn btn-valider recherche-btn" type="submit">Search</button>
+{{ form_end(ResearchForm) }}
+
+<div class="experiences">
+    {% for experience in experiences %}
+        <div class="experience">
+            <div class="photos">
+                {% if experience.photos|length > 0 %}
+                    <img src="{{ asset(experience.photos[0].url) }}" alt="images of the experience">
+                {% else %}
+                    <img src="{{ asset('img/defaut.png') }}" alt="default image">
+                {% endif %}
+            </div>
+            <div class="description">
+                <h2 class="experience-title">
+                    <a href="{{ path('show_experience', {'id': experience.id}) }}">{{ experience.title }}</a>
+                </h2>
+
+                <div class="block-general">
+                    <div class="block-text block-txt-btn">
+                        <p class="experience-city"><strong>Near a town :</strong> {{ experience.nearTown }}</p>
+                        <p><strong>Published : </strong>{{ experience.dateCreation|date('Y:m:d')}}</p>
+                    </div>
+                    
+                    
+
+                    <div class="block-button block-txt-btn">
+                          <button class="btn btn-description" onclick="openDescriptionModal('{{ experience.description }}')"></button>
+                            <i class="fa fa-info-circle"></i> description
+                        </button>
+    
+                    </div>
+
+                </div>
+               
+                <p><i class="fa fa-eye"></i> {{ experience.counterView }} Number of views</p>
+                
+            </div>
+            
+        </div>
+    {% else %}
+        <p>No any experience found</p>
+    {% endfor %}
+</div>
+
+
+{# Render pagination controls #}
+<div class="pagination">
+    {{ knp_pagination_render(experiences) }}
+</div>
+
+
+<section> 
     <div class="projects__container container grid">
 
           <article class="projects__card">
@@ -32,5 +130,23 @@
               </div>
           </article>
     </div>
-</section>    
-{% endblock %}
+</section> 
+
+{% block javascripts %}
+{# // Gérer le modal pour afficher la description de l'experience #}
+
+function openDescriptionModal(description) {
+    const modal = document.createElement('div');
+    modal.classList.add('modal');
+    modal.innerHTML = `
+        <div class="modal-content">
+            <span class="close-button" onclick="this.parentElement.parentElement.remove()">&times;</span>
+            <p>${description}</p>
+        </div>
+    `;
+    document.body.appendChild(modal);
+}
+{% endblock %}  
+
+{% endblock %} 
+

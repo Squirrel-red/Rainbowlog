@@ -1,0 +1,61 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Details of Experience{% endblock %}
+
+{% block body %}
+    <br><br><br><br>
+    <div>
+        <h3>{{ <experience class="title"></experience> }}</h3>
+        <div>
+            <p>Where : {{ experience.nearTown }}</p>
+            <p>Description : {{ experience.description }}</p>
+            <p>Date création : {{ experience.dateCreation|date('d.m.Y H:i:s') }}</p>
+            <p>Published by : <a href="{{ path('app_user', {'id': experience.publish.id}) }}">{{ experience.publish.pseudo }}</a></p>
+        </div>
+        {% if experience.photos|length > 0 %}
+        <div>
+            {% for photo in experience.photos %}
+                <img src="{{ asset(photo.path) }}" alt="Image">
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div>
+            {% if experience.publish.pseudo == app.user or is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('edit_experience', {'id': experience.id}) }}">Modify</a>
+                <a href="{{ path('delete_experience', {'id': experience.id}) }}">Delete</a>
+            {% endif %}
+            {% if app.user %}
+                <a href="{{ path('alert_experience', {'id': experience.id}) }}">Warn</a>
+            {% endif %}
+        </div>
+        <div>
+            <h2>Comments :</h2>
+            {% for comment in comments %}
+                <div class="comment">
+                    <strong>{{ comment.consumer.pseudo }} :</strong> {{ comment.text }} <br>
+                    <small>{{ comment.dateComment|date('d-m-Y H:i') }}</small> <br>
+                    {% if comment.consumer == app.user or is_granted('ROLE_ADMIN') %}
+                        <div class="comment-actions">
+                            <a href="{{ path('edit_comment', {'id': comment.id}) }}">Edit</a>
+                            <a href="{{ path('delete_comment', {'id': comment.id}) }}">Delete</a>
+                        </div>
+                    {% endif %}
+                </div>
+            {% else %}
+                <p>Comments are absents for this experience</p>
+            {% endfor %}
+            {% if app.user %}
+            <h2>Add a comment :</h2>
+            {{ form_start(formComment) }}
+                {{ form_row(formComment.text) }}
+                <button type="submit">Submit</button>
+            {{ form_end(formComment) }}
+            {% else %}
+                <div>
+                    <p>It needs <a href="{{ path('app_login') }}">to log in</a> in order to comment</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

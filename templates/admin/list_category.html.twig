@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}Category's catalog{% endblock %}
+{% block title %}Category's list{% endblock %}
 
 {% block body %}
     {# Pour afficher les messages d'erreur/succès #}
@@ -20,7 +20,7 @@
     <h3>Categories</h3>
     <table class="styled-table">
         <thead>
-            <tr class="header-table-categorie">
+            <tr>
                 <th>Name</th>
                 <th>Modify</th>
                 <th>Delete</th>
@@ -28,15 +28,15 @@
         </thead>
         <tbody>
             {% for categorie in categories %}
-                <tr class="table-categorie">
-                    <td data-label="Catégorie">{{ categorie.name }}</td> 
+                <tr>
+                    <td data-label="Catégory">{{ category.name }}</td> 
                     {% if is_granted('ROLE_ADMIN') %}   
                     <td data-label="Action">
-                            <a href="{{ path('admin_category_modif', {'id': categorie.id}) }}" class="btn btn-warning">Modify</a>    
+                            <a href="{{ path('admin_category_modif', {'id': category.id}) }}" class="btn btn-warning">Modify</a>    
                     </td>
                     <td data-label="Action">
-                        <form action="{{ path('admin_category_delete', {'id': categorie.id}) }}" method="post" class="d-inline">
-                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ categorie.id) }}">
+                        <form action="{{ path('admin_category_delete', {'id': category.id}) }}" method="post" class="d-inline">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
                             <button class="btn btn-danger">Delete</button>
                         </form>
                     </td>
