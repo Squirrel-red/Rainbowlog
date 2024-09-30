@@ -14,6 +14,7 @@ use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class AdminController extends AbstractController
 {
@@ -27,19 +28,22 @@ class AdminController extends AbstractController
     //     ]);
     // }
 
-//  --> On créé la méthode pour la visualisation des users, les compter (qui ont été fait le login lors la semaine courante)
-#[Route('/admin', name: 'app_admin')]
+//  --> On créé la méthode pour la visualisation des users, compter tous les users et les users blockés
+#[Route('/admin/index', name: 'admin_index')]
     #[IsGranted("ROLE_ADMIN")]
     public function index(UserRepository $userRepository) : Response
     {
-        $users = $userRepository->findAll();
+        // $users = $userRepository->findAll();
+        $users = $userRepository->findBy([], ['id' => 'ASC']);
         $usersCount= $userRepository->count([]);
-        $usersLoggedThisWeek = $userRepository->countUsersLoggedInThisWeek();
+        $usersBlockedCount= $userRepository->count(['isBlocked'=> "Yes"]);
         
         
         return $this->render('admin/index.html.twig', [
+            'users' => $users,
             'usersCount' => $usersCount,
-            'usersLoggedThisWeek' => $usersLoggedThisWeek, 
+            'usersBlockedCount' => $usersBlockedCount,
+            
         ]);
     }
 

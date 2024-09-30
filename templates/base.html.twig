@@ -70,9 +70,17 @@
                 {# <li class="nav__item"><a href="{{ path('app_activity') }}" class="nav__link">ACTIVITY</a></li> #}
                 <li class="nav__item"><a href="{{ path('app_write_us')}}" class="nav__link">WRITE US</a></li>
 
-                {% if app.user %}
+                {% if is_granted('ROLE_ADMIN') %}
+
+                <li class="nav__item"><a href="{{ path('admin_category_list') }}">CATEGORIES</a></li>
+                {# <li class="nav__item"><a href="{{ path('liste_alerts') }}">ALERTS</a></li> #}
+                <li class="nav__item"><a href="{{ path('app_user', {'id': app.user.id}) }}">USERS</a></li>
+                <li class="nav__item"><a href=" {{ path('app_logout') }}"></i> LOGOUT</a></li>
+
+                {% else %}
+                
+                    {% if is_granted('ROLE_USER')%}
                     <li class="nav__item"><a href="{{ path('app_user', {'id': app.user.id}) }}" class="user">{{ app.user.pseudo }}</a></li>
-                    <li class="nav__item"><a href="{{ path('app_user', {'id': app.user.id }) }}" class="user"> MY PROFIL</a></li>
 
                     {# <div>
                       <img>
@@ -96,22 +104,14 @@
                       {% endif %}
                     </li> #}
                     <li class="nav__item"><a href="{{ path('app_logout') }}" class="nav__link">LOG OUT</a></li>
+                    
+                    {% else %}
 
-                {% else %}
                     <li class="nav__item"><a href="{{ path('app_login') }}" class="nav__link">LOG IN</a></li>
                     <li class="nav__item"><a href="{{ path('app_register') }}" class="nav__link">SIGN UP</a></li>
+                    {% endif %}
                 {% endif %}
         
-
-                {% if is_granted('ROLE_ADMIN') %}
-                    <h3>Admin's dashboard</h3>
-                    <li class="nav__item"><a href="{{ path('admin_category_list') }}">CATEGORIES</a></li>
-                    <li class="nav__item"><a href="{{ path('liste_alerts') }}">ALERTS</a></li>
-                    <li class="nav__item"><a href="{{ path('user_list') }}">USERS</a></li>
-                    <li class="nav__item"><a href=" {{ path('app_logout') }}"></i> LOGOUT</a></li>
- 
- 
-                {% endif %}
 
 
               </ul>

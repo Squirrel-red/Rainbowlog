@@ -33,11 +33,11 @@ class UserController extends AbstractController
 
         // On trie les utilisateurs sur le password dans l'ordre croissant alphabétique
         //idem SELECT * FROM user ORDER BY nom ASC
-        $users = $userRepository->findBy([], ['password' => 'ASC']);
+        $users = $userRepository->findBy([], ['id' => 'ASC']);
 
 
         return $this->render('user/catalog.html.twig', [
-            'users'  => $users
+            'users'  => $users,
         ]);
     }
 
@@ -47,35 +47,47 @@ class UserController extends AbstractController
     public function deleteUser(User $user, UserRepository $userRepository): RedirectResponse
     {
 
-        // D'abord on anonymise l'user
+        // On affiche la liste des users
          $userRepository->hideUser($user);
     
          // On ajoute un message
-        $this->addFlash('success', 'Account has been deleted successfully.');
-    
-        return $this->redirectToRoute('user_catalog'); 
+        $this->addFlash('success', 'Account has been anonymised successfully.');
+        return $this->redirectToRoute('app_user'); 
+ 
     }
 
 
     // --> On créé la méthode pour bloquer un des users
     #[Route('/user/block/{id}', name: 'user_block')]
-    public function blockUser(User $user, UserRepository $userRepository): RedirectResponse
+    public function blockUser(User $user, UserRepository $userRepository): Response
     {
         $userRepository->blockUser($user);
+        $users = $userRepository->findAll();
         $this->addFlash('success', 'User has been blocked successfully.');
     
-        return $this->redirectToRoute('user_catalog');
+        // return $this->redirectToRoute('app_user', [
+        //     'users' => $users,
+        // ]);
+        return $this->render('user/catalog.html.twig', [
+            'users'  => $users,
+        ]);
     }
 
 
     // --> On créé la méthode pour débloquer un des users
     #[Route('/user/unblock/{id}', name: 'user_unblock')]
-    public function unblockUser(User $user, UserRepository $userRepository): RedirectResponse
+    public function unblockUser(User $user, UserRepository $userRepository): Response
     {
         $userRepository->unblockUser($user);
+        $users = $userRepository->findAll();
         $this->addFlash('success', 'User has been unblocked successfully.');
 
-        return $this->redirectToRoute('user_catalog');
+        // return $this->redirectToRoute('app_user', [
+        //     'users' => $users,
+        // ]);
+        return $this->render('user/catalog.html.twig', [
+            'users'  => $users,
+        ]);
     }
 
     // --> On créé la méthode pour estimer la moyenne de l'évaluation ( propriété :rating)  d'un user
@@ -92,6 +104,7 @@ class UserController extends AbstractController
     //         'averageRating' => $averageRating,
     //     ]);
     // }
+    
     // --> On créé la méthode pour estimer l'evaluation (rating) des users
     #[Route('/user/eval/{id}', name: 'user_eval')]
     public function eval(User $user, Request $request, EntityManagerInterface $entityManager): Response

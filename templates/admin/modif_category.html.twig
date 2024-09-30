@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Category's modification{% endblock %}
+
+{% block body %}
+<br><br><br><br><br>
+    <h3>Modify the category</h3>
+    {% if is_granted('ROLE_ADMIN') %}
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button class="btn btn-success">Modify</button>
+        {{ form_end(form) }}
+    {% else %}
+        <p>Yous haven't any right to do this action</p>
+    {% endif %}
+{% endblock %}

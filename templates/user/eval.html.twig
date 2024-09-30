@@ -9,7 +9,7 @@
 
 {% block body %}
     <div class="block-evaluation">
-        <h1>Évaluer {{ user.pseudo }}</h1>
+        <h1>Evaluate{{ user.pseudo }}</h1>
         {{ form_start(form, { 'attr' : { 'class': 'block-form' } }) }}
  
  
@@ -19,7 +19,7 @@
                 {% endfor %}
             </div>
             {{ form_widget(form.rating) }}
-            <button type="submit" class="btn btn-sabmit">Soumettre</button>
+            <button type="submit" class="btn btn-submit">Submit</button>
         {{ form_end(form) }}
     </div>
     

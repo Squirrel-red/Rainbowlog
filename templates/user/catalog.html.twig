@@ -1,36 +1,58 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>User's list</h1>
-
+<br><br><br><br><br>
+{% if is_granted('ROLE_ADMIN')%}
+    <h3>User's catalog</h3>
+<br>
     <table>
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Email</th>
-                <th>Nickname</th>
-                <th>Block</th>
-                <th>Actions</th>
+                <th>ID:</th>
+                <th>Email:</th>
+                <th>Nickname:</th>
+                <th>Status:</th>
+            
             </tr>
+            <hr>    
         </thead>
         <tbody>
+            
             {% for user in users %}
                 <tr>
                     <td>{{ user.id }}</td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.pseudo }}</td>
-                    <td>{{ user.isBlocked ? 'Yes' : 'No' }}</td>
                     <td>
                         {% if user.isBlocked %}
-                            <a href="{{ path('user_unblock', {'id': user.id}) }}" class="btn btn-unblock">Unblock</a>
+                            <a href="{{ path('user_unblock', {'id': user.id}) }}" >Unblock</a>
+                            <a href="{{ path('user_delete', {'id': user.id}) }}" >Hide</a>
                         {% else %}
-                            <a href="{{ path('user_block', {'id': user.id}) }}" class="btn btn-block">Block</a>
+                     
+                            <a href="{{ path('user_block', {'id': user.id}) }}" ></a>
+                         
+                            <a href="{{ path('user_block', {'id': user.id}) }}" >Block</a>
+                    
                         {% endif %}
                     </td>
                 </tr>
             {% endfor %}
-        </tbody>
+            
+        </tbody>  
     </table>
-    {# <a href="{{ path('app_home') }}" class="btn btn-back">Back to Home </a> #}
-    <a href="{{ path('app_experience') }}" class="btn btn-back">Back to Experience</a>
+    <hr> 
+    <br>
+    <a href="{{ path('admin_index') }}" >Statistical Details </a>
+    <br>
+    <br>
+    {% else %}
+       {% if is_granted('ROLE_USER')%}
+       <h3>MY PROFIL</h3>
+           
+      
+       {% else %}
+            <a href="{{ path('app_login') }}" >LOG IN</a>
+        {% endif %}
+    {% endif %}
+
 {% endblock %}

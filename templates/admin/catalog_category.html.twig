@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Category's catalog{% endblock %}
+
+{% block body %}
+    {# Pour afficher les messages d'erreur/succès #}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <br><br><br><br><br>
+    <h3>Categories</h3>
+    <table class="styled-table">
+        <thead>
+            <tr class="header-table-categorie">
+                <th>Name</th>
+                <th>Modify</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for categorie in categories %}
+                <tr class="table-categorie">
+                    <td data-label="Catégorie">{{ categorie.name }}</td> 
+                    {% if is_granted('ROLE_ADMIN') %}   
+                    <td data-label="Action">
+                            <a href="{{ path('admin_category_modif', {'id': categorie.id}) }}" class="btn btn-warning">Modify</a>    
+                    </td>
+                    <td data-label="Action">
+                        <form action="{{ path('admin_category_delete', {'id': categorie.id}) }}" method="post" class="d-inline">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ categorie.id) }}">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}  
+        </tbody>
+    </table>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('admin_category_add') }}" class="btn btn-primary btn-category-create">Add new category</a>
+    {% else %}
+        <p>You haven't any rights for this action </p>
+    {% endif %}
+{% endblock %}
