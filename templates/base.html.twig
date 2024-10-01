@@ -81,19 +81,7 @@
                 
                     {% if is_granted('ROLE_USER')%}
                     <li class="nav__item"><a href="{{ path('app_user', {'id': app.user.id}) }}" class="user">{{ app.user.pseudo }}</a></li>
-
-                    {# <div>
-                      <img>
-                          {% if user.avatar %}
-                          <img src="{{ asset('img/avatars/' ~ user.avatar) }}" alt="user's avatar">
-                          {% else %}
-                              <img src="{{ asset('img/avatars/anonyme.jpg') }}" alt="default avatar">
-                          {% endif %}
-                    </img>
-                  </div> #}
-
-                  
-                    {# <li><a href="{{ path('app_experience') }}">MES EXPERIENCES</a></li> #}
+                    <li><a href="{{ path('app_experience') }}">MES EXPERIENCES</a></li>
 
                       {# {% if app.user.newMessages > 0 %}
                           <a href="{{ path('received_contacts') }}">
@@ -111,9 +99,18 @@
                     <li class="nav__item"><a href="{{ path('app_register') }}" class="nav__link">SIGN UP</a></li>
                     {% endif %}
                 {% endif %}
+
+                  {# -->  coder plus tard#}
+                  {# <div>
+                      <img>
+                          {% if user.avatar %}
+                          <img src="{{ asset('img/avatars/' ~ user.avatar) }}" alt="user's avatar">
+                          {% else %}
+                              <img src="{{ asset('img/avatars/anonyme.jpg') }}" alt="default avatar">
+                          {% endif %}
+                    </img>
+                  </div> #}
         
-
-
               </ul>
  
               <!-- Close button -->
