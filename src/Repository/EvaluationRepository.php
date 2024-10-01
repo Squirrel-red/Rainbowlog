@@ -16,7 +16,8 @@ class EvaluationRepository extends ServiceEntityRepository
         parent::__construct($registry, Evaluation::class);
     }
 
-    //    /**
+    //    /** --> Examples de requètes
+    
     //     * @return Evaluation[] Returns an array of Evaluation objects
     //     */
     //    public function findByExampleField($value): array
