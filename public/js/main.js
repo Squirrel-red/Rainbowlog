@@ -165,3 +165,16 @@ sr.reveal(
   `.services__card, .projects__card`,
    { interval: 100 }
 );
+
+// Gérer le modal pour afficher la description de l'experience
+function openDescriptionModal(description) {
+  const modal = document.createElement('div');
+  modal.classList.add('modal');
+  modal.innerHTML = `
+      <div class="modal-content">
+          <span class="close-button" onclick="this.parentElement.parentElement.remove()">&times;</span>
+          <p>${description}</p>
+      </div>
+  `;
+  document.body.appendChild(modal);
+}

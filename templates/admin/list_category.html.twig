@@ -27,9 +27,9 @@
             </tr>
         </thead>
         <tbody>
-            {% for categorie in categories %}
+            {% for category in categories %}
                 <tr>
-                    <td data-label="Catégory">{{ category.name }}</td> 
+                    <td data-label="Category">{{ category.name }}</td> 
                     {% if is_granted('ROLE_ADMIN') %}   
                     <td data-label="Action">
                             <a href="{{ path('admin_category_modif', {'id': category.id}) }}" class="btn btn-warning">Modify</a>    
