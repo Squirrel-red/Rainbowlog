@@ -8,17 +8,17 @@
 {% endblock %}
 
 {% block body %}
-    <div class="block-evaluation">
+    <div>
         <h1>Evaluate{{ user.pseudo }}</h1>
         {{ form_start(form, { 'attr' : { 'class': 'block-form' } }) }}
  
  
             <div class="stars">
-                {% for i in 1..5 %}
+                {% for i in 1..10 %}
                     <i class="fa fa-star star" data-value="{{ i }}"></i>
                 {% endfor %}
             </div>
-            {{ form_widget(form.rating) }}
+            {{ form_widget(form) }}
             <button type="submit" class="btn btn-submit">Submit</button>
         {{ form_end(form) }}
     </div>
