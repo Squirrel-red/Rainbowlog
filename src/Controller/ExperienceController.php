@@ -187,17 +187,17 @@ class ExperienceController extends AbstractController
                      throw $this->createNotFoundException('Cette experience is absent.');
                  }
         
-                // Incrémenter le comteur de vues
-                $experience->setVues();
+                // --> Ajout au compteur de vues
+                $experience->getCounterView();
                 $entityManager->flush();
         
                 $comments = $experience->getComment();
         
-                // Créer et gérer le formulaire de commentaire
+                // --> Création et gestion du formulaire de comments
                 $comment = new Comment();
-                $comment->setConsumer($this->getUser()); // Définir l'utilisateur courant comme auteur
-                $comment->setExperience($experience);// Associer le commentaire à l'experience
-                $comment->setDateComment(new \DateTime()); // Régler automatiquement la date de création à aujourd'hui
+                $comment->setConsumer($this->getUser()); // Définir l'consumer courant comme auteur
+                $comment->setExperience($experience);// Lier le commentaire à l'experience
+                $comment->setDateComment(new \DateTime()); // Mettre automatiquement la date de création à aujourd'hui
         
                 $form = $this->createForm(CommentType::class, $comment);
         

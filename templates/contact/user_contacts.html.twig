@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<br><br><br><br>
+    <h2>Messages sent by{{ user.pseudo }}</h2>
+    <br>
+
+    {% for contact in contacts %}
+        <div>{{ contact.dateMessage|date('d/m/Y H:i') }} - {{ contact.text}}</div>
+    {% endfor%}    
+
+{% endblock %}

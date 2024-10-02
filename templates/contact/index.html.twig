@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ContactController!{% endblock %}
+{% block title %}Contact{% endblock %}
 
 {% block body %}
 <style>
@@ -8,13 +8,20 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
+<br><br><br><br>
+    <h3>Contacts</h3>
+<br>
     <ul>
-        <li>Your controller at <code>C:/laragon/www/Rainbowlog/src/Controller/ContactController.php</code></li>
-        <li>Your template at <code>C:/laragon/www/Rainbowlog/templates/contact/index.html.twig</code></li>
+        <li>
+            {# //--> On a ajouté la méthode string pour sender et pseudo dans ContactController lié à l'atribut "text" de l'entité Contact #}
+            <strong>{{ contact.sender.pseudo }}</strong>
+            {% if not contact.seen %}
+                <span>New</span>
+            {% endif %}
+            <p>{{ contact.text }}</p>
+            <small>{{ contact.dateMessage|date('d/m/Y H:i') }}</small>
+            <a href="{{ path('read_messages', {id: contact.id}) }}" class="btn btn-sm btn-success">Make seen</a>
+        </li>
     </ul>
-</div>
+
 {% endblock %}

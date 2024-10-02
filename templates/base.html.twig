@@ -62,7 +62,7 @@
               <ul class="nav__list">  
                 <li class="nav__item"><a href="{{ path('app_home') }}" class="nav__link">HOME</a></li>
                 <li class="nav__item"><a href="{{ path('app_experience') }}" class="nav__link">GALLERY OF EXPERIENCES</a></li>
-                {# <li class="nav__item"><a href="{{ path('new_experience') }}" class="nav__link">ADD EXPERIENCE</a></li> #}
+
 
                 {# <li class="nav__item"><a href="{{ path('app_comment') }}" class="nav__link">COMMENTS</a></li> #}
                 <li class="nav__item"><a href="{{ path('app_terms_of_use') }}" class="nav__link">ROULES</a></li>
@@ -72,25 +72,26 @@
 
                 {% if is_granted('ROLE_ADMIN') %}
 
-                <li class="nav__item"><a href="{{ path('admin_category_list') }}">CATEGORIES</a></li>
-                {# <li class="nav__item"><a href="{{ path('liste_alerts') }}">ALERTS</a></li> #}
-                <li class="nav__item"><a href="{{ path('app_user', {'id': app.user.id}) }}">USERS</a></li>
-                <li class="nav__item"><a href=" {{ path('app_logout') }}"></i> LOGOUT</a></li>
+                <li class="nav__item"><a href="{{ path('admin_category_list') }}" class="nav__link">CATEGORIES</a></li>
+                {# <li class="nav__item"><a href="{{ path('list_alerts') }}" class="nav__link">ALERTS</a></li> #}
+                <li class="nav__item"><a href="{{ path('app_user', {'id': app.user.id}) }}" class="nav__link">USERS</a></li>
+                <li class="nav__item"><a href=" {{ path('app_logout') }}" class="nav__link">LOGOUT</a></li>
 
                 {% else %}
                 
                     {% if is_granted('ROLE_USER')%}
-                    <li class="nav__item"><a href="{{ path('app_user', {'id': app.user.id}) }}" class="user">{{ app.user.pseudo }}</a></li>
-                    <li><a href="{{ path('app_experience') }}">MES EXPERIENCES</a></li>
+                    <li class="nav__item"><a href="{{ path('app_user', {'id': app.user.id}) }}" class="user">{{ app.user.pseudo }}</a>PROFIL</li>
+                    
 
-                      {# {% if app.user.newMessages > 0 %}
-                          <a href="{{ path('received_contacts') }}">
-                              <p>MESSAGES</p><span> ({{ app.user.newMessages }})</span>
-                          </a>
-                      {% else %}
-                          <a href="{{ path('received_contacts') }}">MESSAGES</a>
-                      {% endif %}
-                    </li> #}
+                    {% if app.user.newMessages > 0 %}
+                    <a href="{{ path('app_received_contacts') }}">
+                        <p>MESSAGES</p><span> ({{ app.user.newMessages }})</span>
+                    </a>
+                    {% else %}
+                    <a href="{{ path('app_received_contacts') }}">MESSAGES</a>
+                    {% endif %}
+              </li>
+
                     <li class="nav__item"><a href="{{ path('app_logout') }}" class="nav__link">LOG OUT</a></li>
                     
                     {% else %}

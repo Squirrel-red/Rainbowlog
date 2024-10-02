@@ -31,6 +31,8 @@ class Contact
     #[ORM\JoinColumn(nullable: false)]
     private ?User $receiver = null;
 
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $text = null;
 
     
     public function getId(): ?int
@@ -86,5 +88,22 @@ class Contact
         $this->receiver = $receiver;
 
         return $this;
+    }
+
+    public function getText(): ?string
+    {
+        return $this->text;
+    }
+
+    public function setText(string $text): static
+    {
+        $this->text = $text;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->text.' (Sent by :'.$this->getSender()->getPseudo().')' ;
     }
 }

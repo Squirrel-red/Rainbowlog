@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Consumer's details{% endblock %}
+
+{% block body %}
+<br><br><br><br>
+    <h3>Consumer's details</h3>
+
+    <h2> {{ consumer }}</h2>
+    <p>
+        Title : {{ experience.title }} <br>
+        Description : {{ experience.description }} <br>
+        Date création : {{ experience.dateCreation|date('d.m.Y H:i:s') }}
+        Mail : {{ consumer.email }} <br>
+        Comments : {% for comment in consumer.getCommentsPublished() %}
+            <li>{{ comment }}</li>
+        {% else %}
+            <li>No any comments  found.</li>
+        {% endfor %}
+            Published experiences : {% for experience in consumer.getExperiencePublished() %}
+            <li><a href="{{ path('show_experience', {'id': experience.id}) }}">{{ experience }}</a></li>
+        {% else %}
+            <li>No any experiences found.</li>
+        {% endfor %}
+    </p>
+{% endblock %}
