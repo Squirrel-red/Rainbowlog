@@ -8,12 +8,12 @@ use Twig\Environment;
 
 class ExceptionListener
 {
-    // private $twig;
+    private $twig;
 
-    // public function __construct(Environment $twig)
-    // {
-    //     $this->twig = $twig;
-    // }
+    public function __construct(Environment $twig)
+    {
+        $this->twig = $twig;
+    }
 
 
     public function __invoke(ExceptionEvent $event): void
@@ -41,5 +41,21 @@ class ExceptionListener
 
         // sends the modified response object to the event
         $event->setResponse($response);
+    }
+
+       // --> On ajoute la méthode de gestion des erreurs
+    public function onKernelException(ExceptionEvent $event): void
+    {
+        $exception = $event->getThrowable();
+
+        // Vérifier si l'exception est une 404 Not Found
+        if ($exception instanceof NotFoundHttpException) {
+            $response = new Response(
+                $this->twig->render('error/404.html.twig', ['message' => $exception->getMessage()]),
+                Response::HTTP_NOT_FOUND
+            );
+
+            $event->setResponse($response);
+        }
     }
 }
