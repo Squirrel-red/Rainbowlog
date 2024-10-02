@@ -38,7 +38,7 @@ class CommentController extends AbstractController
 
     // --> Method "Comment's modification"
     #[Route('/comment/{id}/modif', name: 'modif_comment')]
-    public function edit(Comment $comment, Request $request, EntityManagerInterface $entityManager): Response
+    public function modif(Comment $comment, Request $request, EntityManagerInterface $entityManager): Response
     {
         
         $comment->setDateComment(new \DateTime()); // --> To apply the current's date

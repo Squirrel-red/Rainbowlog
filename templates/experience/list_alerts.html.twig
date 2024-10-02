@@ -1,9 +1,12 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}List of Alerts{% endblock %}
+{% block meta %}RAINBOWLOG{% endblock %}
+
 {% block body %}
 <br><br><br><br>
     <h1 class="title">List of Alerts</h1>
-
+    <hr>
     <table>
         <thead>
             <tr>
@@ -28,6 +31,9 @@
             {% endfor %}
         </tbody>
     </table>
+    <hr>
 
     <a href="{{ path('app_experience') }}">Back to Experiences</a>
+    <br>
+    <a href="{{ path('app_home') }}">Back to Home</a>
 {% endblock %}

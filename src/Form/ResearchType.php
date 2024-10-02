@@ -20,7 +20,7 @@ class ResearchType extends AbstractType
             ->add('keyword', SymfonySearchType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Recherche...',
+                    'placeholder' => 'Search...',
                 ],
                 'required' => false, 
             ])

@@ -12,6 +12,7 @@
     <h3>Contacts</h3>
 <br>
     <ul>
+      {% for contact in contacts %}
         <li>
             {# //--> On a ajouté la méthode string pour sender et pseudo dans ContactController lié à l'atribut "text" de l'entité Contact #}
             <strong>{{ contact.sender.pseudo }}</strong>
@@ -22,6 +23,8 @@
             <small>{{ contact.dateMessage|date('d/m/Y H:i') }}</small>
             <a href="{{ path('read_messages', {id: contact.id}) }}" class="btn btn-sm btn-success">Make seen</a>
         </li>
+      {% endfor %}
     </ul>
 
 {% endblock %}
+ 

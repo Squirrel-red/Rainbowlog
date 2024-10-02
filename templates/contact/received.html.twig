@@ -8,17 +8,17 @@
         <ul>
             {% for contact in contacts %}
                 <li>
-                    <strong class="message-sender">{{ contact.sender.nom }}</strong>
+                    <strong>{{ contact.sender.pseudo }}</strong>
                     {% if not contact.seen %}
                         <span>New</span>
                     {% endif %}
                     <p>{{ contact.text }}</p>
                     <small>{{ contact.dateMessage|date('d/m/Y H:i') }}</small>
-                    <a href="{{ path('read_messages', {id: contact.id}) }}" class="btn btn-success mark-read">Marquer comme lu</a>
+                    <a href="{{ path('read_messages', {id: contact.id}) }}" class="btn btn-success mark-read">Make seen</a>
                 </li>
             {% endfor %}
         </ul>
-        <li><a href="{{ path('app_contact_sent') }}" class="btn btn-primary">Messages envoyés</a></li>
+        <li><a href="{{ path('app_contact_sent') }}" class="btn btn-primary"> Sent messages</a></li>
     </div>
     
 {% endblock %}

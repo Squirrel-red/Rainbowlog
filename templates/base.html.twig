@@ -6,7 +6,7 @@
         <title>{% block title %}RAINBOWLOG{% endblock %}</title>
         <meta name="description" content="{% block meta %}Description!{% endblock %}">
         <meta name="robots" content="{% block index %}index, follow{% endblock %}">
-
+        {% block stylesheets %}
         <link rel="icon" href="{{ asset('img/logo_rainbow.png') }}" type="image/png" >
 
         {# Font Awesome #}
@@ -27,7 +27,7 @@
         {# href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&display=swap"  #}
         <script src="https://kit.fontawesome.com/7252ea4d54.js" crossorigin="anonymous"></script>
         
-        {% block stylesheets %}
+        
         <link rel="stylesheet" href="{{asset('css/styles.css')}}">
 
         {% endblock %}
@@ -73,24 +73,27 @@
                 {% if is_granted('ROLE_ADMIN') %}
 
                 <li class="nav__item"><a href="{{ path('admin_category_list') }}" class="nav__link">CATEGORIES</a></li>
-                {# <li class="nav__item"><a href="{{ path('list_alerts') }}" class="nav__link">ALERTS</a></li> #}
+                <li class="nav__item"><a href="{{ path('list_alerts') }}" class="nav__link">ALERTS</a></li>
                 <li class="nav__item"><a href="{{ path('app_user', {'id': app.user.id}) }}" class="nav__link">USERS</a></li>
                 <li class="nav__item"><a href=" {{ path('app_logout') }}" class="nav__link">LOGOUT</a></li>
 
                 {% else %}
                 
                     {% if is_granted('ROLE_USER')%}
-                    <li class="nav__item"><a href="{{ path('app_user', {'id': app.user.id}) }}" class="user">{{ app.user.pseudo }}</a>PROFIL</li>
+                    <li class="nav__item"><a href="{{ path('app_user', {'id': app.user.id}) }}" class="nav__link">{{ app.user.pseudo }}</a>'s <b>PROFIL</b></li>
                     
 
                     {% if app.user.newMessages > 0 %}
-                    <a href="{{ path('app_received_contacts') }}">
-                        <p>MESSAGES</p><span> ({{ app.user.newMessages }})</span>
+                      {# --> s'il y a les nouveaux messages on affiche le leur nombre à coté de l'onglet #}
+                    <li  class="nav__item"><a href="{{ path('received_contacts') }}" class="nav__link">MESSAGES<span>({{ app.user.newMessages }})</span></a></li>
+                     
                     </a>
                     {% else %}
-                    <a href="{{ path('app_received_contacts') }}">MESSAGES</a>
+                    <li class="nav__item"><a href="{{ path('received_contacts') }}" class="nav__link">MESSAGES</a></li>
                     {% endif %}
-              </li>
+                    </li>
+
+                    <li class="nav__item"><a href="{{ path('new_experience') }}" class="nav__link">ADD EXPERIENCE</a></li>
 
                     <li class="nav__item"><a href="{{ path('app_logout') }}" class="nav__link">LOG OUT</a></li>
                     

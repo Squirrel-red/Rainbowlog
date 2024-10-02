@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\Contact;
 use App\Entity\User;
 use App\Form\ContactType;
-use App\Repository\MessageRepository;
+use App\Repository\ContactRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,7 +27,7 @@ class ContactController extends AbstractController
 
     // --> On créé la méthode pour lister les messages déjà réçus triés par la date d'envoie
     #[Route('/contact', name: 'app_contact')]
-    public function index(MessageRepository $contactRepository): Response
+    public function index(ContactRepository $contactRepository): Response
     {
         $user = $this->getUser();
     
@@ -36,6 +36,25 @@ class ContactController extends AbstractController
           'contacts' => $contacts
         ]);
     }
+
+    // --> On créé la méthode pour afficher les messages reçus ( on utilise pour l'onglet "Messages")
+        #[Route('/contacts/received', name: 'received_contacts')]
+        public function receivedContacts(EntityManagerInterface $entityManager, ContactRepository $contactRepository, UserRepository $userRepository): Response
+        {
+            //--> on recupère l'user connecté
+            $user = $this->getUser();
+            //--> on écupère les messages reçus par l'user connecté, triés par date d'envoi
+            $contacts = $contactRepository->findBy(['receiver' => $user], ['dateMessage' => 'DESC']);
+            //--> on met à jour le nombre de nouveaux messages pour l'user
+            $userRepository->countByNewMessages($user);
+            //-->Persiste les modifications de l'user dans la BD
+            $entityManager->persist($user); 
+            $entityManager->flush();
+            return $this->render('contact/received.html.twig', [
+                'contacts' => $contacts,
+                
+            ]);
+        }
 
     // --> On créé la méthode pour lire le message (le marquer comme vu )
     #[Route('/contacts/read/{id}', name: 'read_messages')]
@@ -63,8 +82,8 @@ class ContactController extends AbstractController
     }
 
     // --> On créé la méthode pour afficher les messages envoyés par l'user
-    #[Route('/messages/user/{id}', name: 'messages_user')]
-    public function messagesByUser(ContactRepository $contactRepository): Response
+    #[Route('/contacts/user/{id}', name: 'contacts_user')]
+    public function contactsUser(ContactRepository $contactRepository): Response
     {
             //--> on recupère l'user connecté
             $user = $this->getUser();
@@ -81,6 +100,7 @@ class ContactController extends AbstractController
     #[Route('/contact/{id}/new', name: 'new_contact')]
     public function new(Request $request, EntityManagerInterface $entityManager, User $user): Response
     {   
+        //--> on recupère l'user connecté
         $currentUser = $this->getUser();
         // Vérifie si l'user actuel essaie d'envoyer un message
         if ($currentUser && $currentUser->getId() === $user->getId()) {
@@ -93,12 +113,12 @@ class ContactController extends AbstractController
         $form->handleRequest($request);// --> la requête du formulaire
         if($form->isSubmitted() && $form->isValid()) {// --> on controle si le formulaire est soumis et valide
             // --> On lie l'user connecté comme expéditeur
-            $message->setSender($this->getUser()); // 
-            $message->setDateEnvoi(new \DateTime());// on fait la date  du jour = la date d'envoi
-            $userReciever = $contact->getReceiver();// Récupèron recupère le destinataire du message
+            $contact->setSender($this->getUser()); // 
+            $contact->setDateMessage(new \DateTime());// on fait la date  du jour = la date d'envoi
+            $userReceiver = $contact->getReceiver();// on recupère le destinataire du message
             // --> on alimente le compteur de nouveaux messages pour le destinataire +1
             $userReceiver->setNewMessages($userReceiver->getNewMessages() + 1);
-            // Persiste les modifications pour le destinataire et le message dans la BD
+            // --> Persiste les modifications pour le destinataire et le message dans la BD
             $entityManager->persist($userReceiver);
             $entityManager->persist($contact);
             $entityManager->flush();// On met  les nouvelles données dans la BD

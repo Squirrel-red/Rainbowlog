@@ -49,9 +49,9 @@ class ExperienceController extends AbstractController
         //--> Faire la pagination pour les experiences (afficher 5 par page  --> à modifier)
         $experiences = $paginator->paginate(
             // Query ou array
-            $query, 
+            $query,  /* query NOT result */
             // Page courante, on commence par la 1ère
-            $request->query->getInt('page', 1), 
+            $request->query->getInt('page', 1), /*page number*/
             // Nombre des experiences = 4 affichées sur chaque page
             4 
         );
@@ -59,13 +59,14 @@ class ExperienceController extends AbstractController
 
         $categories = $categoryRepository->findAll();
         // --> Afficher les 4 derniers comments
-        $lastsComments = $commentRepository->findBy([], ['dateComment' => 'DESC'], 4); 
+        $lastComments = $commentRepository->findBy([], ['dateComment' => 'DESC'], 4); 
     
+        // parameters pour  template
         return $this->render('experience/index.html.twig', [
             'experiences' => $experiences,
             'ResearchForm' => $form->createView(),
             'categories' => $categories,
-            'lastsComments' => $lastsComments,
+            'lastsComments' => $lastComments,
         ]);
     }
 
@@ -246,7 +247,7 @@ class ExperienceController extends AbstractController
     }
 
 
-    // --> Création de l'alert sur l'experience
+    // --> Création de l'alerte sur l'experience
     #[Route('/experience/{id}/alert', name: 'alert_experience')]
     public function alertExperience(Experience $experience,Request $request, EntityManagerInterface $entityManager): Response
     {
