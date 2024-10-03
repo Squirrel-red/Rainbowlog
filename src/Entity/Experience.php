@@ -57,6 +57,9 @@ class Experience
     #[ORM\OneToMany(targetEntity: Photo::class, mappedBy: 'experience')]
     private Collection $photos;
 
+    #[ORM\Column(length: 255)]
+    private ?string $devices = null;
+
     public function __construct()
     {
         $this->alerts = new ArrayCollection();
@@ -239,6 +242,18 @@ class Experience
                 $photo->setExperience(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDevices(): ?string
+    {
+        return $this->devices;
+    }
+
+    public function setDevices(string $devices): static
+    {
+        $this->devices = $devices;
 
         return $this;
     }

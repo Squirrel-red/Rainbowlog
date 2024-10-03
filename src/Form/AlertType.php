@@ -14,16 +14,15 @@ class AlertType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('type', ChoiceType::class, [
-                'choices' => [
-                    'Spam' => 'spam',
-                    'Fraud' => 'fraud',
-                    'Offensive text' => 'offensive',
-                    'Unacceptable photo' => 'unacceptable',
-                    'Other' => 'other',
-                ],
-                'label' => 'Type of an alert'
-            ])
+        ->add('type', ChoiceType::class, [
+            'choices' => [
+                'Spam' => 'spam',
+                'Offensive text' => 'offensive',
+                'Unacceptable photo' => 'unacceptable',
+                'Other' => 'other',
+            ],
+            'label' => 'Type of an alert'
+        ])   
             ->add('text', TextareaType::class, [
                 'label' => 'Text',
             ]);

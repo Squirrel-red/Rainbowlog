@@ -10,28 +10,18 @@
         {% else %}
             <h1>Add an experience</h1>
         {% endif %}
-        
-        {{ form_start(formAddExperience, {'attr': {'class': 'form-inline-experince'}}) }}
-        {# 'form_start' commence le formulaire en créant la balise <form> HTML avec les attributs spécifiés.
-           Le formulaire est lié à l'objet 'formAddExperience', qui est passé depuis le contrôleur #}
-           {# Affichage des champs 'title' et 'where' en deux colonnes#}
-            <div class="row">
-                <div class="col-sm">
-                    {{ form_row(formAddExperience.title, {'attr': {'class': 'form-control-experience'}}) }}
-                </div>
-                <div class="col-sm">
-                    {{ form_row(formAddExperience.where, {'attr': {'class': 'form-control-experience'}}) }}
-                </div>
-            </div>
-            
-             {# 'form_row' est utilisé pour afficher un champ spécifique du formulaire, en incluant son label, son champ input, et les erreurs#}
-            {{ form_row(formAddExperience.description, {'attr': {'class': 'form-control-experience'}}) }}{# Affichage du champ 'description'#}
-            {{ form_row(formAddExperience.category, {'attr': {'class': 'form-control-experience'}}) }}{# Affichage du champ 'categorie'#}
-            {{ form_row(formAddExperience.images, {'attr': {'class': 'form-control-experience'}}) }}
-            {# Affichage du champ 'images', qui permet de télécharger des fichiers. 'form_row' gère le champ de téléchargement de fichiers#}
-            {{ form_row(formAddExperience.Valider, {'attr': {'class': 'btn btn-valider-experience'}}) }}{#'Valider' pour de soumettre le formulaire#}
-        {{ form_end(formAddExperience) }}
-        {# 'form_end' termine le formulaire en fermant la balise <form> et gère automatiquement les éventuels jetons CSRF 
-        (protection contre les attaques Cross-Site Request Forgery). #}
+        {#  Méthode new_edit -- ExperienceController; 
+            Champ"publish" est récupèré de User dans ExperienceController;
+            Champ "dateCreation " = date du jour dans ExperienceController;
+            Formulaire correspondant -- ExperienceType; #}
+        {{ form_start(formAddExperience) }}
+            {{ form_row(formAddExperience.title) }}        {# --> Affichage du champ 'title'#}
+            {{ form_row(formAddExperience.where) }}        {# --> Affichage du champ 'where'#}
+            {{ form_row(formAddExperience.devices) }}        {# --> Affichage du champ 'devices'#}
+            {{ form_row(formAddExperience.description) }}  {# --> Affichage du champ 'description'#}
+            {{ form_row(formAddExperience.category) }}     {# --> Affichage du champ 'categorie'#}
+            {{ form_row(formAddExperience.images) }}       {# --> Affichage du champ 'images', form_row permet de télécharger des images de format admis #}
+            {{ form_row(formAddExperience.Submit) }}       {# --> Affichage du  'Submit' pour la validation du formulaire#}
+            {{ form_end(formAddExperience) }}              {# --> 'form_end' ferme le formulaire et gère les jetons contre les attaques CSRF(Cross-Site Request Forgery) #}
     </div>
 {% endblock %}

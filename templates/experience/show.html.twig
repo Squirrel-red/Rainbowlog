@@ -2,13 +2,15 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Details of Experience{% endblock %}
-
+{% block meta %}Details of Experience{% endblock %}
 {% block body %}
     <br><br><br><br>
     <div>
-        <h3>{{ <experience class="title"></experience> }}</h3>
+        <h3>{{ experience.title }}</h3>
         <div>
+            <p>Title : {{ experience.title }}</p>
             <p>Where : {{ experience.nearTown }}</p>
+            <p>Title : {{ experience.devices }}</p>
             <p>Description : {{ experience.description }}</p>
             <p>Date création : {{ experience.dateCreation|date('d.m.Y H:i:s') }}</p>
             <p>Published by : <a href="{{ path('app_user', {'id': experience.publish.id}) }}">{{ experience.publish.pseudo }}</a></p>
@@ -32,12 +34,12 @@
         <div>
             <h2>Comments :</h2>
             {% for comment in comments %}
-                <div class="comment">
+                <div>
                     <strong>{{ comment.consumer.pseudo }} :</strong> {{ comment.text }} <br>
                     <small>{{ comment.dateComment|date('d-m-Y H:i') }}</small> <br>
                     {% if comment.consumer == app.user or is_granted('ROLE_ADMIN') %}
-                        <div class="comment-actions">
-                            <a href="{{ path('edit_comment', {'id': comment.id}) }}">Edit</a>
+                        <div>
+                            <a href="{{ path('modif_comment', {'id': comment.id}) }}">Edit</a>
                             <a href="{{ path('delete_comment', {'id': comment.id}) }}">Delete</a>
                         </div>
                     {% endif %}

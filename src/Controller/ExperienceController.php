@@ -85,9 +85,8 @@ class ExperienceController extends AbstractController
 
             // --> User actuel dévient l'autheur de cette novelle experience
                 $experience->setPublish($this->getUser());
-                
             }
-            // --> Date de création de l'experience = la date courante
+            // --> On met la date de création de l'experience = la date courante du jour
             $experience->setDateCreation(new \DateTime());
             
             // --> On créé un formulaire (de la classe ExperienceType contenant les données de l'entité Experience)
@@ -111,8 +110,8 @@ class ExperienceController extends AbstractController
                 // --> On fait la boucle des images mis dans le formilaire
                 foreach($imageFiles as $imageFile) {
 
-                    // --> On récupère le nom de fichier original sans extension ( on ne l'a pas utilisé en futur)
-                    $originalFileName = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                    // --> On récupère le nom initial de fichier  sans extension ( on ne l'a pas utilisé en futur)
+                    $oldFileName = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
                     
                     // -->On génére un nouveau nom unique de fichier en utilisant uniqid() en  conservant l'extension d'origine
                     $newFileName = uniqid() . '.' . $imageFile->guessExtension();
@@ -125,7 +124,6 @@ class ExperienceController extends AbstractController
                             $this->getParameter('images_directory'),
                             $newFileName
                         );
-
 
                     // --> On detect et traite les erreurs du téléchargement du fichier o cas ou
                     } catch (FileException $e) {
@@ -192,7 +190,7 @@ class ExperienceController extends AbstractController
                 $experience->getCounterView();
                 $entityManager->flush();
         
-                $comments = $experience->getComment();
+                $comments = $experience->getComments();
         
                 // --> Création et gestion du formulaire de comments
                 $comment = new Comment();

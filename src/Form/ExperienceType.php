@@ -27,6 +27,7 @@ class ExperienceType extends AbstractType
         $builder
             ->add('title', TextType::class)
             ->add('where', TextType::class)
+            ->add('device', TextType::class)
             ->add('description', TextareaType::class)
             // ->add('counterView')
             ->add('category', EntityType::class, [
@@ -50,7 +51,7 @@ class ExperienceType extends AbstractType
                                     'image/png',
                                     'image/webp',
                                 ],
-                                'mimeTypesMessage' => 'Please upload a valid image file (JPEG, PNG, WEBP)',
+                                'mimeTypesMessage' => 'Valid extension of a upload file is JPEG, PNG, WEBP ',
                             ]),
                         ]
                     ])

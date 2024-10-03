@@ -47,7 +47,7 @@
     </table>
 
     {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('admin_category_add') }}" class="btn btn-primary btn-category-create">Add new category</a>
+        <a href="{{ path('admin_category_add') }}" class="btn btn-primary">Add new category</a>
     {% else %}
         <p>You haven't any rights for this action </p>
     {% endif %}

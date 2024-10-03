@@ -26,7 +26,7 @@
             {% for experience in experiences|sort((a, b) => b.counterView <=> a.counterView)|slice(0, 5) %}
                 <div class="carousel-item">
                     <a href="{{ path('show_experience', {'id': experience.id}) }}">
-                        <img src="{{ asset(experience.photos|first.path) }}" alt="{{ experience.title }}">
+                        {# <img src="{{ asset(experience.photos|first.path) }}" alt="{{ experience.title }}"> #}
                     </a>
                 </div>
         {% endfor %}
