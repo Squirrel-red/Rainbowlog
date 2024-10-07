@@ -16,7 +16,30 @@ class ExperienceRepository extends ServiceEntityRepository
         parent::__construct($registry, Experience::class);
     }
 
-    //    /**
+
+    //  --> On créé la requète pour la recherche des expériences  par keyword(title or )
+    public function findExperience(?string $title, ?string $nearTown)
+    {
+        $qb = $this->createQueryBuilder('e');
+
+        if ($title) {
+            $qb->andWhere('e.title LIKE :title')
+                ->setParameter('title', '%' . $title . '%');
+        }
+
+        if ($nearTown) {
+            $qb->andWhere('e.nearTown LIKE :nearTown')
+                ->setParameter('nearTown', '%' . $nearTown . '%');
+        }
+
+        return $qb->orderBy('e.dateCreation', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    //    /**  --> Exemples des requètes pour les autres cas
+
     //     * @return Experience[] Returns an array of Experience objects
     //     */
     //    public function findByExampleField($value): array
@@ -41,22 +64,5 @@ class ExperienceRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    public function findExperience(?string $keyword, ?string $nearTown)
-    {
-        $qb = $this->createQueryBuilder('e');
 
-        if ($keyword) {
-            $qb->andWhere('e.title LIKE :keyword OR e.description LIKE :keyword OR e.nearTown LIKE :keyword')
-                ->setParameter('keyword', '%' . $keyword . '%');
-        }
-
-        if ($nearTown) {
-            $qb->andWhere('e.nearTown LIKE :nearTown')
-                ->setParameter('', '%' . $nearTown . '%');
-        }
-
-        return $qb->orderBy('e.dateCreation', 'DESC')
-            ->getQuery()
-            ->getResult();
-    }
 }

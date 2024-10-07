@@ -4,34 +4,47 @@
 {% block title %}Details of Experience{% endblock %}
 {% block meta %}Details of Experience{% endblock %}
 {% block body %}
-    <br><br><br><br>
+    <br><br><br><br><br>
     <div>
-        <h3>{{ experience.title }}</h3>
+        <br>
+        <h3>Details of {{ experience.title }}</h3>
         <div>
-            <p>Title : {{ experience.title }}</p>
-            <p>Where : {{ experience.nearTown }}</p>
-            <p>Title : {{ experience.devices }}</p>
-            <p>Description : {{ experience.description }}</p>
-            <p>Date création : {{ experience.dateCreation|date('d.m.Y H:i:s') }}</p>
-            <p>Published by : <a href="{{ path('app_user', {'id': experience.publish.id}) }}">{{ experience.publish.pseudo }}</a></p>
+            <br>
+            <p><b>Title :</b> {{ experience.title }}</p>
+            <p><b>Place :</b> {{ experience.nearTown }}</p>
+            <p><b>Devices :</b> {{ experience.devices }}</p>
+            <p><b>Description : </b> {{ experience.description }}</p>
+            <p><b>Date :</b> {{ experience.dateCreation|date('d.m.Y H:i:s') }}</p>
+            <p><b>Published by :</b> <a href="{{ path('app_user', {'id': experience.publish.id}) }}">{{ experience.publish.pseudo }}</a></p>
+            <br>
         </div>
+
         {% if experience.photos|length > 0 %}
         <div>
             {% for photo in experience.photos %}
-                <img src="{{ asset(photo.path) }}" alt="Image">
+                <img src="{{ asset(photo.path) }}" alt="image">
             {% endfor %}
         </div>
         {% endif %}
+
         <div>
-            {% if experience.publish.pseudo == app.user or is_granted('ROLE_ADMIN') %}
+            {#  Admin ou l'auteur de cette expérience a le droit de modifier ou supprimer cette expérience #} 
+            {% if experience.publish.pseudo == app.user.pseudo or is_granted('ROLE_ADMIN') %}
+                <br>
                 <a href="{{ path('edit_experience', {'id': experience.id}) }}">Modify</a>
+                <br>
                 <a href="{{ path('delete_experience', {'id': experience.id}) }}">Delete</a>
             {% endif %}
+
+            {# Utilisateur qui a fait log in a le droit de dénoncer=alerter cette expérience ou le commentaire lié à cette expérience#} 
             {% if app.user %}
                 <a href="{{ path('alert_experience', {'id': experience.id}) }}">Warn</a>
             {% endif %}
         </div>
+        <br>
+
         <div>
+            {#  Admin ou l'auteur du commentaire a le droit de modifier ou supprimer ce commentaire #}
             <h2>Comments :</h2>
             {% for comment in comments %}
                 <div>
@@ -39,25 +52,34 @@
                     <small>{{ comment.dateComment|date('d-m-Y H:i') }}</small> <br>
                     {% if comment.consumer == app.user or is_granted('ROLE_ADMIN') %}
                         <div>
-                            <a href="{{ path('modif_comment', {'id': comment.id}) }}">Edit</a>
+                            <a href="{{ path('modif_comment', {'id': comment.id}) }}">Modify</a>
+                            <br>
                             <a href="{{ path('delete_comment', {'id': comment.id}) }}">Delete</a>
                         </div>
                     {% endif %}
                 </div>
             {% else %}
-                <p>Comments are absents for this experience</p>
+                <p>Comments are absent for this experience</p>
             {% endfor %}
+
+            <br>
+            
+            {# Utilisateur qui a fait log in a le droit de laisser le commentaire #}
             {% if app.user %}
             <h2>Add a comment :</h2>
             {{ form_start(formComment) }}
                 {{ form_row(formComment.text) }}
                 <button type="submit">Submit</button>
             {{ form_end(formComment) }}
+
+            {# Sinon il faut faire log in ou se régistrer pour laisser le comentaire #}
             {% else %}
                 <div>
-                    <p>It needs <a href="{{ path('app_login') }}">to log in</a> in order to comment</p>
+                    <h2>Add a comment :</h2>
+                    <p>It needs <a href="{{ path('app_login') }}"> to log in</a> or <a href="{{ path('app_register') }}"> to sign up</a>in order to add your comment</p>
                 </div>
             {% endif %}
+            <br>
         </div>
     </div>
 {% endblock %}

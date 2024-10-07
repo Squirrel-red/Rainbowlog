@@ -20,7 +20,7 @@ class Contact
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateMessage = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?bool $seen = null;
 
     #[ORM\ManyToOne(inversedBy: 'contacts')]

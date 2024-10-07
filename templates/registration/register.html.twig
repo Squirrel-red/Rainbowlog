@@ -21,6 +21,11 @@
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password'
         }) }}
+        <div>
+            <small>
+                Your password should be at least 12 characters.
+            </small>
+        </div>
     <br>    
         {{ form_row(registrationForm.agreeTerms) }}
     <br>

@@ -3,12 +3,16 @@
 {% block title %}Mo{% endblock %}
 
 {% block body %}
+<br><br><br><br>
     <div class="container">
-        <h1>Change this comment</h1>
+        <br>
+        <h3>Change this comment</h3>
+        <br>
 
         {{ form_start(formComment) }}
             {{ form_widget(formComment) }}
             <button class="btn btn-primary">Save</button>
         {{ form_end(formComment) }}
     </div>
+    <br>
 {% endblock %}

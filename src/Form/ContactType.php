@@ -14,17 +14,19 @@ class ContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('dateMessage', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('seen')
-            ->add('sender', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
+            // ->add('dateMessage', null, [
+            //     'widget' => 'single_text',
+            // ])
+            // ->add('seen')
+            ->add('text')
+            // ->add('sender', EntityType::class, [
+            //     'class' => User::class,
+            //     'choice_label' => 'id',
+            // ])
             ->add('receiver', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => 'id',
+                'choice_label' => 'pseudo',
+                // 'disabled' => true, // --> Pour blocker le contenu du champ
             ])
         ;
     }

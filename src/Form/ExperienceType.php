@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Category;
 use App\Entity\Experience;
+use App\Entity\Photo;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -26,16 +27,16 @@ class ExperienceType extends AbstractType
     {
         $builder
             ->add('title', TextType::class)
-            ->add('where', TextType::class)
-            ->add('device', TextType::class)
+            ->add('nearTown', TextType::class)
+            ->add('devices', TextType::class)
             ->add('description', TextareaType::class)
             // ->add('counterView')
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
             ])
-            ->add('publish', EntityType::class, [
-            ])
+            // ->add('publish', EntityType::class, [
+            // ])
             ->add('images', FileType::class, [
                 'label' => 'Images (JPG, PNG, WEBP)',
                 'mapped' => false,

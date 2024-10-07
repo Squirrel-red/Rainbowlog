@@ -9,35 +9,46 @@
     <h2 class="section__title-2"><span>Gallery of experiences</span></h2>
 
     <div>
-      <h3>Category</h3>
+      <h3>Choose the category of experiences ans click on its name in order to discover corresponding experiences existing in our database >></h3> 
+      <br>
       {% for category in categories %}
           <div>
               <a href="{{ path('experiences_category', {'id': category.id}) }}">{{ category.name }}</a>
           </div>
       {% endfor %}
-  </div>
-  <div class=></div>
-   {# Carrousel des 5 annonces les plus vues #}
-   <div class="block-slide-comment">
+    </div>
 
-    <div class="carousel-container">
+    <br><br>
+
+    {# <hr>
+    <br><br> #}
+
+    {# Carrousel des 5 experiences les plus vues #}
+    <div class="block-slide-comment">
+
+      {# <div class="carousel-container">
         <div class="carousel">
           <h3>Carousel</h3>
             {% for experience in experiences|sort((a, b) => b.counterView <=> a.counterView)|slice(0, 5) %}
                 <div class="carousel-item">
                     <a href="{{ path('show_experience', {'id': experience.id}) }}">
-                        {# <img src="{{ asset(experience.photos|first.path) }}" alt="{{ experience.title }}"> #}
+                        <img src="{{ asset(experience.photos|first.path) }}" alt="last viewed experiences">
                     </a>
                 </div>
         {% endfor %}
         </div>
         <button class="carousel-button prev" onclick="moveCarousel(-1)">&#10094;</button>
         <button class="carousel-button next" onclick="moveCarousel(1)">&#10095;</button>
-    </div>
+      </div> #}
 
-    {# Les derniers commentaires #}
-    <div class="comments-section">
+      <br><br>
+      <hr>
+      <br><br>
+
+      {# --> Les derniers commentaires #}
+      <div class="comments-section">
         <h3>Last Comments</h3>
+        <br>
         <ul>
             {% for comment in lastsComments|slice(0, 5) %}
                 <li class="comment-item">
@@ -47,90 +58,89 @@
                 </li>
             {% endfor %}
         </ul>
+      </div>
     </div>
-</div>
-
-
-{{ form_start(ResearchForm, {'attr': {'class': 'form-inline recherche-for'}}) }}
-    {{ form_widget(ResearchForm.keyword, {'attr': {'class': 'form-control recherche-experience', 'placeholder': ' Search an experience...'}}) }}
-    {{ form_widget(ResearchForm.nearTown, {'attr': {'class': 'form-control where', 'placeholder': ' Near town...'}}) }}
-    <button class="btn btn-valider recherche-btn" type="submit">Search</button>
-{{ form_end(ResearchForm) }}
-
-<div class="experiences">
-    {% for experience in experiences %}
-        <div class="experience">
-            <div class="photos">
-                {% if experience.photos|length > 0 %}
-                    <img src="{{ asset(experience.photos[0].url) }}" alt="images of the experience">
-                {% else %}
-                    <img src="{{ asset('img/defaut.png') }}" alt="default image">
-                {% endif %}
-            </div>
-            <div class="description">
-                <h2 class="experience-title">
-                    <a href="{{ path('show_experience', {'id': experience.id}) }}">{{ experience.title }}</a>
-                </h2>
-
-                <div class="block-general">
-                    <div class="block-text block-txt-btn">
-                        <p class="experience-city"><strong>Near a town :</strong> {{ experience.nearTown }}</p>
-                        <p><strong>Published : </strong>{{ experience.dateCreation|date('Y:m:d')}}</p>
-                    </div>
-                    
-                    
-
-                    <div class="block-button block-txt-btn">
-                          <button class="btn btn-description" onclick="openDescriptionModal('{{ experience.description }}')"></button>
-                            <i class="fa fa-info-circle"></i> description
-                        </button>
     
+    <br><br>
+    <hr>
+    <br><br>
+
+    <h3>Search Experiences by their titles and places </h3>
+    <br><br>
+    {{ form_start(ResearchForm, {'attr': {'class': 'form-inline recherche-for'}}) }}
+        {{ form_widget(ResearchForm.title, {'attr': {'class': 'form-control recherche-experience', 'placeholder': ' Enter a title ...'}}) }}
+        {{ form_widget(ResearchForm.nearTown, {'attr': {'class': 'form-control where', 'placeholder': ' Near a town...'}}) }}
+        <button class="btn btn-valider recherche-btn" type="submit">Search</button>
+    {{ form_end(ResearchForm) }}
+
+<br><br>
+
+
+
+    
+    {% for experience in experiences %}
+
+        <div class="projects__container container grid">  
+            <article class="projects__card">
+                
+                <div class="projects__image">
+                    {% if experience.photos|length > 0 %}
+                        <img src="{{ asset(experience.photos[0].path) }}" alt="images of the experience">
+                    {% else %}
+                        <img src="{{ asset('img/absent_image.png') }}" alt="absent image">
+                    {% endif %}
+                </div>
+                
+                <div class="projects__content">
+                    <div class="projects__icon">
+                      <div class="projects__box"></div>
+                      <i class="fa fa-id-card" aria-hidden="true"></i>
+                    </div>
+                    <h2 class="projects__title">
+                      <a href="{{ path('show_experience', {'id': experience.id}) }}">{{ experience.title }}</a>
+                    </h2>
+
+                    <div class="projects__description">
+                        <br>
+                        <p><i class="fa fa-compass" aria-hidden="true"></i><strong>Near a town :</strong> {{ experience.nearTown }}</p>
+                        <br>
+                        <p><i class="fa fa-sticky-note-o" aria-hidden="true"></i><strong>Published : </strong>{{ experience.dateCreation|date('Y:m:d')}}</p>
+                        <br>
+                        <p><i class="fa fa-object-group" aria-hidden="true"></i></i><strong>Devices :</strong> {{ experience.devices }}</p>
+                        <br>
+                        <p><i class="fa fa-info-circle"></i><strong>Description :</strong> {{ experience.description }}</p>
+                        <br>
+                        <p><i class="fa fa-eye"></i><strong>Number of views :</strong>
+                            {% if experience.counterView > 0 %}
+                                        {{ experience.counterView }}</p>
+                            {% else %}
+                            No any view
+                            {% endif %}
+                        </p>
+                        <br>
+                        <div class="geometric-box"></div>
                     </div>
 
                 </div>
                
-                <p><i class="fa fa-eye"></i> {{ experience.counterView }} Number of views</p>
                 
             </div>
-            
-        </div>
+        </div>    
+
     {% else %}
         <p>No any experience found</p>
     {% endfor %}
-</div>
 
+<br><br>
 
 {# -->Render KNP pagination controls #}
 <div class="pagination">
     {{ knp_pagination_render(experiences) }}
 </div>
 
-
-<section> 
-    <div class="projects__container container grid">
-
-          <article class="projects__card">
-              <div class="projects__border"></div>
-              <div class="projects__content">
-                <div class="projects__icon">
-                  <div class="projects__box"></div>
-                  {# <i class="ri-layout-4-line"></i> #}
-                  <i class="ri-camera-3-line"></i>
-                </div>
-                <h2 class="projects__title">Title is here</h2>
-                <p class="projects__description">
-                  <br>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cupiditate molestiae repellendus expedita pariatur ex, temporibus dolorem quos nulla illo totam corporis nobis excepturi accusantium id, est, mollitia doloribus tempore molestias?
-                     <br>
-                     <br>
-                     Details are here ***
-                </p>
-                <br>
-                <div class="geometric-box"></div>
-              </div>
-          </article>
-    </div>
 </section> 
+
+
 
 
 {% endblock %} 

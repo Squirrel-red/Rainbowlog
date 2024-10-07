@@ -3,7 +3,9 @@
 {% block title %}Add or edit an experience{% endblock %}
 
 {% block body %}
-    <div class="form-experience-block">
+
+<br><br><br><br>
+    <div>
         {# C'est géré dans le controlleur #}
         {% if edit %}
             <h1>Edit an experience</h1>
@@ -16,12 +18,12 @@
             Formulaire correspondant -- ExperienceType; #}
         {{ form_start(formAddExperience) }}
             {{ form_row(formAddExperience.title) }}        {# --> Affichage du champ 'title'#}
-            {{ form_row(formAddExperience.where) }}        {# --> Affichage du champ 'where'#}
-            {{ form_row(formAddExperience.devices) }}        {# --> Affichage du champ 'devices'#}
+            {{ form_row(formAddExperience.nearTown) }}        {# --> Affichage du champ 'where'#}
+            {{ form_row(formAddExperience.devices) }}      {# --> Affichage du champ 'devices'#}
             {{ form_row(formAddExperience.description) }}  {# --> Affichage du champ 'description'#}
             {{ form_row(formAddExperience.category) }}     {# --> Affichage du champ 'categorie'#}
             {{ form_row(formAddExperience.images) }}       {# --> Affichage du champ 'images', form_row permet de télécharger des images de format admis #}
             {{ form_row(formAddExperience.Submit) }}       {# --> Affichage du  'Submit' pour la validation du formulaire#}
-            {{ form_end(formAddExperience) }}              {# --> 'form_end' ferme le formulaire et gère les jetons contre les attaques CSRF(Cross-Site Request Forgery) #}
+        {{ form_end(formAddExperience) }}              {# --> 'form_end' ferme le formulaire et gère les jetons contre les attaques CSRF(Cross-Site Request Forgery) #}
     </div>
 {% endblock %}

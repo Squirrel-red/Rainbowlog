@@ -1392,7 +1392,7 @@ body.dark-theme {
   }
 
   .projects__container {
-    grid-template-columns: repeat(2, 350px);
+    grid-template-columns: repeat(1, 350px);
   }
 
   .activities__container {
@@ -1696,7 +1696,7 @@ body.dark-theme {
   }
 
   .projects__container {
-    grid-template-columns: repeat(3, 352px);
+    grid-template-columns: repeat(1, 352px);
     padding-block: 3rem 1rem;
   }
 

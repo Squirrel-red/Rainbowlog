@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <br><br><br><br>
+    <br><br><br><br><br>
     <h3>Sent messages</h3>
     <br>
     {% set displayed_receivers = [] %}
 
     <ul>
         {% for contacts in contactSent %}
-            {% if contact.receiver.pseudo not in displayed_receivers %}
+            {% if contacts.receiver.pseudo not in displayed_receivers %}
                 <li>
-                    <a href="{{ path('contacts_user', {'id': contact.receiver.id})}}"><strong>{{ contact.receiver.pseudo }}</strong></a>
+                    <a href="{{ path('contacts_user', {'id': contacts.receiver.id})}}"><strong>to {{ contacts.receiver.pseudo }}</strong></a>
                 </li>
-                {% set displayed_receivers = displayed_receivers|merge([contact.receiver.pseudo]) %}
+                {% set displayed_receivers = displayed_receivers|merge([contacts.receiver.pseudo]) %}
             {% endif %}
         {% endfor %}
     </ul>

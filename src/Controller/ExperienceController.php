@@ -33,27 +33,27 @@ use App\Form\ResearchType;
 
 class ExperienceController extends AbstractController
 {
-
+    // --> On créé la méthode pour la recherche de l'experience par la cle (title)
     #[Route('/experience', name: 'app_experience')]
     public function index(Request $request, ExperienceRepository $experienceRepository,  CategoryRepository $categoryRepository, CommentRepository $commentRepository, PaginatorInterface $paginator): Response 
     {
         $form = $this->createForm(ResearchType::class);
         $form->handleRequest($request);
     
-        $keyword = $form->get('keyword')->getData();
+        $title = $form->get('title')->getData();
         $nearTown = $form->get('nearTown')->getData();
 
         
-        $query = $experienceRepository->findExperience($keyword, $nearTown);
+        $query = $experienceRepository->findExperience($title, $nearTown);
 
-        //--> Faire la pagination pour les experiences (afficher 5 par page  --> à modifier)
+        //--> Faire la pagination pour les experiences (afficher 3 par page  --> à modifier)
         $experiences = $paginator->paginate(
             // Query ou array
             $query,  /* query NOT result */
             // Page courante, on commence par la 1ère
             $request->query->getInt('page', 1), /*page number*/
-            // Nombre des experiences = 4 affichées sur chaque page
-            4 
+            // Nombre des experiences = 3 affichées sur chaque page
+            3
         );
 
 
@@ -138,6 +138,9 @@ class ExperienceController extends AbstractController
                    
                     //--> On lié la photo à cette experience
                     $photo->setExperience($experience);
+
+                    // On lié le title de  photo au title de l'expérience
+                    $photo->setTitle($experience->getTitle());
 
                     //-->  Prépare la photo pour la sauvegarde dans la BD
                     $entityManager->persist($photo);

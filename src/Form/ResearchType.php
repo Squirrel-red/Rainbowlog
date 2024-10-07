@@ -17,7 +17,7 @@ class ResearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('keyword', SymfonySearchType::class, [
+            ->add('title', SymfonySearchType::class, [
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Search...',

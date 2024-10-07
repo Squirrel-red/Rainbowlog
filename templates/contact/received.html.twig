@@ -16,6 +16,8 @@
                     <small>{{ contact.dateMessage|date('d/m/Y H:i') }}</small>
                     <a href="{{ path('read_messages', {id: contact.id}) }}" class="btn btn-success mark-read">Make seen</a>
                 </li>
+
+                <li><a href="{{ path('new_contact', {id: contact.id}) }}" class="btn btn-primary"> Wtrite a message</a></li>
             {% endfor %}
         </ul>
         <li><a href="{{ path('app_contact_sent') }}" class="btn btn-primary"> Sent messages</a></li>

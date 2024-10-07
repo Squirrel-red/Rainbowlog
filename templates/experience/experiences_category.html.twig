@@ -3,30 +3,21 @@
 
 {% block body %}
 <br><br><br><br>
-<h2>List of Experiences</h2>
-<hr>
+<section class="project section" id="projects">
+    <h2 class="section__title-2"><span>List of experiences filtered by the category</span></h2>
     <div>
         
-        <div class="categories">
-            <h3>Category</h3>
-            {% for category in categories %}
-                <div>
-                    <a href="{{ path('experiences_category', {'id': category.id}) }}">{{ category.name }}</a>
-                </div>
-
-            {% else %}
-                <p>There is not any experience for this category</p>
-            {% endfor %}
-        </div>
-        <div></div>
-    </div>
-
     <div class="experiences">
-        <h3>Experiences</h3>
+        <h3>Found Experiences >> </h3>
+        <br>
         {% for experience in experiences %}
             <div class="experience">
                 <div class="photos">
-                    {# <img src="{{ asset(experience.photos[0].path) }}" alt="photos of an experience"> #}
+                    {% if experience.photos|length > 0 %}
+                    <img src="{{ asset(experience.photos[0].path) }}" alt="images of the experience">
+                    {% else %}
+                    <img src="{{ asset('img/absent_image.png') }}" alt="absent image">
+                    {% endif %}
                 </div>
                 <div class="description">
                     <h2><a href="{{ path('show_experience', {'id': experience.id}) }}">{{ experience.title }}</a></h2>
@@ -41,4 +32,25 @@
             <p>There is not any experience</p>
         {% endfor %}
     </div>
+
+    <br><br>
+    <hr>
+    <br>
+
+    <div class="categories">
+        <br>
+        <h3>Choose other category >></h3>
+        <br>
+        {% for category in categories %}
+            <div>
+                <a href="{{ path('experiences_category', {'id': category.id}) }}">{{ category.name }}</a>
+            </div>
+
+        {% else %}
+            <p>There is not any experience for this category</p>
+        {% endfor %}
+    </div>
+    <div>
+</div>
+</section>
 {% endblock %}
