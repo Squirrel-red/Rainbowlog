@@ -33,7 +33,7 @@ use App\Form\ResearchType;
 
 class ExperienceController extends AbstractController
 {
-    // --> On créé la méthode pour la recherche de l'experience par la cle (title)
+    // --> On créé la méthode pour la recherche de l'experience par la cle (title, nearTown))
     #[Route('/experience', name: 'app_experience')]
     public function index(Request $request, ExperienceRepository $experienceRepository,  CategoryRepository $categoryRepository, CommentRepository $commentRepository, PaginatorInterface $paginator): Response 
     {
@@ -58,10 +58,10 @@ class ExperienceController extends AbstractController
 
 
         $categories = $categoryRepository->findAll();
-        // --> Afficher les 4 derniers comments
-        $lastComments = $commentRepository->findBy([], ['dateComment' => 'DESC'], 4); 
+        // --> Afficher les 5 derniers comments
+        $lastComments = $commentRepository->findBy([], ['dateComment' => 'DESC'], 5); 
     
-        // parameters pour  template
+        // paramètres pour  template
         return $this->render('experience/index.html.twig', [
             'experiences' => $experiences,
             'ResearchForm' => $form->createView(),
@@ -130,7 +130,7 @@ class ExperienceController extends AbstractController
                         
                     }
 
-                    // -->On créé une nouvelle instance de l'entité Photo
+                    // -->On créé une nouvelle donnée pour l'entité Photo
                     $photo = new Photo();
 
                     // On lié le path et le nom du fichier

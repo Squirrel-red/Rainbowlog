@@ -35,8 +35,6 @@ class ExperienceType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => 'name',
             ])
-            // ->add('publish', EntityType::class, [
-            // ])
             ->add('images', FileType::class, [
                 'label' => 'Images (JPG, PNG, WEBP)',
                 'mapped' => false,

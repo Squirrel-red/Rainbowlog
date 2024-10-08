@@ -2,22 +2,23 @@
 
 {% block body %}
     <div>
-        <br><br><br><br>
+        <br><br><br><br><br>
         <h3>Received messages</h3>
         <br>
         <ul>
             {% for contact in contacts %}
                 <li>
                     <strong>{{ contact.sender.pseudo }}</strong>
-                    {% if not contact.seen %}
-                        <span>New</span>
-                    {% endif %}
-                    <p>{{ contact.text }}</p>
-                    <small>{{ contact.dateMessage|date('d/m/Y H:i') }}</small>
-                    <a href="{{ path('read_messages', {id: contact.id}) }}" class="btn btn-success mark-read">Make seen</a>
-                </li>
 
-                <li><a href="{{ path('new_contact', {id: contact.id}) }}" class="btn btn-primary"> Wtrite a message</a></li>
+                    <p>{{ contact.text }}</p>
+                       {{ contact.dateMessage|date('d/m/Y H:i') }}
+                    <a href="{{ path('read_messages', {id: contact.id}) }}" class="btn btn-success mark-read">Make seen</a>
+                        {% if contact.seen %}
+                        <b>I saw it</b>
+                        {% endif %} 
+                </li>
+                
+                <li><a href="{{ path('new_contact', {id: contact.id}) }}" class="btn btn-primary"> Write a message</a></li>
             {% endfor %}
         </ul>
         <li><a href="{{ path('app_contact_sent') }}" class="btn btn-primary"> Sent messages</a></li>
