@@ -58,15 +58,30 @@ class ContactController extends AbstractController
 
     // --> On créé la méthode pour lire le message (le marquer comme vu )
     #[Route('/contacts/read/{id}', name: 'read_messages')]
-    public function readMessage(Contact $contact, EntityManagerInterface $entityManager): Response
+    public function readMessage(Contact $contact, EntityManagerInterface $entityManager, ContactRepository $contactRepository, User $user ): Response
     {
         $contact->setSeen(true); // On met le message vu (boolean true)
         $entityManager->flush(); // Sauvegarde les changements dans BD
 
+        //--> on recupère l'user connecté
+            $user = $this->getUser();
+
+        // --> on recupère les messages envoyés par l'user connecté
+            $contactReceiver = $contactRepository->findBy(['receiver' => $user]);
+            $userReceiver = $contact->getReceiver();// on recupère le destinataire du message
+            // --> on alimente le compteur de nouveaux messages pour le destinataire -1 pour l'affichage dans l'onglet Messages d'un user
+            $userReceiver->setNewMessages($userReceiver->getNewMessages() - 1);
+            // --> Persiste les modifications pour le destinataire et le message dans la BD
+             $entityManager->persist($userReceiver);
+             $entityManager->persist($contact);
+             $entityManager->flush();// On met  les nouvelles données dans la BD
+            
+
         return $this->redirectToRoute('received_contacts');
+        
     }
 
-    // --> On créé la méthode pour lister les messages envoyés
+    // -->  Oncréé la méthode pour lister les messages envoyés
     #[Route('/contacts/sent', name: 'app_contact_sent')]
     public function sent(ContactRepository $contactRepository): Response
     {
