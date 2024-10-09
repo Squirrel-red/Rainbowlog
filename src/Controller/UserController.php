@@ -17,14 +17,14 @@ use Symfony\Component\HttpFoundation\Request;
 class UserController extends AbstractController
 {
     // --> On créé la méthode pour afficher les données d'un user  
-    #[Route('/user', name: 'app_index')]
-    public function index(UserRepository $userRepository): Response
-    {
-        $users = $userRepository->findAll();
-        return $this->render('user/index.html.twig', [
-            'users'  => $users,
-        ]);
-    }
+    // #[Route('/user', name: 'app_index')]
+    // public function index(UserRepository $userRepository): Response
+    // {
+    //     $users = $userRepository->findAll();
+    //     return $this->render('user/index.html.twig', [
+    //         'users'  => $users,
+    //     ]);
+    // }
 
     // --> On créé la méthode pour afficher la liste des users   
     #[Route('/user', name: 'app_user')]

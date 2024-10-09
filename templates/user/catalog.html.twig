@@ -50,17 +50,19 @@
     <hr> 
     <br>
     <a href="{{ path('admin_index') }}" >Statistical Details >></a>
-    <li class="nav__item"><a href=" {{ path('user_index') }}" class="nav__link">See details of user's accounts</a></li>
+    {# <li class="nav__item"><a href=" {{ path('user_index') }}" class="nav__link">See details of user's accounts</a></li> #}
     <br>
     <br>
     {% else %}
-       {% if is_granted('ROLE_USER')%}
+       {% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN' )%}
         <h3>MY PROFIL</h3>
-        <li class="nav__item"><a href=" {{ path('user_index') }}" class="nav__link">See my profil</a></li>
-   
-       
-  
+        <h3>***********</h3>
+        <br>
+        <p><strong>Nickname: </strong>{{ app.user.pseudo }} {% if is_granted('ROLE_ADMIN') %}{% endif %}</p>
+        <p><strong>Email : </strong>{{ app.user.email }}</p>
+        <a href="{{ path('user_delete', {'id': app.user.id}) }}" class="btn btn-danger">Delete my account</a> 
+        <br>
         {% endif %}
     {% endif %}
-
+    <br>  
 {% endblock %}
