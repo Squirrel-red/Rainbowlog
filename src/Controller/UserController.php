@@ -48,13 +48,27 @@ class UserController extends AbstractController
     {
 
         // On affiche la liste des users
-         $userRepository->hideUser($user);
-    
-         // On ajoute un message
+        $userRepository->hideUser($user);
+
+        // On ajoute un message
         $this->addFlash('success', 'Account has been anonymised successfully.');
         return $this->redirectToRoute('app_user'); 
  
     }
+
+
+    // // --> On créé la méthode pour trouver un user par pseudo
+    // #[Route('/user/find/{id}', name: 'user_find')]
+    // public function findUser(User $user, UserRepository $userRepository): RedirectResponse
+    // {
+    
+    //      // On on cherche le user par pseudo
+    //      $user = $userRepository->findUserByPseudo("Anonyme");
+    
+    //      return $this->render('user/catalog.html.twig', [
+    //         'user'  => $user,
+    //     ]);
+    //    }
 
 
     // --> On créé la méthode pour bloquer un des users

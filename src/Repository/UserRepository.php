@@ -93,7 +93,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             $randomString = bin2hex(random_bytes(5)); // On créé la chène de caractères aléatoires
             $user->setPseudo('Anonyme');
             $user->setEmail('anonyme_'. $randomString . '@domain.com');
-            $user->setIsBlocked(true); // s'il faut l'user sera  blockè
+            $user->setIsBlocked(true); // user sera  blockè
             $this->getEntityManager()->persist($user);
             $this->getEntityManager()->flush();
         }
@@ -135,7 +135,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         // }
 
 
-        // --> On créé une methode pour mette compteur des nouveaux messages à 0
+        // --> On créé une methode pour mettre compteur des nouveaux messages à 0
         public function updateNewMessages(User $user) 
         {
             $user->setNewMessages('null', null);
@@ -143,14 +143,14 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
         
 
-        // ^ find users by pseudo
-        public function findUserByPseudo(string  $criteria)
+        // --> find user by pseudo
+        public function findUserByPseudo(User $user)
         {
             return $this->createQueryBuilder('u')
                 ->andWhere('u.pseudo LIKE :pseudo')
-                ->setParameter('pseudo', '%' . $criteria . '%')
-                ->getQuery()
-                ->getResult();
+                ->setParameter('pseudo', '%"Anonyme"%');
+                $user ->getQuery();
+                return $user->getResult();
         }
     
 
