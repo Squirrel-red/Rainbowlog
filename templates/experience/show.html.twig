@@ -29,17 +29,19 @@
 
         <div>
             {#  Admin ou l'auteur de cette expérience a le droit de modifier ou supprimer cette expérience #} 
+        {% if app.user %}            
             {% if experience.publish.pseudo == app.user.pseudo or is_granted('ROLE_ADMIN') %}
                 <br>
                 <a href="{{ path('edit_experience', {'id': experience.id}) }}">Modify</a>
                 <br>
                 <a href="{{ path('delete_experience', {'id': experience.id}) }}">Delete</a>
             {% endif %}
+        {% endif %}    
 
             {# Utilisateur qui a fait log in a le droit de dénoncer=alerter cette expérience ou le commentaire lié à cette expérience#} 
-            {% if app.user %}
+        {% if app.user %}
                 <a href="{{ path('alert_experience', {'id': experience.id}) }}">Warn</a>
-            {% endif %}
+        {% endif %}
         </div>
         <br>
 
@@ -50,13 +52,15 @@
                 <div>
                     <strong>{{ comment.consumer.pseudo }} :</strong> {{ comment.text }} <br>
                     <small>{{ comment.dateComment|date('d-m-Y H:i') }}</small> <br>
-                    {% if comment.consumer == app.user or is_granted('ROLE_ADMIN') %}
+                    {% if app.user %}  
+                      {% if comment.consumer == app.user or is_granted('ROLE_ADMIN') %}
                         <div>
                             <a href="{{ path('modif_comment', {'id': comment.id}) }}">Modify</a>
                             <br>
                             <a href="{{ path('delete_comment', {'id': comment.id}) }}">Delete</a>
                         </div>
-                    {% endif %}
+                      {% endif %}
+                    {% endif %}    
                 </div>
             {% else %}
                 <p>Comments are absent for this experience</p>
@@ -76,7 +80,7 @@
             {% else %}
                 <div>
                     <h2>Add a comment :</h2>
-                    <p>It needs <a href="{{ path('app_login') }}"> to log in</a> or <a href="{{ path('app_register') }}"> to sign up</a>in order to add your comment</p>
+                    <p>It needs <a href="{{ path('app_login') }}"> to log in</a> or <a href="{{ path('app_register') }}"> to sign up </a>in order to add your comment</p>
                 </div>
             {% endif %}
             <br>
