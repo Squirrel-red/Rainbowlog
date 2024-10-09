@@ -50,15 +50,16 @@
     <hr> 
     <br>
     <a href="{{ path('admin_index') }}" >Statistical Details >></a>
+    <li class="nav__item"><a href=" {{ path('user_index') }}" class="nav__link">See details of user's accounts</a></li>
     <br>
     <br>
     {% else %}
        {% if is_granted('ROLE_USER')%}
-       <h3>MY PROFIL</h3>
-           
-      
-       {% else %}
-            <a href="{{ path('app_login') }}" >LOG IN</a>
+        <h3>MY PROFIL</h3>
+        <li class="nav__item"><a href=" {{ path('user_index') }}" class="nav__link">See my profil</a></li>
+   
+       
+  
         {% endif %}
     {% endif %}
 

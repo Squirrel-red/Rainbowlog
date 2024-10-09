@@ -3,7 +3,7 @@
 {% block title %}Consumer's list{% endblock %}
 
 {% block body %}
-    <h1>Consumser's list</h1>
+    <h1>Consumer's list</h1>
 
     {% for consumer in consumers %}
         <a href="{{ path('show_consumer', {'id': consumer.id})}}">{{consumer}}</a> <br>

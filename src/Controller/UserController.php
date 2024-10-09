@@ -16,13 +16,15 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends AbstractController
 {
-    // #[Route('/user', name: 'app_user')]
-    // public function index(): Response
-    // {
-    //     return $this->render('user/index.html.twig', [
-    //         'controller_name' => 'UserController',
-    //     ]);
-    // }
+    // --> On créé la méthode pour afficher les données d'un user  
+    #[Route('/user', name: 'app_index')]
+    public function index(UserRepository $userRepository): Response
+    {
+        $users = $userRepository->findAll();
+        return $this->render('user/index.html.twig', [
+            'users'  => $users,
+        ]);
+    }
 
     // --> On créé la méthode pour afficher la liste des users   
     #[Route('/user', name: 'app_user')]
@@ -47,7 +49,7 @@ class UserController extends AbstractController
     public function deleteUser(User $user, UserRepository $userRepository): RedirectResponse
     {
 
-        // On affiche la liste des users
+        // On supprime un user
         $userRepository->hideUser($user);
 
         // On ajoute un message
