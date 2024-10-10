@@ -12,10 +12,10 @@
 
                     <p>{{ contact.text }}</p>
                        {{ contact.dateMessage|date('d/m/Y H:i') }}
-                    <a href="{{ path('read_messages', {id: contact.id}) }}" class="btn btn-success mark-read">Make seen</a>
-                        {% if contact.seen %}
-                        <b>I saw it</b>
-                        {% endif %}
+                         <a href="{{ path('read_messages', {id: contact.id}) }}" class="btn btn-success mark-read">Make seen</a>
+                           {% if contact.seen %}
+                             <b>I saw it</b>
+                           {% endif %}
                         
                 </li>
                 
