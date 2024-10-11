@@ -76,10 +76,10 @@
                 <li class="nav__item"><a href="{{ path('list_alerts') }}" class="nav__link">ALERTS</a></li>
                 <li class="nav__item"><a href="{{ path('app_user', {'id': app.user.id}) }}" class="nav__link">USERS</a></li>
                     {# {% if app.user.newMessages > 0 %} #}
-                {# --> s'il y a les nouveaux messages on affiche le leur nombre à coté de l'onglet #}
+                {# --> s'il y a les nouveaux messages on affiche leur nombre à coté de l'onglet #}
                      {# <li  class="nav__item"><a href="{{ path('received_contacts') }}" class="nav__link">MESSAGES<span>({{ app.user.newMessages }})</span></a></li> #}
                
-                    </a>
+                    {# </a> #}
                     {# {% else %} #}
                     <li class="nav__item"><a href="{{ path('received_contacts') }}" class="nav__link">MESSAGES</a></li>
                    {# {% endif %} #}
@@ -113,17 +113,6 @@
                     {% endif %}
                 {% endif %}
 
-                  {# -->  coder plus tard#}
-                  {# <div>
-                      <img>
-                          {% if user.avatar %}
-                          <img src="{{ asset('img/avatars/' ~ user.avatar) }}" alt="user's avatar">
-                          {% else %}
-                              <img src="{{ asset('img/avatars/anonyme.jpg') }}" alt="default avatar">
-                          {% endif %}
-                    </img>
-                  </div> #}
-        
               </ul>
  
               <!-- Close button -->

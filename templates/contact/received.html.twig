@@ -12,17 +12,21 @@
 
                     <p>{{ contact.text }}</p>
                        {{ contact.dateMessage|date('d/m/Y H:i') }}
-                         <a href="{{ path('read_messages', {id: contact.id}) }}" class="btn btn-success mark-read">Make seen</a>
                            {% if contact.seen %}
-                             <b>I saw it</b>
+                           <b> - I saw it</b>
+                           {% else %} 
+                              <a href="{{ path('read_messages', {id: contact.id}) }}" class="btn btn-success mark-read">Make seen</a>
                            {% endif %}
-                        
+                           <a href="{{ path('new_contact', {id: contact.id}) }}" class="btn btn-primary"> Write a message</a>
                 </li>
                 
-                <li><a href="{{ path('new_contact', {id: contact.id}) }}" class="btn btn-primary"> Write a message</a></li>
+                {# <li><a href="{{ path('new_contact', {id: contact.id}) }}" class="btn btn-primary"> Write a message</a></li> #}
             {% endfor %}
         </ul>
+        <br>
         <li><a href="{{ path('app_contact_sent') }}" class="btn btn-primary"> Sent messages</a></li>
+        <br>
+        <br>
     </div>
     
 {% endblock %}
