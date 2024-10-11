@@ -83,7 +83,7 @@ class ExperienceController extends AbstractController
             if(!$experience){
                 $experience = new Experience();
 
-            // --> User actuel dévient l'autheur de cette novelle experience
+            // --> User actuel dévient l'auteur de cette novelle experience
                 $experience->setPublish($this->getUser());
             }
             // --> On met la date de création de l'experience = la date courante du jour
@@ -259,10 +259,10 @@ class ExperienceController extends AbstractController
         $alert->setDateAlert(new \DateTime());
         
 
-        $formAlert = $this->createForm(AlertType::class, $alert);
-        $formAlert->handleRequest($request);
+        $form = $this->createForm(AlertType::class, $alert);
+        $form->handleRequest($request);
 
-        if($formAlert->isSubmitted() && $formAlert->isValid()) {
+        if($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($alert);
             $entityManager->flush();
 
@@ -272,7 +272,7 @@ class ExperienceController extends AbstractController
 
         return $this->render('experience/alert.html.twig', [
             'experience' => $experience,
-            'formAlert' => $formAlert->createView(),
+            'formAlert' => $form->createView(),
         ]);
     }
 

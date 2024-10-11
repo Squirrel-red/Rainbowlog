@@ -1,19 +1,19 @@
-{% extends 'base.html.twig' %}
+{# {% extends 'base.html.twig' %}
 
 {% block title %}User's profil{% endblock %}
 
 {% block body %}
 <br><br><br><br>
             {# <h1>My profil</h1> #}
-            <br>
-            {# {% if app.user and app.user.id != user.id %} #}
-                {# <p><strong>Nickname: </strong>{{ app.user.pseudo }} {% if is_granted('ROLE_ADMIN') %}{% endif %}</p> #}
+            {# <br>
+            {% if app.user and app.user.id != user.id %}
+                <p><strong>Nickname: </strong>{{ app.user.pseudo }} {% if is_granted('ROLE_ADMIN') %}{% endif %}</p>
 
-                {# <p><strong>Nickname: </strong>{{ app.user.pseudo }} {% if is_granted('ROLE_ADMIN') %}{% endif %}</p>
-                <p><strong>Email : </strong>{{ app.user.email }}</p> #}
-                {# <a href="{{ path('user_delete', {'id': app.user.id}) }}" class="btn btn-danger">Delete my account</a>  #}
+                <p><strong>Nickname: </strong>{{ app.user.pseudo }} {% if is_granted('ROLE_ADMIN') %}{% endif %}</p>
+                <p><strong>Email : </strong>{{ app.user.email }}</p>
+                <a href="{{ path('user_delete', {'id': app.user.id}) }}" class="btn btn-danger">Delete my account</a> 
 
-                    {# {% if app.user and app.user.id != user.id %}
+                    {% if app.user and app.user.id != user.id %}
                     
                         <a href="{{ path('new_message', {'id': user.id }) }}">Message</a>
                     {% else %}
@@ -25,14 +25,14 @@
                         <a href="{{ path('user_eval', {'id': user.id }) }}" class="btn btn-secondary">Evaluation</a>
                     {% endif %}
 
-                    {# <a href="{{ path('user_delete', {'id': user.id}) }}" class="btn btn-danger">Delete my account</a>  #}
-            {# {% else %} 
-                 Your account was deleted and your personal datas were anonymised. You can create another account if you want.
+                    <a href="{{ path('user_delete', {'id': user.id}) }}" class="btn btn-danger">Delete my account</a>
+            {% else %} 
+                    Your account was deleted and your personal datas were anonymised. You can create another account if you want.
                  <br>
                  <br>
                 <a href="{{ path('app_register') }}" class="nav__link">SIGN UP >></a>
                 <br>
-            {% endif %}#}
+            {% endif %}
             <br>
 
-{% endblock %}
+{% endblock %}  #} 

@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class AlertType extends AbstractType
@@ -23,15 +24,10 @@ class AlertType extends AbstractType
                 'Other' => 'other',
             ],
                 'label' => 'Type of an alert'
+
         ])   
-            ->add('text', TextareaType::class, [
+        ->add('text', TextareaType::class, [
                 'label' => 'Text',
-        // ])
-        // ->add('experience', HiddenType::class, [
-        //         'data' => $options['experience_id'],
-        // ])
-        //     ->add('user', HiddenType::class, [
-        //         'data' => $options['user_id'],
         ]);    
 
     }
@@ -40,9 +36,6 @@ class AlertType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Alert::class,
-            // 'experience_id' => null,
-            // 'user_id' => null,
-
         ]);
     }
 }

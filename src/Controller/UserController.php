@@ -34,7 +34,7 @@ class UserController extends AbstractController
         // $users = $userRepository->findAll();
 
         // On trie les utilisateurs sur le password dans l'ordre croissant alphabétique
-        //idem SELECT * FROM user ORDER BY nom ASC
+        //idem SELECT * FROM user ORDER BY id ASC
         $users = $userRepository->findBy([], ['id' => 'ASC']);
 
 
@@ -106,16 +106,16 @@ class UserController extends AbstractController
         ]);
     }
 
-    // --> On créé la méthode pour estimer la moyenne de l'évaluation ( propriété :rating)  d'un user
-    // #[Route('/user/{id}', name: 'app_user')]
-    // public function index(User $user, UserRepository $userRepository): Response
+    // // --> On créé la méthode pour estimer la moyenne de l'évaluation ( propriété :rating)  d'un user
+    // #[Route('/user/average/{id}', name: 'user_average')]
+    // public function average(User $user, UserRepository $userRepository): Response
     // {
 
-    //     $averageRating = $userRepository->getAverage($user);
+    //     $averageRating = $userRepository->getRating($user);
     //     $rating = new Evaluation();
     //     // $rating->setUser($user);
        
-    //     return $this->render('user/index.html.twig', [
+    //     return $this->render('user/catalog.html.twig', [
     //         'user' => $user,
     //         'averageRating' => $averageRating,
     //     ]);

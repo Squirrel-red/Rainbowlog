@@ -37,13 +37,13 @@ class AdminController extends AbstractController
         $users = $userRepository->findBy([], ['id' => 'ASC']);
         $usersCount= $userRepository->count([]);
         $usersBlockedCount= $userRepository->count(['isBlocked'=> "Yes"]);
-        
+        $usersAnonymeCount= $userRepository->count(['pseudo' =>'Anonyme']);
         
         return $this->render('admin/index.html.twig', [
             'users' => $users,
             'usersCount' => $usersCount,
             'usersBlockedCount' => $usersBlockedCount,
-            
+            'usersAnonymeCount' =>$usersAnonymeCount,
         ]);
     }
 

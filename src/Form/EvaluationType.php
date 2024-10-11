@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 
 class EvaluationType extends AbstractType
@@ -16,13 +17,18 @@ class EvaluationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('rating', HiddenType::class, [
-                'attr' => ['id' => 'rating-value']
-            // ->add('user', EntityType::class, [
-            //     'class' => User::class,
-            //     'choice_label' => 'id',
-            ])
-        ;
+        ->add('user', EntityType::class, [
+            'class' => User::class,
+            'choice_label' => 'pseudo',
+        ])
+        ->add('rating', ChoiceType::class, [
+            'choices' => [
+                'Excellent' => '5',
+                'Very good' => '4',
+                'Simply good' => '3',
+                'Seak' => '2',
+                'Bad' => '1',],
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -18,16 +18,16 @@ class EvaluationController extends AbstractController
     #[Route('/evaluation/{id}', name: 'app_evaluation')]
     public function eval(User $user, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $rating = new Evaluation();
-        $form = $this->createForm(EvaluationType::class, $rating);
+        $evaluation = new Evaluation();
+        $form = $this->createForm(EvaluationType::class, $evaluation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // --> On fait le lien entre l'user et  rating
-            $rating->setUser($user);
+            // --> On fait le lien entre l'user et  l'évaluation
+            $evaluation->setUser($user);
 
-            // --> On stocke le rating dans la BD
-            $entityManager->persist($rating);
+            // --> On registre l'évaluation dans la BD
+            $entityManager->persist($evaluation);
             $entityManager->flush();
 
             $this->addFlash('success', 'Rating has been registered successfully.');

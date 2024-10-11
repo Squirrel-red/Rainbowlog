@@ -2,16 +2,18 @@
 
 {% block body %}
 <br><br><br><br><br>
+
 {% if is_granted('ROLE_ADMIN')%}
     <h3>User's catalog</h3>
 <br>
     <table>
         <thead>
             <tr>
-                <th>ID:</th>
-                <th>Email:</th>
-                <th>Nickname:</th>
-                <th>Status:</th>
+                <th>ID: </th>
+                <th>Email: </th>
+                <th>Nickname: </th>
+                <th>Rating: </th>
+                <th>Status: </th>
             
             </tr>
             <hr>    
@@ -22,8 +24,8 @@
                 <tr>
                     <td>{{ user.id }}</td>
                     <td>{{ user.email }}</td>
-                    <td>{{ user.pseudo }}
-                    </td>
+                    <td>{{ user.pseudo }}</td>
+                    <td><a href="{{ path('user_eval', {'id': user.id }) }}" class="btn btn-secondary">Evaluate</a></td>
                     <td>
                         {% if user.isBlocked %}
                             <a href="{{ path('user_unblock', {'id': user.id}) }}" >Unblock</a>
@@ -41,6 +43,7 @@
                             <a href="{{ path('user_block', {'id': user.id}) }}" >Block</a>
                     
                         {% endif %}
+                        
                     </td>
                 </tr>
             {% endfor %}
@@ -50,19 +53,53 @@
     <hr> 
     <br>
     <a href="{{ path('admin_index') }}" >Statistical Details >></a>
-    {# <li class="nav__item"><a href=" {{ path('user_index') }}" class="nav__link">See details of user's accounts</a></li> #}
     <br>
     <br>
-    {% else %}
-       {% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN' )%}
+
+    <br>
+{% else %}
+
+    {% if is_granted('ROLE_USER')%}
+
         <h3>MY PROFIL</h3>
-        <h3>***********</h3>
+        <h4>*********************</h4>
         <br>
         <p><strong>Nickname: </strong>{{ app.user.pseudo }} {% if is_granted('ROLE_ADMIN') %}{% endif %}</p>
         <p><strong>Email : </strong>{{ app.user.email }}</p>
+        <br>
         <a href="{{ path('user_delete', {'id': app.user.id}) }}" class="btn btn-danger">Delete my account</a> 
         <br>
-        {% endif %}
+        <br>
+        <h4>*********************</h4>
+        <br>
+        <h4>EVALUATE OUR MEMBERS >></h4>
+        <br>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nickname: </th>
+                    <th>Rating: </th>
+                </tr>
+                <hr>    
+            </thead>
+            <tbody>
+                
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.pseudo }}</td>
+                        <td><a href="{{ path('user_eval', {'id': user.id }) }}" class="btn btn-secondary">Evaluate</a></td>
+                    </tr>
+                {% endfor %}
+                
+            </tbody>  
+        </table>
+         
     {% endif %}
+
+        <h4>*********************</h4>
+        <br>
+        <p style=color:red;>Thank you!</p>    
+        <br>
+{% endif %}
     <br>  
 {% endblock %}

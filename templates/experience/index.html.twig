@@ -9,7 +9,7 @@
     <h2 class="section__title-2"><span>Gallery of experiences</span></h2>
 
     <div>
-      <h3>Choose the category of experiences ans click on its name in order to discover corresponding experiences existing in our database >></h3> 
+      <h3>Search experiences existing in our database by category >></h3> 
       <br>
       {% for category in categories %}
           <div>
@@ -18,29 +18,7 @@
       {% endfor %}
     </div>
 
-    <br><br>
-
-    {# <hr>
-    <br><br> #}
-
-    {# Carrousel des 5 experiences les plus vues #}
-    <div class="block-slide-comment">
-
-      {# <div class="carousel-container">
-        <div class="carousel">
-          <h3>Carousel</h3>
-            {% for experience in experiences|sort((a, b) => b.counterView <=> a.counterView)|slice(0, 5) %}
-                <div class="carousel-item">
-                    <a href="{{ path('show_experience', {'id': experience.id}) }}">
-                        <img src="{{ asset(experience.photos|first.path) }}" alt="last viewed experiences">
-                    </a>
-                </div>
-        {% endfor %}
-        </div>
-        <button class="carousel-button prev" onclick="moveCarousel(-1)">&#10094;</button>
-        <button class="carousel-button next" onclick="moveCarousel(1)">&#10095;</button>
-      </div> #}
-
+   
       <br><br>
       <hr>
       <br><br>
@@ -65,7 +43,7 @@
     <hr>
     <br><br>
 
-    <h3>Search Experiences by their titles and places </h3>
+    <h3>Search Experiences by their titles and places >></h3>
     <br><br>
     {{ form_start(ResearchForm, {'attr': {'class': 'form-inline recherche-for'}}) }}
         {{ form_widget(ResearchForm.title, {'attr': {'class': 'form-control recherche-experience', 'placeholder': ' Enter a title ...'}}) }}
@@ -73,11 +51,12 @@
         <button class="btn btn-valider recherche-btn" type="submit">Search</button>
     {{ form_end(ResearchForm) }}
 
-<br><br>
+    <br><br>
+    <hr>
+    <br><br>
 
-
-
-    
+    <h3>Discover all our Experiences >></h3>
+    <br><br>
     {% for experience in experiences %}
 
         <div class="projects__container container grid">  
@@ -114,7 +93,7 @@
                             {% if experience.counterView > 0 %}
                                         {{ experience.counterView }}</p>
                             {% else %}
-                            No any view
+                                         No any view
                             {% endif %}
                         </p>
                         <br>

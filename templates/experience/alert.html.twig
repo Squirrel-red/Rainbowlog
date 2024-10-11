@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <br><br><br><br>
-    <h3>To warn of the experience {{ experience }}</h3>
+    <br><br><br><br><br>
+    <h3>To warn of this experience {{ experience }}</h3>
     <br>
     {{ form_start(formAlert) }}
         {{ form_widget(formAlert.type) }}
@@ -10,7 +10,7 @@
         <button type="submit">To warn</button>
     {{ form_end(formAlert) }}
 
-    <a href="{{ path('show_experience', {'id': experience.id}) }}">Come back</a>
+    <a href="{{ path('show_experience', {'id': experience.id}) }}">Come back to last experience</a>
 
     <div></div>
 
