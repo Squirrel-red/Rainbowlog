@@ -6,6 +6,7 @@
         <title>{% block title %}RAINBOWLOG{% endblock %}</title>
         <meta name="description" content="{% block meta %}RAINBOWLOG is the site of the people passioned by the photography and wanting to share and approuve skills, to receive and give advices, to discover technical and design news concerning the art of photography  {% endblock %}">
         <meta name="robots" content="{% block index %}index, follow{% endblock %}">
+        <meta charset="UTF-8">
         {% block stylesheets %}
         <link rel="icon" href="{{ asset('img/logo_rainbow.png') }}" type="image/png" >
 
@@ -64,44 +65,41 @@
                 <li class="nav__item"><a href="{{ path('app_experience') }}" class="nav__link">GALLERY OF EXPERIENCES</a></li>
 
 
-                {# <li class="nav__item"><a href="{{ path('app_comment') }}" class="nav__link">COMMENTS</a></li> #}
                 <li class="nav__item"><a href="{{ path('app_terms_of_use') }}" class="nav__link">ROULES</a></li>
                 {# <li class="nav__item"><a href="{{ path('app_donations') }}" class="nav__link">DONATIONS</a></li> #}
-                {# <li class="nav__item"><a href="{{ path('app_activity') }}" class="nav__link">ACTIVITY</a></li> #}
                 <li class="nav__item"><a href="{{ path('app_write_us')}}" class="nav__link">WRITE US</a></li>
 
 
                 {# On ajoute les onglets pour Admin #}
                 {% if is_granted('ROLE_ADMIN') %}
 
-                <li class="nav__item"><a href="{{ path('admin_category_list') }}" class="nav__link">CATEGORIES</a></li>
-                <li class="nav__item"><a href="{{ path('list_alerts') }}" class="nav__link">ALERTS</a></li>
-                <li class="nav__item"><a href="{{ path('app_user', {'id': app.user.id}) }}" class="nav__link">USERS</a></li>
-                    {# {% if app.user.newMessages > 0 %}
+                  <li class="nav__item"><a href="{{ path('admin_category_list') }}" class="nav__link">CATEGORIES</a></li>
+                  <li class="nav__item"><a href="{{ path('list_alerts') }}" class="nav__link">ALERTS</a></li>
+                  <li class="nav__item"><a href="{{ path('app_user', {'id': app.user.id}) }}" class="nav__link">USERS</a></li>
+                    {% if app.user.newMessages > 0 %}
                     {# --> s'il y a les nouveaux messages on affiche leur nombre à coté de l'onglet #}
-                     {# <li  class="nav__item"><a href="{{ path('received_contacts') }}" class="nav__link">MESSAGES<span style="color: crimson;">({{ app.user.newMessages }})</span></a></li> #}
+                      <li  class="nav__item"><a href="{{ path('received_contacts') }}" class="nav__link">MESSAGES<span style="color: crimson;">({{ app.user.newMessages }})</span></a></li>
                      
-                    {# </a> #}
-                    {# {% else %} #} 
-                    <li class="nav__item"><a href="{{ path('received_contacts') }}" class="nav__link">MESSAGES</a></li>
-                    {# {% endif %} #}
+                    {% else %}
+                      <li class="nav__item"><a href="{{ path('received_contacts') }}" class="nav__link">MESSAGES</a></li>
+                    {% endif %}
                    
-                <li class="nav__item"><a href=" {{ path('app_logout') }}" class="nav__link">LOGOUT</a></li>
+                  <li class="nav__item"><a href=" {{ path('app_logout') }}" class="nav__link">LOGOUT</a></li>
 
 
                 {% else %}
                 
-                    {# On ajoute les onglets pour User #}
-                    {% if is_granted('ROLE_USER')%}
+                  {# On ajoute les onglets pour User #}
+                  {% if is_granted('ROLE_USER')%}
                     <li class="nav__item"><a href="{{ path('app_user', {'id': app.user.id}) }}" class="nav__link">{{ app.user.pseudo }}</a>'s <b>PROFIL</b></li>
                     
 
                     {% if app.user.newMessages > 0 %}
                       {# --> s'il y a les nouveaux messages on affiche le leur nombre à coté de l'onglet #}
-                      <li  class="nav__item"><a href="{{ path('received_contacts') }}" class="nav__link">MESSAGES<span style="color: crimson;">({{ app.user.newMessages }})</span></a></li>
+                      <li  class="nav__item"><a href="{{ path('received_contacts') }}" class="nav__link">MESSAGES<span style="color: crimson;">({{ app.user.newMessages }})</span></a></li> 
                      
-                    {% else %}
-                    <li class="nav__item"><a href="{{ path('received_contacts') }}" class="nav__link">MESSAGES</a></li>
+                    {% else %} 
+                      <li class="nav__item"><a href="{{ path('received_contacts') }}" class="nav__link">MESSAGES</a></li>
                     {% endif %}
                    
 
@@ -109,11 +107,14 @@
 
                     <li class="nav__item"><a href="{{ path('app_logout') }}" class="nav__link">LOG OUT</a></li>
                     
-                    {% else %}
+
+                  {# On ajoute les onglets pour les gens qui n'ont pas encore le compte ou qui non pas encore fait login #}  
+                  {% else %}
 
                     <li class="nav__item"><a href="{{ path('app_login') }}" class="nav__link">LOG IN</a></li>
                     <li class="nav__item"><a href="{{ path('app_register') }}" class="nav__link">SIGN UP</a></li>
-                    {% endif %}
+                  {% endif %}
+
                 {% endif %}
 
               </ul>
@@ -138,29 +139,6 @@
 
       </header>
 
-    {# A corriger --> #}
-            
-            {% if app.user %}
-            <a href="{{ path('app_home') }}"></i></a>
-            {% elseif is_granted('IS_AUTHENTICATED_FULLY') %}
-            <a href="{{ path('manage_profil', {slug: app.user.pseudo}) }}"></i></a>
-            {% endif %}
-         
-
-            {% for message in app.flashes('success') %}
-            <div class="alert alert-success">
-                
-                <p>Success ! {{ message }}</p>
-            </div>
-            {% endfor %} 
-
-            {% for message in app.flashes('error') %}
-            <div class="alert alert-error">
-                
-                <p>Error ! {{ message }}</p> 
-            </div>
-            {% endfor %} 
-    
         {############# --MAIN-- ###########################}
         {# content #}
             

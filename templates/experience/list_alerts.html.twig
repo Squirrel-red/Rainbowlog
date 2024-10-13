@@ -21,12 +21,12 @@
         <tbody>
             {% for alert in alerts %}
                 <tr>
-                    <td class="id-table-alert" data-label="ID">{{ alert.id }} I</td>
-                    <td data-label="Type">{{ alert.type }} I</td>
-                    <td data-label="Text">{{ alert.text }} I</td>
-                    <td data-label="Date">{{ alert.dateAlert|date('d-m-Y H:i:s') }} I</td>
-                    <td data-label="Experience"><a href="{{ path('show_experience', {'id': alert.experience.id}) }}">{{ alert.experience.title }} I</a></td>
-                    <td data-label="Author">{{ alert.user.pseudo }} I</td>
+                    <td class="id-table-alert" data-label="ID">{{ alert.id }} </td>
+                    <td data-label="Type">{{ alert.type }} </td>
+                    <td data-label="Text">{{ alert.text }} </td>
+                    <td data-label="Date">{{ alert.dateAlert|date('d-m-Y H:i:s') }} </td>
+                    <td data-label="Experience"><a href="{{ path('show_experience', {'id': alert.experience.id}) }}">{{ alert.experience.title }}</a></td>
+                    <td data-label="Author">{{ alert.user.pseudo }} </td>
                 </tr>
             {% endfor %}
         </tbody>
@@ -34,8 +34,6 @@
     <hr>
     <br>
     <a href="{{ path('app_experience') }}">Back to Experiences</a>
-    <br>
-    <a href="{{ path('app_home') }}">Back to Home</a>
     <br>
     <br>
 {% endblock %}

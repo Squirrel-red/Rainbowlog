@@ -37,7 +37,7 @@ class ContactController extends AbstractController
         ]);
     }
 
-    // --> On créé la méthode pour afficher les messages reçus ( on utilise pour l'onglet "Messages")
+    // --> On créé la méthode pour afficher les messages reçus ( on l'utilise pour l'onglet "Messages")
         #[Route('/contacts/received', name: 'received_contacts')]
         public function receivedContacts(EntityManagerInterface $entityManager, ContactRepository $contactRepository, UserRepository $userRepository): Response
         {
@@ -46,7 +46,7 @@ class ContactController extends AbstractController
             //--> on écupère les messages reçus par l'user connecté, triés par date d'envoi
             $contacts = $contactRepository->findBy(['receiver' => $user], ['dateMessage' => 'DESC']);
             //--> on met à jour le nombre de nouveaux messages pour l'user
-            $userRepository->countByNewMessages($user);
+            $userRepository->updateNewMessages($user);
             //-->Persiste les modifications de l'user dans la BD
             $entityManager->persist($user); 
             $entityManager->flush();
@@ -61,15 +61,14 @@ class ContactController extends AbstractController
     public function readMessage(Contact $contact, EntityManagerInterface $entityManager, ContactRepository $contactRepository, User $user ): Response
     {
         $contact->setSeen(true); // On met le message vu (boolean true)
-        $entityManager->flush(); // Sauvegarde les changements dans BD
-
+ 
         //--> on recupère l'user connecté
             $user = $this->getUser();
 
         // --> on recupère les messages envoyés par l'user connecté
             $contactReceiver = $contactRepository->findBy(['receiver' => $user]);
             $userReceiver = $contact->getReceiver();// on recupère le destinataire du message
-            // --> on alimente le compteur de nouveaux messages pour le destinataire -1 pour l'affichage dans l'onglet Messages d'un user
+            // --> on alimente le compteur de nouveaux messages pour le destinataire -1 pour l'affichage dans l'onglet Messages de cet user
             $userReceiver->setNewMessages($userReceiver->getNewMessages() - 1);
             // --> Persiste les modifications pour le destinataire et le message dans la BD
              $entityManager->persist($userReceiver);
@@ -117,9 +116,9 @@ class ContactController extends AbstractController
     {   
         //--> on recupère l'user connecté
         // $currentUser = $this->getUser();
-        // Vérifie si l'user actuel essaie d'envoyer un message
-        // if ($currentUser && $currentUser->getId() === $user->getId()) {
-        //     $this->addFlash('error', 'You cannot send this message');
+        // // Vérifie si l'user actuel essaie d'envoyer un message
+        // if ($currentUser && $currentUser === $user->getId()) {
+        //     $this->addFlash('error', 'You cannot send this message to yourselves');
         //     return $this->redirectToRoute('app_home'); // On rédirige vers la page d'accuiel
         // }
         $contact = new Contact();// --> un nouvel objet Contact

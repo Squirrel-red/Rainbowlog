@@ -2,16 +2,16 @@
 
 {% block body %}
     <br><br><br><br><br>
-    <h3>To warn of this experience {{ experience }}</h3>
+    <h3>To warn of this experience "{{ experience }}"</h3>
     <br>
     {{ form_start(formAlert) }}
         {{ form_widget(formAlert.type) }}
         {{ form_widget(formAlert.text) }}
         <button type="submit">To warn</button>
     {{ form_end(formAlert) }}
-
+    <br>
     <a href="{{ path('show_experience', {'id': experience.id}) }}">Come back to last experience</a>
-
-    <div></div>
+    <br>
+    <br>
 
 {% endblock %}

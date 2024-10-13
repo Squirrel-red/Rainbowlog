@@ -44,7 +44,7 @@ class ExperienceType extends AbstractType
                     new All([
                         'constraints' => [
                             new File([
-                                'maxSize' => '1M', 
+                                'maxSize' => '3M', 
                                 'mimeTypes' => [
                                     'image/jpeg',
                                     'image/png',

@@ -17,14 +17,14 @@ use Symfony\Component\HttpFoundation\Request;
 class UserController extends AbstractController
 {
     // --> On créé la méthode pour afficher les données d'un user  
-    // #[Route('/user', name: 'app_index')]
-    // public function index(UserRepository $userRepository): Response
-    // {
-    //     $users = $userRepository->findAll();
-    //     return $this->render('user/index.html.twig', [
-    //         'users'  => $users,
-    //     ]);
-    // }
+    #[Route('/user', name: 'app_index')]
+    public function index(UserRepository $userRepository): Response
+    {
+        $users = $userRepository->findAll();
+        return $this->render('user/index.html.twig', [
+            'users'  => $users,
+        ]);
+    }
 
     // --> On créé la méthode pour afficher la liste des users   
     #[Route('/user', name: 'app_user')]
@@ -125,13 +125,13 @@ class UserController extends AbstractController
     #[Route('/user/eval/{id}', name: 'user_eval')]
     public function eval(User $user, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $rating = new Evaluation();
-        $form = $this->createForm(EvaluationType::class, $rating);
+        $evaluation = new Evaluation();
+        $form = $this->createForm(EvaluationType::class, $evaluation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $rating->setUser($user);
-            $entityManager->persist($rating);
+            $evaluation->setUser($user);
+            $entityManager->persist($evaluation);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_user', ['id' => $user->getId()]);

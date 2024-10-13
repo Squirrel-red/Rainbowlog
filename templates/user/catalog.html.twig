@@ -63,16 +63,14 @@
 
         <h3>MY PROFIL</h3>
         <h4>*********************</h4>
-        <br>
         <p><strong>Nickname: </strong>{{ app.user.pseudo }} {% if is_granted('ROLE_ADMIN') %}{% endif %}</p>
         <p><strong>Email : </strong>{{ app.user.email }}</p>
         <br>
         <a href="{{ path('user_delete', {'id': app.user.id}) }}" class="btn btn-danger">Delete my account</a> 
         <br>
-        <br>
         <h4>*********************</h4>
         <br>
-        <h4>EVALUATE OUR MEMBERS >></h4>
+        <h4>EVALUATE MEMBERS  OF RAINBOWLOG'S COMMUNITY >></h4>
         <br>
         <table>
             <thead>

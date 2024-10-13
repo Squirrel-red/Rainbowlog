@@ -116,6 +116,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             $this->getEntityManager()->flush();
         }
 
+
+        // SELECT AVG(rating) AS AVG, COUNT(rating) AS COUNT, user_id AS user FROM evaluation  GROUP BY user_id
+
         //  // --> On créé une methode pour avoir la moyenne de l'évaluation 
         //  public function getAverageRating(User $user): ?float
         // {
@@ -125,8 +128,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         //     // $qb ->select('u')
         //     $qb = $this->createQueryBuilder('u')
         //     ->select('AVG(e.rating) as avgRating')
-        //     ->leftJoin('u.evaluations', 'e')
-        //     ->where('u.id = :user')
+        //     ->count('e.rating' as count)
+        //     ->andWhere('u.id = :user')
         //     ->setParameter('user', $user->getId())
         //     ->getQuery();
 
@@ -139,7 +142,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         // --> On créé une methode pour mettre compteur des nouveaux messages à 0
         public function updateNewMessages(User $user) 
         {
-            $user->setNewMessages('null', null);
+            $user->setNewMessages(0);
         } 
 
         

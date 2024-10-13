@@ -15,7 +15,8 @@
             <p><b>Devices :</b> {{ experience.devices }}</p>
             <p><b>Description : </b> {{ experience.description }}</p>
             <p><b>Date :</b> {{ experience.dateCreation|date('d.m.Y H:i:s') }}</p>
-            <p><b>Published by :</b> <a href="{{ path('app_user', {'id': experience.publish.id}) }}">{{ experience.publish.pseudo }}</a></p>
+            <p><b>Published by :</b> {{ experience.publish.pseudo }}</a></p>
+            {# <p><b>Published by :</b> <a href="{{ path('app_user', {'id': experience.publish.id}) }}">{{ experience.publish.pseudo }}</a></p> #}
             <br>
         </div>
 
@@ -37,7 +38,7 @@
                 <a href="{{ path('delete_experience', {'id': experience.id}) }}">Delete</a>
             {% endif %}
         {% endif %}    
-
+                <br>
             {# Utilisateur qui a fait log in a le droit de dénoncer=alerter cette expérience ou le commentaire lié à cette expérience#} 
         {% if app.user %}
                 <a href="{{ path('alert_experience', {'id': experience.id}) }}">Warn</a>
