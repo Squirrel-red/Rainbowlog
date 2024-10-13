@@ -56,31 +56,28 @@ class ContactController extends AbstractController
             ]);
         }
 
-    // --> On créé la méthode pour lire le message (le marquer comme vu )
+    // --> On créé la méthode pour lire le message et le marquer comme vu 
     #[Route('/contacts/read/{id}', name: 'read_messages')]
     public function readMessage(Contact $contact, EntityManagerInterface $entityManager, ContactRepository $contactRepository, User $user ): Response
     {
         $contact->setSeen(true); // On met le message vu (boolean true)
- 
-        //--> on recupère l'user connecté
-            $user = $this->getUser();
+        $entityManager->flush();// On met les nouvelles données dans la BD
 
         // --> on recupère les messages envoyés par l'user connecté
-            $contactReceiver = $contactRepository->findBy(['receiver' => $user]);
             $userReceiver = $contact->getReceiver();// on recupère le destinataire du message
             // --> on alimente le compteur de nouveaux messages pour le destinataire -1 pour l'affichage dans l'onglet Messages de cet user
             $userReceiver->setNewMessages($userReceiver->getNewMessages() - 1);
             // --> Persiste les modifications pour le destinataire et le message dans la BD
              $entityManager->persist($userReceiver);
              $entityManager->persist($contact);
-             $entityManager->flush();// On met  les nouvelles données dans la BD
+             $entityManager->flush();// On met les nouvelles données dans la BD
             
 
         return $this->redirectToRoute('received_contacts');
         
     }
 
-    // -->  Oncréé la méthode pour lister les messages envoyés
+    // -->  On créé la méthode pour lister les messages envoyés
     #[Route('/contacts/sent', name: 'app_contact_sent')]
     public function sent(ContactRepository $contactRepository): Response
     {
@@ -116,9 +113,9 @@ class ContactController extends AbstractController
     {   
         //--> on recupère l'user connecté
         // $currentUser = $this->getUser();
-        // // Vérifie si l'user actuel essaie d'envoyer un message
+        // Vérifie si l'user actuel essaie d'envoyer un message
         // if ($currentUser && $currentUser === $user->getId()) {
-        //     $this->addFlash('error', 'You cannot send this message to yourselves');
+        //     $this->addFlash('error', 'You cannot send this message');
         //     return $this->redirectToRoute('app_home'); // On rédirige vers la page d'accuiel
         // }
         $contact = new Contact();// --> un nouvel objet Contact

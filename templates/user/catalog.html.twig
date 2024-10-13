@@ -91,13 +91,22 @@
                 
             </tbody>  
         </table>
-         
-    {% endif %}
 
         <h4>*********************</h4>
         <br>
         <p style=color:red;>Thank you!</p>    
         <br>
+    
+    {% else %}  
+        <p style=color:red;>Your account was deleted and your personal datas were anonymised. You can create another account if you want.</p>  
+          <br>
+          <br>
+           <a href="{{ path('app_register') }}" class="nav__link">SIGN UP >></a>
+           <br>
+
+    {% endif %}
+
+
 {% endif %}
     <br>  
 {% endblock %}

@@ -17,14 +17,14 @@ use Symfony\Component\HttpFoundation\Request;
 class UserController extends AbstractController
 {
     // --> On créé la méthode pour afficher les données d'un user  
-    #[Route('/user', name: 'app_index')]
-    public function index(UserRepository $userRepository): Response
-    {
-        $users = $userRepository->findAll();
-        return $this->render('user/index.html.twig', [
-            'users'  => $users,
-        ]);
-    }
+    // #[Route('/user', name: 'app_index')]
+    // public function index(UserRepository $userRepository): Response
+    // {
+    //     $users = $userRepository->findAll();
+    //     return $this->render('user/index.html.twig', [
+    //         'users'  => $users,
+    //     ]);
+    // }
 
     // --> On créé la méthode pour afficher la liste des users   
     #[Route('/user', name: 'app_user')]
@@ -33,7 +33,7 @@ class UserController extends AbstractController
         // On affiche la liste des users
         // $users = $userRepository->findAll();
 
-        // On trie les utilisateurs sur le password dans l'ordre croissant alphabétique
+        // On trie les utilisateurs sur l'id' dans l'ordre croissant
         //idem SELECT * FROM user ORDER BY id ASC
         $users = $userRepository->findBy([], ['id' => 'ASC']);
 
@@ -55,22 +55,8 @@ class UserController extends AbstractController
         // On ajoute un message
         $this->addFlash('success', 'Account has been anonymised successfully.');
         return $this->redirectToRoute('app_user'); 
- 
+        // return $this->redirectToRoute('user_catalog'); 
     }
-
-
-    // // --> On créé la méthode pour trouver un user par pseudo
-    // #[Route('/user/find/{id}', name: 'user_find')]
-    // public function findUser(User $user, UserRepository $userRepository): RedirectResponse
-    // {
-    
-    //      // On on cherche le user par pseudo
-    //      $user = $userRepository->findUserByPseudo("Anonyme");
-    
-    //      return $this->render('user/catalog.html.twig', [
-    //         'user'  => $user,
-    //     ]);
-    //    }
 
 
     // --> On créé la méthode pour bloquer un des users
@@ -106,20 +92,6 @@ class UserController extends AbstractController
         ]);
     }
 
-    // // --> On créé la méthode pour estimer la moyenne de l'évaluation ( propriété :rating)  d'un user
-    // #[Route('/user/average/{id}', name: 'user_average')]
-    // public function average(User $user, UserRepository $userRepository): Response
-    // {
-
-    //     $averageRating = $userRepository->getRating($user);
-    //     $rating = new Evaluation();
-    //     // $rating->setUser($user);
-       
-    //     return $this->render('user/catalog.html.twig', [
-    //         'user' => $user,
-    //         'averageRating' => $averageRating,
-    //     ]);
-    // }
     
     // --> On créé la méthode pour estimer l'evaluation (rating) des users
     #[Route('/user/eval/{id}', name: 'user_eval')]
@@ -142,4 +114,18 @@ class UserController extends AbstractController
             'user' => $user,
         ]);
     }
+
+        // // --> On créé la méthode pour estimer la moyenne de l'évaluation ( propriété :rating)  d'un user
+    // #[Route('/user/average/{id}', name: 'user_average')]
+    // public function average(User $user, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
+    // {
+
+    //     $averageRating = $userRepository->getAverageRating($user);
+    //     $evaluation = new Evaluation();
+       
+    //     return $this->render('user/catalog.html.twig', [
+    //         'user' => $user,
+    //         'averageRating' => $averageRating,
+    //     ]);
+    // }
 }

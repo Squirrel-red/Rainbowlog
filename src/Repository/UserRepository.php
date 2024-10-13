@@ -122,14 +122,13 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         //  // --> On créé une methode pour avoir la moyenne de l'évaluation 
         //  public function getAverageRating(User $user): ?float
         // {
-        //     // $em = $this->getEntityManager();
+        //     $em = $this->getEntityManager('e');
         //     // $qb = $em->createQueryBuilder();
 
-        //     // $qb ->select('u')
         //     $qb = $this->createQueryBuilder('u')
-        //     ->select('AVG(e.rating) as avgRating')
-        //     ->count('e.rating' as count)
-        //     ->andWhere('u.id = :user')
+        //     ->select('AVG(e.rating)as avgRating)
+        //     ->count('rating')
+        //     ->where('u.id = :user')
         //     ->setParameter('user', $user->getId())
         //     ->getQuery();
 

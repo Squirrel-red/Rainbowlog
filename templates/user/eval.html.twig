@@ -12,12 +12,16 @@
     <div>
         {# <h1>Evaluate{{ user.pseudo }}</h1> #}
         <h1>Evaluate our members !</h1>
+        {% for i in 1..5 %}
+        <i class="fa fa-star star" data-value="{{ i }}"></i>
+        {% endfor %}
         <br>
         {{ form_start(form, { 'attr' : { 'class': 'block-form' } }) }}
-                    {# <i class="fa fa-star star"></i> #}
-            {{ form_widget(form) }}
+        <br>            
+        {{ form_widget(form) }}
             <button type="submit" class="btn btn-submit">Submit</button>
         {{ form_end(form) }}
+        <br>
     </div>
     
 {% endblock %}
