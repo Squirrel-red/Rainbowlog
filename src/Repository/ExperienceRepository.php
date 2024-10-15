@@ -17,7 +17,7 @@ class ExperienceRepository extends ServiceEntityRepository
     }
 
 
-    //  --> On pépare la requète pour la recherche des expériences  par title et/ou nearTown
+    //  --> On prépare la requète pour la recherche des expériences  par title et/ou nearTown
     public function findExperience(?string $title, ?string $nearTown)
     {
         $qb = $this->createQueryBuilder('e');

@@ -142,6 +142,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         public function updateNewMessages(User $user) 
         {
             $user->setNewMessages(0);
+            $this->getEntityManager()->flush();
         } 
 
         
