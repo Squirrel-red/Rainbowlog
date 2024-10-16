@@ -57,7 +57,7 @@
        
             <h2 class="contact__title">ENTER YOUR DATAS IN THIS FORM</h2>
 
-            {# {{ form_errors(registrationForm) }} #}
+            {{ form_errors(registrationForm) }}
     
             {{ form_start(registrationForm) }}
              <div class="contact__box">
@@ -77,9 +77,7 @@
              <div class="contact__box">   
                  {{ form_row(registrationForm.agreeTerms) }}
              <br>
-             <button type="submit" class="contact__button button">
-                <i class="ri-send-plane-line"></i> Submit
-              </button>  
+             <button type="submit" class="contact__button button">Submit</button>  
              {{ form_end(registrationForm) }}
 
           </div>
