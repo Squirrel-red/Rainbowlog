@@ -1051,6 +1051,7 @@ body.dark-theme {
 
 .contact__mail {
   position: relative;
+  display: flex;
   background-color: var(--black-color);
   padding: 5rem 1.5rem 2.5rem;
   margin-top: -2.5rem;
@@ -1333,6 +1334,10 @@ body.dark-theme {
     width: 100%;
   }
 
+  .contact__mail {
+    width: 100%;
+  }
+
   .contact__data .section__title-2 {
     transform: translateX(0);
   }
@@ -1357,6 +1362,11 @@ body.dark-theme {
   .contact__container {
     grid-template-columns: 500px;
     justify-content: center;
+  }
+
+  .contact__mail {
+    position: relative;
+    display: flex;
   }
 
   .contact__group {
@@ -1746,7 +1756,7 @@ body.dark-theme {
   }
 
   .contact__mail {
-    grid-column: 2 / 3;
+    grid-column: 2 / 3; 
     grid-row: 1 / 3;
     padding: 7rem 5.5rem 6rem 7.5rem;
     margin-top: 0;

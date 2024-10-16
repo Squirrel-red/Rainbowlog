@@ -3,7 +3,7 @@
 {% block title %}Sign up{% endblock %}
 
 {% block body %}
-<br><br><br><br>
+{# <br><br><br><br>
     {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
@@ -17,7 +17,7 @@
         {{ form_row(registrationForm.email) }}
     <br>    
         {# on ajoute la ligne pour le champ "pseudo" #}
-        {{ form_row(registrationForm.pseudo) }}
+        {# {{ form_row(registrationForm.pseudo) }}
     <br>    
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password'
@@ -33,5 +33,61 @@
         <button type="submit" class="btn">Register</button>
     <br>   
     <br> 
-    {{ form_end(registrationForm) }}
+    {{ form_end(registrationForm) }}  #}
+
+    <section class="contact__section" id="contact">
+        <div class="contact__container grid">
+    
+          {# <div class="contact__data">
+            <h2 class="section__title-2">
+              <span>SIGN UP >></span>
+            </h2>
+            <p class="contact__description-1">
+                Become a member of our community of the people passioned by Photography !
+            </p>
+    
+            <p class="contact__description-2">
+              We need your <b>Nickname</b> and <b>Email Address</b> only and we garantee
+              to use your email address  for replying you only.
+            </p>
+          </div> #}
+
+    
+          <div class="contact__mail">
+       
+            <h2 class="contact__title">ENTER YOUR DATAS IN THIS FORM</h2>
+
+            {# {{ form_errors(registrationForm) }} #}
+    
+            {{ form_start(registrationForm) }}
+             <div class="contact__box">
+                 {{ form_row(registrationForm.email) }}
+             <div class="contact__box">  
+                 {# on ajoute la ligne pour le champ "pseudo" #}
+                 {{ form_row(registrationForm.pseudo) }}
+             <div class="contact__box"> 
+                 {{ form_row(registrationForm.plainPassword, {
+                     label: 'Password'
+                 }) }}
+             <div>
+                     <small style="color: aqua;">
+                         Your password should be at least 12 characters.
+                     </small>
+             </div>
+             <div class="contact__box">   
+                 {{ form_row(registrationForm.agreeTerms) }}
+             <br>
+             <button type="submit" class="contact__button button">
+                <i class="ri-send-plane-line"></i> Submit
+              </button>  
+             {{ form_end(registrationForm) }}
+
+          </div>
+          <div class="geometric-box"></div>
+    
+          
+        </div>
+    </section>
+    
+
 {% endblock %}
