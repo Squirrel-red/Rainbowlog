@@ -90,7 +90,7 @@
                 {% else %}
                 
                   {# On ajoute les onglets pour User #}
-                  {% if app.user% or is_granted('ROLE_USER')%}
+                  {% if is_granted('ROLE_USER')%}
                  
                     <li class="nav__item"><a href="{{ path('app_user', {'id': app.user.id}) }}" class="nav__link">{{ app.user.pseudo }}</a>'s <b>PROFIL</b></li>
                     
