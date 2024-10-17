@@ -38,7 +38,7 @@
     <section class="contact__section" id="contact">
         <div class="contact__container grid">
     
-          {# <div class="contact__data">
+          <div class="contact__data">
             <h2 class="section__title-2">
               <span>SIGN UP >></span>
             </h2>
@@ -50,21 +50,23 @@
               We need your <b>Nickname</b> and <b>Email Address</b> only and we garantee
               to use your email address  for replying you only.
             </p>
-          </div> #}
+          </div>
 
     
           <div class="contact__mail">
        
-            <h2 class="contact__title">ENTER YOUR DATAS IN THIS FORM</h2>
+            {# <h2 class="contact__title">ENTER YOUR DATAS IN THIS FORM</h2> #}
 
             {{ form_errors(registrationForm) }}
     
             {{ form_start(registrationForm) }}
              <div class="contact__box">
                  {{ form_row(registrationForm.email) }}
+             <div></div>
              <div class="contact__box">  
                  {# on ajoute la ligne pour le champ "pseudo" #}
                  {{ form_row(registrationForm.pseudo) }}
+             <div>    
              <div class="contact__box"> 
                  {{ form_row(registrationForm.plainPassword, {
                      label: 'Password'
@@ -76,12 +78,12 @@
              </div>
              <div class="contact__box">   
                  {{ form_row(registrationForm.agreeTerms) }}
-             <br>
+             </div>
              <button type="submit" class="contact__button button">Submit</button>  
              {{ form_end(registrationForm) }}
 
           </div>
-          <div class="geometric-box"></div>
+          {# <div class="geometric-box"></div> #}
     
           
         </div>

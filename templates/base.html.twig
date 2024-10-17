@@ -76,13 +76,13 @@
                   <li class="nav__item"><a href="{{ path('admin_category_list') }}" class="nav__link">CATEGORIES</a></li>
                   <li class="nav__item"><a href="{{ path('list_alerts') }}" class="nav__link">ALERTS</a></li>
                   <li class="nav__item"><a href="{{ path('app_user', {'id': app.user.id}) }}" class="nav__link">USERS</a></li>
-                    {% if app.user.newMessages > 0 %}
+                    {# {% if app.user.newMessages > 0 %} #}
                     {# --> s'il y a les nouveaux messages on affiche leur nombre à coté de l'onglet #}
-                      <li  class="nav__item"><a href="{{ path('received_contacts') }}" class="nav__link">NEW MESSAGES<span style="color: crimson;">({{ app.user.newMessages }})</span></a></li>
+                      {# <li  class="nav__item"><a href="{{ path('received_contacts') }}" class="nav__link">NEW MESSAGES<span style="color: crimson;">({{ app.user.newMessages }})</span></a></li> #}
                      
-                    {% else %}
-                      <li class="nav__item"><a href="{{ path('received_contacts') }}" class="nav__link">MESSAGES</a></li>
-                    {% endif %}
+                    {# {% else %} #}
+                  <li class="nav__item"><a href="{{ path('received_contacts') }}" class="nav__link">MESSAGES</a></li>
+                    {# {% endif %} #}
                    
                   <li class="nav__item"><a href=" {{ path('app_logout') }}" class="nav__link">LOGOUT</a></li>
 
@@ -95,13 +95,13 @@
                     <li class="nav__item"><a href="{{ path('app_user', {'id': app.user.id}) }}" class="nav__link">{{ app.user.pseudo }}</a>'s <b>PROFIL</b></li>
                     
 
-                    {% if app.user.newMessages > 0 %}
+                    {# {% if app.user.newMessages > 0 %} #}
                       {# --> s'il y a les nouveaux messages on affiche le leur nombre à coté de l'onglet #}
-                      <li  class="nav__item"><a href="{{ path('received_contacts') }}" class="nav__link"> NEW MESSAGES<span style="color: crimson;">({{ app.user.newMessages }})</span></a></li> 
+                      {# <li  class="nav__item"><a href="{{ path('received_contacts') }}" class="nav__link"> NEW MESSAGES<span style="color: crimson;">({{ app.user.newMessages }})</span></a></li>  #}
                      
-                    {% else %} 
-                      <li class="nav__item"><a href="{{ path('received_contacts') }}" class="nav__link">MESSAGES</a></li>
-                    {% endif %}
+                    {# {% else %}  #}
+                    <li class="nav__item"><a href="{{ path('received_contacts') }}" class="nav__link">MESSAGES</a></li>
+                    {# {% endif %} #}
                    
 
                     <li class="nav__item"><a href="{{ path('new_experience') }}" class="nav__link">ADD EXPERIENCE</a></li>
