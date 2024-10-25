@@ -2,11 +2,14 @@
 
 {% block body %}
 <br><br><br><br>
-    <h1>Send a message</h1>
+    <h2 class="section__title-1"><span>Send a message</span></h2>
 <br>
     {{ form_start(formContact) }}
         {{ form_row(formContact.text) }}
+        <br>
         {{ form_row(formContact.receiver) }}
-        <button class="btn">Send</button>
+        <br>
+        <button class="btn btn-primary">Send</button>
     {{ form_end(formContact) }}
+    <br>
 {% endblock %}

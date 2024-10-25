@@ -17,7 +17,7 @@
         </div>
     {% endfor %}
     <br><br><br><br><br>
-    <h3>Categories</h3>
+    <h2 class="section__title-1"><span>Category's list</span></h2>
     <table class="styled-table">
         <thead>
             <tr>
@@ -45,10 +45,12 @@
             {% endfor %}  
         </tbody>
     </table>
-
+    <br>
     {% if is_granted('ROLE_ADMIN') %}
         <a href="{{ path('admin_category_add') }}" class="btn btn-primary">Add new category</a>
     {% else %}
         <p>You haven't any rights for this action </p>
     {% endif %}
+    <br>
+    <br>
 {% endblock %}

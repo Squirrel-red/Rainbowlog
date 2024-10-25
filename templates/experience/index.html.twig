@@ -7,29 +7,34 @@
 <br><br><br><br>
 <section class="project section" id="projects">
     <h2 class="section__title-2"><span>Gallery of experiences</span></h2>
-
+    <hr>
+    <br>
     <div>
-      <h3>Search experiences existing in our database by category >></h3> 
+      <h3 style="text-align: center;">>> Search experiences existing in our database by category >></h3> 
       <br>
+      <p class="subtitle"></p>
+      <ul id="categories-list">
       {% for category in categories %}
-          <div>
+          {# <div> #}
+            <li class="category-card">
               <a href="{{ path('experiences_category', {'id': category.id}) }}">{{ category.name }}</a>
-          </div>
+          {# </div> #}
+            </li>
       {% endfor %}
+    </ul>
     </div>
 
-   
       <br><br>
       <hr>
       <br><br>
 
-      {# --> Les derniers commentaires #}
-      <div class="comments-section">
-        <h3>Last Comments</h3>
-        <br>
+      {# --> Last comments #}
+      <h3 style="text-align: center;">>> Last Comments</h3>
+      <br>
+      <div class="comments">
         <ul>
             {% for comment in lastsComments|slice(0, 5) %}
-                <li class="comment-item">
+                <li class="comment-detail">
                     <a href="{{ path('show_experience', {'id': comment.experience.id}) }}">
                         <strong>{{ comment.consumer.pseudo }}:</strong> {{ comment.text }}
                     </a>
@@ -43,19 +48,20 @@
     <hr>
     <br><br>
 
-    <h3>Search Experiences by their titles and places >></h3>
+    <h3 style="text-align: center;">>> Search Experiences by their titles and places >></h3>
     <br><br>
+    <div style="position: relative; justify-self: center;">
     {{ form_start(ResearchForm, {'attr': {'class': 'form-inline recherche-for'}}) }}
         {{ form_widget(ResearchForm.title, {'attr': {'class': 'form-control recherche-experience', 'placeholder': ' Enter a title ...'}}) }}
         {{ form_widget(ResearchForm.nearTown, {'attr': {'class': 'form-control where', 'placeholder': ' Near a town...'}}) }}
-        <button class="btn btn-valider recherche-btn" type="submit">Search</button>
+        <button class="btn btn-warning" type="submit">Search</button>
     {{ form_end(ResearchForm) }}
-
+    </div>
     <br><br>
     <hr>
     <br><br>
 
-    <h3>Discover all our Experiences >></h3>
+    <h3 style="text-align: center;">>> Discover all our Experiences >></h3>
     <br><br>
     {% for experience in experiences %}
 
@@ -107,13 +113,13 @@
         </div>    
 
     {% else %}
-        <p>No any experience found</p>
+        <p style="color: red;">No any experience found</p>
     {% endfor %}
 
 <br><br>
 
-{# -->Render KNP pagination controls #}
-<div class="pagination">
+{# --> KNP pagination #}
+<div class="page">
     {{ knp_pagination_render(experiences) }}
 </div>
 

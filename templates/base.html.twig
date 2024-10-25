@@ -58,8 +58,6 @@
               <h3 class="nav__name">RAINBOWLOG</h3>
 
 
-
-
               <ul class="nav__list">  
                 <li class="nav__item"><a href="{{ path('app_home') }}" class="nav__link">HOME</a></li>
                 <li class="nav__item"><a href="{{ path('app_experience') }}" class="nav__link">GALLERY OF EXPERIENCES</a></li>
@@ -167,30 +165,31 @@
                     </a>
             
                     <p id="footerDescription">
-                      <b>We admire the photography!</b>
+                      <b style="color: hsl(189, 80%, 50%);">WE ADMIRE THE ART OF PHOTOGRAPHY!</b>
                     </p>
                   </div>
     
                 <ul class="footer__links">
-                  <li> <a href="{{ path('app_home')}}"><b>HOME</b></a> </li>
-                  {# <li>  <a href="{{ path('app_home')}}"><b>ABOUT US</b></a> </li> #}
                   <li>  <a href="{{ path('app_write_us')}}"><b>WRITE US</b></a> </li>
                 </ul>
 
-    
                 <div class="socials" id="footer-socials">
                     <a href="https://www.facebook.com"><i class="fa-brands fa-facebook "></i></a>
+                    <br>
                     <a href="https://www.twitter.com"><i class="fa-brands fa-square-twitter"></i></a>
+                    <br> 
                     <a href="https://www.instagram.com"><i class="fa-brands fa-instagram"></i></a>
                 </div> 
 
                     
                 <span class="footer__copy">
                     
-                  <a href="{{ path('app_terms_of_use')}}"><b>Terms of Use</b></a>
-                  <a href="{{ path('app_privacy_policy')}}"><b>Privacy Policy</b></a>
-                  <a href="{{ path('app_sitemap')}}"><b>Sitemap</b></a>
-                  <br>
+                  <a href="{{ path('app_terms_of_use')}}"><b>TERMS OF USE  </b></a>
+        
+                  <a href="{{ path('app_privacy_policy')}}"><b>PRIVACY POLICY </b></a>
+               
+                  <a href="{{ path('app_sitemap')}}"><b>SITEMAP</b></a>
+                
                   <br>
                   <a><b><small style="font-size: 1.2rem;">©</small></b>  <span id="footer-date"></span><b><span id="name-rights">RAINBOWLOG</span>. All used pictures of this site are free of copywrite </b></a>
                 </span>

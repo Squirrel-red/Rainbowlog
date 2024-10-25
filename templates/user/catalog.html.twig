@@ -4,15 +4,16 @@
 <br><br><br><br><br>
 
 {% if is_granted('ROLE_ADMIN')%}
-    <h3>User's catalog</h3>
+    {# <h3>User's catalog</h3> #}
+    <h2 class="section__title-1"><span>User's catalog</span></h2>
 <br>
-    <table>
+    <table class="styled-table">
         <thead>
             <tr>
                 <th>ID: </th>
                 <th>Email: </th>
                 <th>Nickname: </th>
-                <th>Rating: </th>
+                <th>Evaluation: </th>
                 <th>Status: </th>
             
             </tr>
@@ -27,23 +28,24 @@
                     <td>{{ user.pseudo }}</td>
                     <td><a href="{{ path('user_eval', {'id': user.id }) }}" class="btn btn-secondary">Evaluate</a></td>
                     <td>
-                        {% if user.isBlocked %}
-                            <a href="{{ path('user_unblock', {'id': user.id}) }}" >Unblock</a>
-                            <a href="{{ path('user_delete', {'id': user.id}) }}" >Hide</a>
-                            {# {% if user.pseudo("Anonyme")%} 
-                               <b>Deleted already</b>
-                            {% else %}
-                               <b>Not deleted</b>
-                            {% endif %}  #}
-             
+
+                        {% if user.pseudo=="Anonyme"%} 
+                            <b>Deleted already</b>
                         {% else %}
+
+                          {% if user.isBlocked %}
+                            <a href="{{ path('user_unblock', {'id': user.id}) }}" class="btn btn-warning">Unblock</a>
+                            or
+                            <a href="{{ path('user_delete', {'id': user.id}) }}" class="btn btn-dearth-danger">Delete</a>
+                           
+                          {% else %}
                      
                             <a href="{{ path('user_block', {'id': user.id}) }}" ></a>
                          
-                            <a href="{{ path('user_block', {'id': user.id}) }}" >Block</a>
+                            <a href="{{ path('user_block', {'id': user.id}) }}" class="btn btn-danger">Block</a>
                     
+                          {% endif %}
                         {% endif %}
-                        
                     </td>
                 </tr>
             {% endfor %}
@@ -52,7 +54,7 @@
     </table>
     <hr> 
     <br>
-    <a href="{{ path('admin_index') }}" >Statistical Details >></a>
+       <a href="{{ path('admin_index') }}" class="btn btn-primary">Statistical Details >></a>
     <br>
     <br>
 
@@ -72,7 +74,7 @@
         <br>
         <h4>EVALUATE MEMBERS  OF RAINBOWLOG'S COMMUNITY >></h4>
         <br>
-        <table>
+        <table class="styled-table">
             <thead>
                 <tr>
                     <th>Nickname: </th>

@@ -29,7 +29,7 @@
                 
             </div>
         {% else %}
-            <p>There is not any experience</p>
+            <p style="color: red;">There is not any experience for choosen category</p>
         {% endfor %}
     </div>
 
@@ -39,15 +39,18 @@
 
     <div class="categories">
         <br>
-        <h3>Choose other category >></h3>
+        <p class="subtitle">Choose another category :</p>
+        <ul id="categories-list">
         <br>
         {% for category in categories %}
-            <div>
+            {# <div> #}
+            <li class="category-card">
                 <a href="{{ path('experiences_category', {'id': category.id}) }}">{{ category.name }}</a>
-            </div>
+            </li>    
+            {# </div> #}
 
         {% else %}
-            <p>There is not any experience for this category</p>
+            <p style="color: red;">There is not any experience for this category</p>
         {% endfor %}
     </div>
     <div>

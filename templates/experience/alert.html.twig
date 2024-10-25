@@ -2,7 +2,8 @@
 
 {% block body %}
     <br><br><br><br><br>
-    <h3>To warn of this experience "{{ experience }}"</h3>
+    <h2 class="section__title-2"><span>To warn of this experience "{{ experience }}"</span></h2>
+    {# <h3>To warn of this experience "{{ experience }}"</h3> #}
     <br>
     {{ form_start(formAlert) }}
         {{ form_widget(formAlert.type) }}
@@ -10,7 +11,7 @@
         <button type="submit">To warn</button>
     {{ form_end(formAlert) }}
     <br>
-    <a href="{{ path('show_experience', {'id': experience.id}) }}">Come back to last experience</a>
+    <a href="{{ path('show_experience', {'id': experience.id}) }}" class="btn btn-primary">Come back to last experience</a>
     <br>
     <br>
 

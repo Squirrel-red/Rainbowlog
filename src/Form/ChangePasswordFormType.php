@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotCompromisedPassword;
 use Symfony\Component\Validator\Constraints\PasswordStrength;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class ChangePasswordFormType extends AbstractType
 {
@@ -35,6 +36,23 @@ class ChangePasswordFormType extends AbstractType
                             // max length allowed by Symfony for security reasons
                             'max' => 4096,
                         ]),
+
+                        new Regex([
+                            'pattern' => '/[A-Z]/',
+                            'message' => '1 majuscule',
+                        ]),
+                        new Regex([
+                            'pattern' => '/[a-z]/',
+                            'message' => '1 minuscule',
+                        ]),
+                        new Regex([
+                            'pattern' => '/\d/',
+                            'message' => '1 chiffre',
+                        ]),
+                        new Regex([
+                            'pattern' => '/\W/',
+                            'message' => '1 caractère spécial',
+                        ]),                        
                         new PasswordStrength(),
                         new NotCompromisedPassword(),
                     ],

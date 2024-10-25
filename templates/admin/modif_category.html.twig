@@ -4,11 +4,11 @@
 
 {% block body %}
 <br><br><br><br><br>
-    <h3>Modify the category</h3>
+    <h2 class="section__title-1"><span>Modify the category</span></h2>
     {% if is_granted('ROLE_ADMIN') %}
         {{ form_start(form) }}
             {{ form_widget(form) }}
-            <button class="btn btn-success">Modify</button>
+            <button class="btn btn-warning">Modify</button>
         {{ form_end(form) }}
     {% else %}
         <p>Yous haven't any right to do this action</p>

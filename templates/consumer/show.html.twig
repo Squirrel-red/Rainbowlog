@@ -4,7 +4,7 @@
 
 {% block body %}
 <br><br><br><br>
-    <h3>Consumer's details</h3>
+    <h2 class="section__title-1"><span>Consumer's details</span></h2>
 
     <h2> {{ consumer }}</h2>
     <p>
@@ -15,12 +15,12 @@
         Comments : {% for comment in consumer.getCommentsPublished() %}
             <li>{{ comment }}</li>
         {% else %}
-            <li>No any comments  found.</li>
+            <li style="color: red;">No any comments  found.</li>
         {% endfor %}
             Published experiences : {% for experience in consumer.getExperiencePublished() %}
             <li><a href="{{ path('show_experience', {'id': experience.id}) }}">{{ experience }}</a></li>
         {% else %}
-            <li>No any experiences found.</li>
+            <li style="color: red;">No any experiences found.</li>
         {% endfor %}
     </p>
 {% endblock %}

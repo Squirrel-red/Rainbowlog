@@ -2,7 +2,7 @@
 
 {% block body %}
     <br><br><br><br><br>
-    <h3>Sent messages</h3>
+    <h2 class="section__title-1"><span>Sent messages</span></h2>
     <br>
     {% set displayed_receivers = [] %}
 
@@ -16,7 +16,7 @@
             {% endif %}
         {% endfor %}
     </ul>
-    <br>
     <a href="{{ path('received_contacts') }}" class="btn btn-primary">Come back</a>
+    <br>
     <br>
 {% endblock %}

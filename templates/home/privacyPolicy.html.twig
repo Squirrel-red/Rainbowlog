@@ -58,9 +58,9 @@
           <div class="geometric-box"></div>
 
           <div class="about__buttons">
-            <a href="{{ path('app_contact')}}" class="button">
+            {# <a href="{{ path('app_contact')}}" class="button">
               <i class="ri-send-plane-line"></i> Contact Us
-            </a>
+            </a> #}
 
             {# <a
               href="{{ asset('img/logo_rainbow.png') }}"
@@ -68,9 +68,15 @@
               class="button__ghost"
             >
             </a> #}
+            <div id="contact-infos">
+              <address><span><i class="ri-mail-fill"></i></span> admin@rainbowlog.com</address>
+              <address><span><i class="ri-cellphone-fill"></i></span>+330301020304</address>
+              <address><span><i class="ri-map-pin-fill"></i></span>01 Photostreet 67100 Strasbourg</address>
+              <br>
+            </div>
           </div>
         </div>
   </div>
 </section>
 
-{% endblock %}
+{% endblock %}     

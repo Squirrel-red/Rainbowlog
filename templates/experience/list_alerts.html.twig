@@ -5,9 +5,9 @@
 
 {% block body %}
 <br><br><br><br>
-    <h1 class="title">List of Alerts</h1>
+    <h2 class="section__title-2"><span>List of Alerts</span></h2>
     <hr>
-    <table>
+    <table class="styled-table">
         <thead>
             <tr>
                 <th class="id-table-alert">ID</th>
@@ -33,7 +33,7 @@
     </table>
     <hr>
     <br>
-    <a href="{{ path('app_experience') }}">Back to Experiences</a>
+    <a href="{{ path('app_experience') }}" class="btn btn-primary">Back to Experiences</a>
     <br>
     <br>
 {% endblock %}

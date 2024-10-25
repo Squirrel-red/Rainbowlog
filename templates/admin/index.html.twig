@@ -5,11 +5,23 @@
 {% block body %}
 
     <br><br><br><br><br>
-    <h3>Statistical Details</h3>
-    <br>
-    <hr>
-    <p>Numbers of users : {{ usersCount }}</p>
-    <p>Numbers of blocked users : {{ usersBlockedCount }}</p>
-    <p>Numbers of deleted users : {{ usersAnonymeCount }}</p>
+    <h2 class="section__title-1"><span>Statistical Details</span></h2>
+
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Number of users :</th>
+                <th>Number of blocked users : </th>
+                <th>Number of deleted users : </th>
+            </tr>
+            <hr>    
+        </thead>
+        <tbody>
+                <tr>
+                   <td>{{ usersCount }}</td>
+                   <td>{{ usersBlockedCount }}</td>
+                   <td>{{ usersAnonymeCount }}</td>
+                </tr>
+    </table>
     <br>
 {% endblock %}

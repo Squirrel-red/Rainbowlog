@@ -1,12 +1,13 @@
 
-
-{% block title %}Request reset-password >>{% endblock %}
+{% extends 'base.html.twig' %}
+{% block title %}Request reset-password{% endblock %}
 
 {% block body %}
+<br><br><br><br>
     {% for flash_error in app.flashes('reset_password_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
-    <h1>Reset your password</h1>
+    {# <h1>Reset your password</h1>
 
     {{ form_start(requestForm) }}
         {{ form_row(requestForm.email) }}
@@ -18,5 +19,47 @@
         </div>
 
         <button class="btn btn-primary">Send password reset email</button>
-    {{ form_end(requestForm) }}
+    {{ form_end(requestForm) }} #}
+
+    <section class="contact__section" id="contact">
+        <div class="contact__container grid">
+    
+          <div class="contact__data">
+            <h2 class="section__title-2">
+              <span>Reset a password</span>
+            </h2>
+            <p class="contact__description-1">
+                <div>
+                    <small>
+                        Enter your email address, and <b>we will send you a
+                        link to reset your password</b>.
+                    </small>
+                </div>
+            </p>
+            <br>
+            <p class="contact__description-2">
+              <b>Advice : </b> Change <b>your</b> and <b>password</b> one time for a month  and be sure at your security!
+            </p>
+            <div class="geometric-box"></div>
+          </div>
+
+    
+          <div class="contact__mail">
+
+            {{ form_errors(requestForm) }}
+    
+            {{ form_start(requestForm) }}
+             <div class="contact__box">
+                 {{ form_row(requestForm.email) }}
+             </div>
+
+             <button type="submit" class="contact__button button">Send password reset email</button>  
+             {{ form_end(requestForm) }}
+
+          </div>
+        
+    
+          
+        </div>
+    </section>
 {% endblock %}

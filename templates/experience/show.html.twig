@@ -7,7 +7,8 @@
     <br><br><br><br><br>
     <div>
         <br>
-        <h3>Details of {{ experience.title }}</h3>
+        <h2 class="section__title-2"><span>Details of {{ experience.title }}</span></h2>
+        {# <h3>Details of {{ experience.title }}</h3> #}
         <div>
             <br>
             <p><b>Title :</b> {{ experience.title }}</p>
@@ -33,48 +34,56 @@
         {% if app.user %}            
             {% if experience.publish.pseudo == app.user.pseudo or is_granted('ROLE_ADMIN') %}
                 <br>
-                <a href="{{ path('edit_experience', {'id': experience.id}) }}">Modify</a>
+                <a href="{{ path('edit_experience', {'id': experience.id}) }}"  class="btn btn-warning">Modify</a>
                 <br>
-                <a href="{{ path('delete_experience', {'id': experience.id}) }}">Delete</a>
+                <br>
+                <a href="{{ path('delete_experience', {'id': experience.id}) }}" class="btn btn-danger">Delete</a>
+                <br>
             {% endif %}
         {% endif %}    
                 <br>
             {# Utilisateur qui a fait log in a le droit de dénoncer=alerter cette expérience ou le commentaire lié à cette expérience#} 
         {% if app.user %}
-                <a href="{{ path('alert_experience', {'id': experience.id}) }}">Warn</a>
+                <a href="{{ path('alert_experience', {'id': experience.id}) }}" class="btn btn-alert">Warn</a>
         {% endif %}
         </div>
         <br>
-
+        <br>
         <div>
             {#  Admin ou l'auteur du commentaire a le droit de modifier ou supprimer ce commentaire #}
             <h2>Comments :</h2>
             {% for comment in comments %}
                 <div>
-                    <strong>{{ comment.consumer.pseudo }} :</strong> {{ comment.text }} <br>
-                    <small>{{ comment.dateComment|date('d-m-Y H:i') }}</small> <br>
+                    <strong>{{ comment.consumer.pseudo }} :</strong> {{ comment.text }} 
+                    <br>
+                    <small>{{ comment.dateComment|date('d-m-Y H:i') }}</small> 
+                    <br>
+                    <br>
                     {% if app.user %}  
                       {% if comment.consumer == app.user or is_granted('ROLE_ADMIN') %}
                         <div>
-                            <a href="{{ path('modif_comment', {'id': comment.id}) }}">Modify</a>
+                            <a href="{{ path('modif_comment', {'id': comment.id}) }}" class="btn btn-warning">Modify</a>
                             <br>
-                            <a href="{{ path('delete_comment', {'id': comment.id}) }}">Delete</a>
+                            <br>
+                            <a href="{{ path('delete_comment', {'id': comment.id}) }}" class="btn btn-danger">Delete</a>
+                            <br>
+                            <br>
                         </div>
                       {% endif %}
                     {% endif %}    
                 </div>
             {% else %}
-                <p>Comments are absent for this experience</p>
+                <p style="color: red;">Comments are absent for this experience</p>
             {% endfor %}
 
             <br>
-            
+            <br>
             {# Utilisateur qui a fait log in a le droit de laisser le commentaire #}
             {% if app.user %}
             <h2>Add a comment :</h2>
             {{ form_start(formComment) }}
                 {{ form_row(formComment.text) }}
-                <button type="submit">Submit</button>
+                <button type="submit"  class="btn btn-primary">Submit</button>
             {{ form_end(formComment) }}
 
             {# Sinon il faut faire log in ou se régistrer pour laisser le comentaire #}

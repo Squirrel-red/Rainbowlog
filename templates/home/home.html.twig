@@ -30,8 +30,8 @@
             href="https://instagram.com/"
             target="_blank"
             class="home__social-link"
-            ><i class="ri-instagram-line"></i
-          ></a>
+            ><i class="ri-instagram-line"></i>
+          </a>
           <a
             href="https://linkedin.com/"
             target="_blank"
@@ -42,8 +42,8 @@
             href="https://github.com/"
             target="_blank"
             class="home__social-link"
-            ><i class="ri-github-line"></i
-          ></a>
+            ><i class="ri-github-line"></i>
+          </a>
         </div>
       </div>
 
@@ -100,13 +100,16 @@
                   <li class="about__item">
                     <b>Our activities:</b> Gallery, Discussions, Meetings, Opinion's exchange.
                   </li>
+                  <br>
+                  <li class="about__item">
+                    <b>For more details:</b> Write or phone us!
+                  </li>
                 </ul>
-                <div class="geometric-box"></div>
-
-                <div class="about__buttons">
-                  <a href="{{ path('app_write_us')}}" class="button">
+               
+                {# <div class="about__buttons"> #}
+                  {# <a href="{{ path('app_write_us')}}" class="button">
                     <i class="ri-send-plane-line"></i> Write Us
-                  </a>
+                  </a> #}
 
                   {# <a
                     href="{{ asset('img/logo_rainbow.png') }}"
@@ -114,7 +117,14 @@
                     class="button__ghost"
                   >
                   </a> #}
-                </div>
+                  <div id="contact-infos">
+                    <address><span><i class="ri-mail-fill"></i></span> admin@rainbowlog.com</address>
+                    <address><span><i class="ri-cellphone-fill"></i></span>+330301020304</address>
+                    <address><span><i class="ri-map-pin-fill"></i></span>01 Photostreet 67100 Strasbourg</address>
+                    <br>
+                  </div>
+                {# </div> #}
+                <div class="geometric-box"></div>
               </div>
         </div>
   </section>
@@ -377,12 +387,6 @@
           </article> 
         </div>
   </section>
-
-{# --Photographers-- #} 
- {# ajouter le code  #}
-
-<section id="photographers"></section>
-
 
   {# SCRIPT #}
   

@@ -11,7 +11,7 @@
 <br><br><br><br><br>
     <div>
         {# <h1>Evaluate{{ user.pseudo }}</h1> #}
-        <h1>Evaluate our members !</h1>
+        <h2 class="section__title-2"><span>Evaluate our members !</span></h2>
         {% for i in 1..5 %}
         <i class="fa fa-star star" data-value="{{ i }}"></i>
         {% endfor %}
@@ -19,7 +19,7 @@
         {{ form_start(form, { 'attr' : { 'class': 'block-form' } }) }}
         <br>            
         {{ form_widget(form) }}
-            <button type="submit" class="btn btn-submit">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
         {{ form_end(form) }}
         <br>
     </div>
