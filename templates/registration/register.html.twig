@@ -39,24 +39,21 @@
         <div class="contact__container grid">
     
           <div class="contact__data">
-            <h2 class="section__title-2">
-              <span>SIGN UP >></span>
-            </h2>
+            <h2 class="section__title-2"><span>SIGN UP >></span></h2>
+
             <p class="contact__description-1">
                 Become a member of our community of the people passioned by Photography !
             </p>
-    
             <p class="contact__description-2">
-              We need your <b>Nickname</b> and <b>Email Address</b> only and we garantee
-              to use your email address  for replying you only.
+              We need your <b>Nickname</b> and <b>Email Address</b> only.
+              Your password should be at least 12 characters,
+              1 uppercase and 1 small letters, 1 digit and 1 special symbol. 
             </p>
           </div>
 
     
           <div class="contact__mail">
        
-            {# <h2 class="contact__title">ENTER YOUR DATAS IN THIS FORM</h2> #}
-
             {{ form_errors(registrationForm) }}
     
             {{ form_start(registrationForm) }}
@@ -71,11 +68,12 @@
                  {{ form_row(registrationForm.plainPassword, {
                      label: 'Password'
                  }) }}
-             <div>
+             {# <div>
                      <small style="color: aqua;">
-                         Your password should be at least 12 characters.
+                         Your password should be at least 12 characters,
+                         1 uppercase and 1 small letters, 1 digit and 1 special symbol. 
                      </small>
-             </div>
+             </div> #}
              <div class="contact__box">   
                  {{ form_row(registrationForm.agreeTerms) }}
              </div>

@@ -58,19 +58,19 @@ class RegistrationFormType extends AbstractType
                         ]),
                         new Regex([
                             'pattern' => '/[A-Z]/',
-                            'message' => '1 majuscule',
+                            'message' => '1 uppercase leter',
                         ]),
                         new Regex([
                             'pattern' => '/[a-z]/',
-                            'message' => '1 minuscule',
+                            'message' => '1 small letter',
                         ]),
                         new Regex([
                             'pattern' => '/\d/',
-                            'message' => '1 chiffre',
+                            'message' => '1 digital',
                         ]),
                         new Regex([
                             'pattern' => '/\W/',
-                            'message' => '1 caractère spécial',
+                            'message' => '1 special caracter ',
                         ]),
                         new PasswordStrength(),
                         new NotCompromisedPassword(),

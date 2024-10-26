@@ -112,12 +112,12 @@ class ContactController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager, User $user): Response
     {   
         //--> on recupère l'user connecté
-        // $currentUser = $this->getUser();
+        $currentUser = $this->getUser();
         // Vérifie si l'user actuel essaie d'envoyer un message
-        // if ($currentUser && $currentUser === $user->getId()) {
-        //     $this->addFlash('error', 'You cannot send this message');
-        //     return $this->redirectToRoute('app_home'); // On rédirige vers la page d'accuiel
-        // }
+        if ($currentUser && $currentUser === $user->getId()) {
+             $this->addFlash('error', 'You cannot send this message');
+             return $this->redirectToRoute('app_home'); // On rédirige vers la page d'accuiel
+        }
         $contact = new Contact();// --> un nouvel objet Contact
         $contact->setReceiver($user);// --> on lié le destinataire au message
         $form = $this->createForm(ContactType::class, $contact);//--> on créé un formulaire  avec le type ContactType

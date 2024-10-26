@@ -37,7 +37,6 @@ class UserController extends AbstractController
         //idem SELECT * FROM user ORDER BY id ASC
         $users = $userRepository->findBy([], ['id' => 'ASC']);
 
-
         return $this->render('user/catalog.html.twig', [
             'users'  => $users,
         ]);
@@ -95,7 +94,7 @@ class UserController extends AbstractController
     
     // --> On créé la méthode pour estimer l'evaluation (rating) des users
     #[Route('/user/eval/{id}', name: 'user_eval')]
-    public function eval(User $user, Request $request, EntityManagerInterface $entityManager): Response
+    public function eval(User $user, Request $request, EntityManagerInterface $entityManager, Evaluation $evaluation): Response
     {
         $evaluation = new Evaluation();
         $form = $this->createForm(EvaluationType::class, $evaluation);
@@ -115,17 +114,15 @@ class UserController extends AbstractController
         ]);
     }
 
-        // // --> On créé la méthode pour estimer la moyenne de l'évaluation ( propriété :rating)  d'un user
-    // #[Route('/user/average/{id}', name: 'user_average')]
-    // public function average(User $user, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
-    // {
-
-    //     $averageRating = $userRepository->getAverageRating($user);
-    //     $evaluation = new Evaluation();
-       
-    //     return $this->render('user/catalog.html.twig', [
-    //         'user' => $user,
-    //         'averageRating' => $averageRating,
-    //     ]);
-    // }
+        // --> On créé la méthode pour estimer la moyenne de l'évaluation ( propriété :rating)  d'un user
+    #[Route('/user/{id}', name: 'user_avg')]
+    public function averageRating(User $user, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
+    {
+        $averageRating = $userRepository->getAverageRating($user);
+        
+        return $this->render('user/catalog.html.twig', [
+            'user' => $user,
+            'averageRating' => $averageRating,   
+        ]);
+    }
 }

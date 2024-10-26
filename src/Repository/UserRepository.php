@@ -39,31 +39,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
     }
-
-    //    /**
-    //     * @return User[] Returns an array of User objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('u.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?User
-    //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    
         // --> On créé la méthode pour trouver les users
 
         public function findUsers(?int $userId = null) {
@@ -120,22 +96,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         // SELECT AVG(rating) AS AVG, COUNT(rating) AS COUNT, user_id AS user FROM evaluation  GROUP BY user_id
 
         //  // --> On créé une methode pour avoir la moyenne de l'évaluation 
-        //  public function getAverageRating(User $user): ?float
-        // {
-        //     $em = $this->getEntityManager('e');
-        //     // $qb = $em->createQueryBuilder();
-
-        //     $qb = $this->createQueryBuilder('u')
-        //     ->select('AVG(e.rating)as avgRating)
-        //     ->count('rating')
-        //     ->where('u.id = :user')
-        //     ->setParameter('user', $user->getId())
-        //     ->getQuery();
-
-        //     // $query = $qb->getQuery();
-        //     //     return $query->getResult();
-        //         return $qb->getSingleScalarResult();           
-        // }
+         public function getAverageRating(User $user): ?float
+         {
+            $qb = $this->createQueryBuilder('u')
+                ->select('AVG(e.rating) as avgRating')
+                ->leftJoin('u.evaluations', 'e')
+                ->where('u.id = :user')
+                ->setParameter('user', $user->getId())
+                ->getQuery();
+    
+            return $qb->getSingleScalarResult();  
+        }
 
 
         // --> On créé une methode pour mettre compteur des nouveaux messages à 0
@@ -157,7 +128,30 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                 return $user->getResult();
         }
     
+//    /**
+    //     * @return User[] Returns an array of User objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('u')
+    //            ->andWhere('u.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('u.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
 
+    //    public function findOneBySomeField($value): ?User
+    //    {
+    //        return $this->createQueryBuilder('u')
+    //            ->andWhere('u.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 
 
 }

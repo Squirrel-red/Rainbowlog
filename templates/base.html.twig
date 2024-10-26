@@ -61,12 +61,7 @@
               <ul class="nav__list">  
                 <li class="nav__item"><a href="{{ path('app_home') }}" class="nav__link">HOME</a></li>
                 <li class="nav__item"><a href="{{ path('app_experience') }}" class="nav__link">GALLERY OF EXPERIENCES</a></li>
-
-
                 <li class="nav__item"><a href="{{ path('app_terms_of_use') }}" class="nav__link">ROULES</a></li>
-                {# <li class="nav__item"><a href="{{ path('app_donations') }}" class="nav__link">DONATIONS</a></li> #}
-                {# <li class="nav__item"><a href="{{ path('app_write_us')}}" class="nav__link">WRITE US</a></li> #}
-
 
                 {# On ajoute les onglets pour Admin #}
                 {% if is_granted('ROLE_ADMIN') %}
@@ -77,7 +72,6 @@
                     {# {% if app.user.newMessages > 0 %} #}
                     {# --> s'il y a les nouveaux messages on affiche leur nombre à coté de l'onglet #}
                       {# <li  class="nav__item"><a href="{{ path('received_contacts') }}" class="nav__link">NEW MESSAGES<span style="color: crimson;">({{ app.user.newMessages }})</span></a></li> #}
-                     
                     {# {% else %} #}
                   <li class="nav__item"><a href="{{ path('received_contacts') }}" class="nav__link">MESSAGES</a></li>
                     {# {% endif %} #}
@@ -94,20 +88,17 @@
                     
 
                     {# {% if app.user.newMessages > 0 %} #}
-                      {# --> s'il y a les nouveaux messages on affiche le leur nombre à coté de l'onglet #}
-                      {# <li  class="nav__item"><a href="{{ path('received_contacts') }}" class="nav__link"> NEW MESSAGES<span style="color: crimson;">({{ app.user.newMessages }})</span></a></li>  #}
+                      {# --> s'il y a les nouveaux messages on affiche leur nombre à coté de l'onglet #}
+                      {# <li  class="nav__item"><a href="{{ path('received_contacts') }}" class="nav__link">MESSAGES<span style="color: crimson;">({{ app.user.newMessages }})</span></a></li> #}
                      
                     {# {% else %}  #}
                     <li class="nav__item"><a href="{{ path('received_contacts') }}" class="nav__link">MESSAGES</a></li>
                     {# {% endif %} #}
-                   
-
                     <li class="nav__item"><a href="{{ path('new_experience') }}" class="nav__link">ADD EXPERIENCE</a></li>
-
                     <li class="nav__item"><a href="{{ path('app_logout') }}" class="nav__link">LOG OUT</a></li>
                     
 
-                  {# On ajoute les onglets pour les gens qui n'ont pas encore le compte ou qui non pas encore fait login #}  
+                  {# On ajoute les onglets pour l'user' qui n'ont pas encore le compte ou qui non pas encore fait login #}  
                   {% else %}
 
                     <li class="nav__item"><a href="{{ path('app_login') }}" class="nav__link">LOG IN</a></li>
