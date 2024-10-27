@@ -10,7 +10,7 @@
     {% if is_granted('ROLE_ADMIN') %}
         {{ form_start(form) }}
             {{ form_widget(form) }}
-            <button class="btn btn-success">Add</button>
+            <button class="btn btn-primary">Add</button>
         {{ form_end(form) }}
     {% else %}
         <p style="color: red;">You haven't any right to add new category</p>

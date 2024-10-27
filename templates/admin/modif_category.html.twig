@@ -8,9 +8,14 @@
     {% if is_granted('ROLE_ADMIN') %}
         {{ form_start(form) }}
             {{ form_widget(form) }}
+            <br>
             <button class="btn btn-warning">Modify</button>
+            <br>
+            <br>
         {{ form_end(form) }}
     {% else %}
         <p>Yous haven't any right to do this action</p>
+        <br>
+        <br>
     {% endif %}
 {% endblock %}

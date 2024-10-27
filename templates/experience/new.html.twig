@@ -8,9 +8,11 @@
     <div>
         {# C'est géré dans le controlleur #}
         {% if edit %}
-            <h1>Edit an experience</h1>
+            {# <h1>Edit an experience</h1> #}
+            <h2 class="section__title-2"><span>Edit an experience</span></h2>
         {% else %}
-            <h1>Add an experience</h1>
+            {# <h1>Add an experience</h1> #}
+            <h2 class="section__title-2"><span>Add an experience</span></h2>
         {% endif %}
         {#  Méthode new_edit -- ExperienceController; 
             Champ"publish" est récupèré de User dans ExperienceController;
@@ -18,12 +20,21 @@
             Formulaire correspondant -- ExperienceType; #}
         {{ form_start(formAddExperience) }}
             {{ form_row(formAddExperience.title) }}        {# --> Affichage du champ 'title'#}
+            <br>
             {{ form_row(formAddExperience.nearTown) }}        {# --> Affichage du champ 'where'#}
+            <br>
             {{ form_row(formAddExperience.devices) }}      {# --> Affichage du champ 'devices'#}
+            <br>
             {{ form_row(formAddExperience.description) }}  {# --> Affichage du champ 'description'#}
+            <br>
             {{ form_row(formAddExperience.category) }}     {# --> Affichage du champ 'categorie'#}
+            <br>
             {{ form_row(formAddExperience.images) }}       {# --> Affichage du champ 'images', form_row permet de télécharger des images de format admis #}
-            {{ form_row(formAddExperience.Submit) }}       {# --> Affichage du  'Submit' pour la validation du formulaire#}
+            <br> 
+            <div class="btn btn-primary">{{ form_row(formAddExperience.Submit) }}</div>       {#--> Affichage du  'Submit' pour la validation du formulaire #} 
+            <br>
         {{ form_end(formAddExperience) }}              {# --> 'form_end' ferme le formulaire et gère les jetons contre les attaques CSRF(Cross-Site Request Forgery) #}
+        <br>
     </div>
+    <br>
 {% endblock %}
