@@ -43,11 +43,11 @@
         <ul id="categories-list">
         <br>
         {% for category in categories %}
-            {# <div> #}
+            
             <li class="category-card">
                 <a href="{{ path('experiences_category', {'id': category.id}) }}">{{ category.name }}</a>
             </li>    
-            {# </div> #}
+           
 
         {% else %}
             <p style="color: red;">There is not any experience for this category</p>

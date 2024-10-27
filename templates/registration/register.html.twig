@@ -3,37 +3,6 @@
 {% block title %}Sign up{% endblock %}
 
 {% block body %}
-{# <br><br><br><br>
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
-
-    <h1>Sign up >></h1>
-    <br>
-    {{ form_errors(registrationForm) }}
-    <br>
-    {{ form_start(registrationForm) }}
-    <br>
-        {{ form_row(registrationForm.email) }}
-    <br>    
-        {# on ajoute la ligne pour le champ "pseudo" #}
-        {# {{ form_row(registrationForm.pseudo) }}
-    <br>    
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        <div>
-            <small>
-                Your password should be at least 12 characters.
-            </small>
-        </div>
-    <br>    
-        {{ form_row(registrationForm.agreeTerms) }}
-    <br>
-        <button type="submit" class="btn">Register</button>
-    <br>   
-    <br> 
-    {{ form_end(registrationForm) }}  #}
 
     <section class="contact__section" id="contact">
         <div class="contact__container grid">
@@ -81,8 +50,7 @@
              {{ form_end(registrationForm) }}
 
           </div>
-          {# <div class="geometric-box"></div> #}
-    
+          
           
         </div>
     </section>

@@ -26,18 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Pour sidebar
-function openNav() {
-    document.getElementById("mySidenav").style.width = "100%";
-  }
-  
-  function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-  }
 
-
-
-// Pour le rating  des users
+// Pour l'evaluation des users
 
 document.addEventListener('DOMContentLoaded', function() {
     const stars = document.querySelectorAll('.star');
@@ -55,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Page d'acceuil, animation
+// Page d'accueil, animation
 document.addEventListener('DOMContentLoaded', function() {
     const annonces = document.querySelectorAll('.experience');
     const options = {
@@ -78,37 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Carrousel 
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialisation du carrousel
-    let currentIndex = 0;
-    function moveCarousel(direction) {
-        const items = document.querySelectorAll('.carousel-item');
-        items[currentIndex].style.display = 'none'; // Masquer l'élément actuel
-        items[currentIndex].classList.remove('active'); // Retirer la classe active
-
-        currentIndex = (currentIndex + direction + items.length) % items.length; // Calculer le nouvel index
-        items[currentIndex].style.display = 'block'; // Afficher le nouvel élément
-        items[currentIndex].classList.add('active'); // Ajouter la classe active
-    }
-    // Afficher l'élément initial
-    document.querySelectorAll('.carousel-item').forEach((item, index) => {
-        item.style.display = index === currentIndex ? 'block' : 'none';
-    });
-    // Gestion des clics sur les boutons de navigation
-    document.querySelector('.carousel-button.prev').addEventListener('click', function() {
-        moveCarousel(-1);
-    });
-    document.querySelector('.carousel-button.next').addEventListener('click', function() {
-        moveCarousel(1);
-    });
-    // Défilement automatique
-    setInterval(() => {
-        moveCarousel(1);
-    }, 3000); // Changer d'élément toutes les 3 secondes
-});
-
-// Les derniers commentaires pour la page d'acceuil
+// Last comments
 
 document.addEventListener('DOMContentLoaded', function() {
     const commentsSection = document.querySelector('.comments-section');
